@@ -4,10 +4,10 @@
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Miles Sorce
+  - Neal Williams
+  - James Critelli
+  - Thomas Cosby
 
 ## Table of Contents
 
@@ -21,7 +21,14 @@
 
 ## Usage
 
-> Some usage instructions
+INSTALLATION:
+
+~~~~~~~~~~~~
+
+  npm install
+
+~~~~~~~~~~~~
+
 
 ## Requirements
 
