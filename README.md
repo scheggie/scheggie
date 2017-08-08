@@ -30,6 +30,17 @@ INSTALLATION:
 ~~~~~~~~~~~~
 
 
+STARTING THE SERVER
+
+To start the server, ensure that you have first ran 'npm install' in your terminal.
+
+~~~~~~~~~~~~
+
+  npm start
+
+~~~~~~~~~~~~
+
+
 COMPILE:
 
 ~~~~~~~~~~~~
