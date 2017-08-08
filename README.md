@@ -30,6 +30,16 @@ INSTALLATION:
 ~~~~~~~~~~~~
 
 
+COMPILE:
+
+~~~~~~~~~~~~
+
+  npm run compile
+
+~~~~~~~~~~~~
+
+
+
 ## Requirements
 
 - Node 6.4.x

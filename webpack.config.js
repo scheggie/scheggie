@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: DIST_DIR,
     filename: 'bundle.js'
-  }
+  },
   module: {
     rules: [
       {
@@ -19,8 +19,10 @@ module.exports = {
       }
     ]
   },
-  resolve: [
-    path.join(__dirname, 'node_modules');
-  ]
+  resolve: {
+    modules: [
+      path.join(__dirname, 'node_modules')
+    ]
+  }
 
 };
