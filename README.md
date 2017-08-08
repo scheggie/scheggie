@@ -4,10 +4,10 @@
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Miles Sorce
+  - Neal Williams
+  - James Critelli
+  - Thomas Cosby
 
 ## Table of Contents
 
@@ -21,7 +21,35 @@
 
 ## Usage
 
-> Some usage instructions
+INSTALLATION:
+
+~~~~~~~~~~~~
+
+  npm install
+
+~~~~~~~~~~~~
+
+
+STARTING THE SERVER
+
+To start the server, ensure that you have first ran 'npm install' in your terminal.
+
+~~~~~~~~~~~~
+
+  npm start
+
+~~~~~~~~~~~~
+
+
+COMPILE:
+
+~~~~~~~~~~~~
+
+  npm run compile
+
+~~~~~~~~~~~~
+
+
 
 ## Requirements
 
