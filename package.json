@@ -8,21 +8,23 @@
     "node": ">=6.4.0"
   },
   "scripts": {
-    "compile": "webpack",
-    "start": "nodemon server/index.js"
+    "compile": "webpack --watch",
+    "start": "nodemon server/index.js & webpack --watch"
   },
   "dependencies": {
     "express": "^4.15.4",
     "flexbox-react": "^4.4.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
+    "material-ui": "^0.18.7",
     "nodemon": "^1.11.0",
     "react": "^15.6.1",
+    "react-dnd": "^2.4.0",
+    "react-dnd-html5-backend": "^2.4.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "webpack-dev-middleware": "^1.12.0"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
