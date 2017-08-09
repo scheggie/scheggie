@@ -2,9 +2,7 @@ const rp = require('request-promise');
 const request = require('request');
 const config = require('../config.js');
 
-// const foodParameter = 'salad';
 const resultLimit = 500;
-
 const foodTypes = [
   'salad', 
   'soup', 
@@ -28,7 +26,9 @@ const foodTypes = [
   'daal',
   'kale',
   'spinach',
-  'cheese'
+  'cheese',
+  'hummus',
+  'bean'
 ];
 
 foodTypes.forEach(foodType => {
