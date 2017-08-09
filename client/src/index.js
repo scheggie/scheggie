@@ -15,13 +15,13 @@ class App extends React.Component {
     return (
 
       <MuiThemeProvider>
-        <Flexbox flexDirection="row" minWidth="100vw" minHeight="100vh">
+        <Flexbox flexDirection="row" width="100%" height="100%">
           <Left />
           <Right />
         </Flexbox>
       </MuiThemeProvider>
 
-    ) 
+    )
 
   }
 

@@ -15,7 +15,13 @@ class Left extends React.Component {
 
     return (
 
-      <div style={{flexGrow: 1, flexBasis: '33%'}}>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
+        height: '100%',
+        flexBasis: '400px'
+      }}>
         <User />
         <Selection />
         <Planner />
@@ -25,7 +31,7 @@ class Left extends React.Component {
 
   }
 
-} 
+}
 
 
 export default Left;
