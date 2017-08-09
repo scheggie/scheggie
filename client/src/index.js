@@ -25,26 +25,21 @@ class App extends React.Component {
   }
 
   render() {
-
-    return this.state.loggedIn ? (
-
+    return (
       <MuiThemeProvider>
-        <Flexbox flexDirection="row" minWidth="100vw" minHeight="100vh">
-          <Left />
-          <Right />
-        </Flexbox>
+        {
+          this.state.loggedIn ?
+            <Flexbox flexDirection="row" width="100%" height="100%">
+              <Left />
+              <Right />
+            </Flexbox>
+            :
+            <Flexbox minWidth="100vw" minHeight="100vh">
+              <Login login={this.login}/>
+            </Flexbox>
+        }
       </MuiThemeProvider>
-
-    ) : (
-
-      <MuiThemeProvider>
-        <Flexbox minWidth="100vw" minHeight="100vh">
-          <Login login={this.login}/>
-        </Flexbox>
-      </MuiThemeProvider>
-
-    )  
-
+    );
   }
 
 }
