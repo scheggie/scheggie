@@ -3,29 +3,27 @@ import User from './user';
 import Selection from './selection';
 import Planner from './planner';
 
-
+const generalStyle = {
+  flexGrow: 1,
+  flexBasis: '400px',
+  display: 'flex',
+  height: '100%',
+  flexDirection: 'column',
+}
 
 class Left extends React.Component {
   constructor(props) {
     super(props);
   }
 
-
   render() {
 
     return (
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        flexGrow: 1,
-        height: '100%',
-        flexBasis: '400px'
-      }}>
+      <div style={generalStyle}>
         <User />
         <Selection />
         <Planner />
       </div>
-
     )
 
   }
