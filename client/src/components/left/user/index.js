@@ -1,32 +1,47 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import MenuItem from 'material-ui/MenuItem';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import RaisedButton from 'material-ui/RaisedButton';
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import Flexbox from 'flexbox-react';
 
-const general_style = {
-  background: 'linear-gradient(to bottom, #99ff33 18%, #009900 90%)'
-};
 
-const avatar_style = {
-  float: 'left',
+const toolbar_style = {
+  background: 'linear-gradient(to bottom, #669900 7%, #336600 81%)',
+  height: '90px',
+  borderRadius: '5px'
 }
 
-const title_style = {
-  float: 'left',
-}
 
 var User = () => (
 
-  <Flexbox minHeight="125px" style={general_style}>
-
-    <Flexbox marginLeft="30px" marginTop="20px"> 
-      <Avatar size={80} style={avatar_style}/>
-    </Flexbox>
-
-    <Flexbox marginLeft="30px" marginTop="20px"> 
-      <h3 >Welcome User!</h3>
-    </Flexbox>
-
-  </Flexbox>
+  <Toolbar style={toolbar_style}>
+    <ToolbarGroup>
+      <Avatar size={70} src="https://stevesacooking.files.wordpress.com/2013/04/turnip.jpg" style={{boxShadow: '2px 2px 4px #1a3300'}}/>
+    </ToolbarGroup>
+    <ToolbarGroup>
+      <ToolbarTitle text="Hello User!" style={{color: '#ffffff'}}/>
+    </ToolbarGroup>
+    <ToolbarGroup>
+      <FontIcon className="muidocs-icon-custom-sort" />
+      <ToolbarSeparator />
+      <IconMenu
+        iconButtonElement={
+          <IconButton touch={true}>
+            <NavigationExpandMoreIcon />
+          </IconButton>
+        }
+      >
+        <MenuItem primaryText="Change Avatar" />
+        <MenuItem primaryText="Log Out" />
+      </IconMenu>
+    </ToolbarGroup>
+  </Toolbar>
 
 )
 
