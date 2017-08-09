@@ -11,7 +11,7 @@ class Right extends React.Component {
 
     return (
 
-      <div style={{flexGrow: 2}}>
+      <div style={{flexGrow: 2, flexBasis: '67%'}}>
         Hello World
       </div>
 
