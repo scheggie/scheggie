@@ -12,14 +12,13 @@ const avatar_style = {
 
 const title_style = {
   float: 'left',
-  padding: '0 0 0 0'
 }
 
 var User = () => (
 
   <Flexbox minHeight="125px" style={general_style}>
 
-    <Flexbox marginLeft="30px" marginRight="-30px" marginTop="20px"> 
+    <Flexbox marginLeft="30px" marginTop="20px"> 
       <Avatar size={80} style={avatar_style}/>
     </Flexbox>
 
