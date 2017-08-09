@@ -3,7 +3,11 @@ import User from './user';
 import Selection from './selection';
 import Planner from './planner';
 
-
+const general_style = {
+  flexGrow: 1, 
+  flexBasis: '33%',
+  backgroundColor: '#e6e6e6' 
+}
 
 class Left extends React.Component {
   constructor(props) {
@@ -15,7 +19,7 @@ class Left extends React.Component {
 
     return (
 
-      <div style={{flexGrow: 1, flexBasis: '33%'}}>
+      <div style={general_style}>
         <User />
         <Selection />
         <Planner />
