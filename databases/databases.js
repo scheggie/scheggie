@@ -11,13 +11,11 @@ db.once('open', function() {
 });
 
 var recipeSchema = mongoose.Schema({
-    id: String,
+    name: String,
    	fullDataSorter: Boolean,
-    allowedDiet: String,
-    Ingredients: String,
-    Attributes: String,
-    Rating: Number,
-    fullData: Object
+    rating: Number,
+    abridgedData: Schema.Types.Mixed, 
+    fullData: Schema.Types.Mixed
 });
 
 var Recipe = mongoose.model('Recipe', recipeSchema);
