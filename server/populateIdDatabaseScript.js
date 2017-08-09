@@ -1,6 +1,7 @@
 const rp = require('request-promise');
 const request = require('request');
 const config = require('../config.js');
+const db = require('../databases/databases.js');
 
 const resultLimit = 500;
 const foodTypes = [
@@ -33,14 +34,15 @@ const foodTypes = [
   'bean'
 ];
 
-foodTypes.forEach(foodType => {
+// foodTypes.forEach(foodType => {
   rp({
-    uri: `http://api.yummly.com/v1/api/recipes?_app_id=${config.APP_ID}&_app_key=${config.APP_KEY}&allowedDiet[]=392^Vegetarian&q=${foodType}&requirePictures=true&maxResult=${resultLimit}`
+    uri: `http://api.yummly.com/v1/api/recipes?_app_id=${config.APP_ID}&_app_key=${config.APP_KEY}&allowedDiet[]=387^Lacto-ovo vegetarian&q=salad&requirePictures=true&maxResult=${resultLimit}`,
+    json: true
   })
   .then(data => {
-    data = JSON.parse(data);
     data.forEach(recipe => {
       if (recipe.rating >= 4) {
+        console.log('MADE IT THIS FAR');
         let newRecipe = new Recipe;
         newRecipe.name = recipe.id;
         newRecipe.fullDataSorter = false;
@@ -60,4 +62,4 @@ foodTypes.forEach(foodType => {
   .catch(err => {
     console.log(`Failed to fetch data`);
   });
-});
+// });
