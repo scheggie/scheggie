@@ -15,7 +15,7 @@ class Left extends React.Component {
 
     return (
 
-      <div style={{flexGrow: 1}}>
+      <div style={{flexGrow: 1, flexBasis: '33%'}}>
         <User />
         <Selection />
         <Planner />
