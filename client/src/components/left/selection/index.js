@@ -5,7 +5,7 @@ import Flexbox from 'flexbox-react';
 
 var Selection = () => (
 
-  <Flexbox maxWidth="30vw" margin="auto">
+  <Flexbox maxWidth="32vw" margin="auto">
     <Card>
       <CardHeader
         title="Selected Item:"
