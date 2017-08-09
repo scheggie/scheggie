@@ -22,24 +22,19 @@ var User = () => (
 
   <Toolbar style={toolbar_style}>
     <ToolbarGroup>
-      <Avatar size={70} src="https://stevesacooking.files.wordpress.com/2013/04/turnip.jpg" style={{boxShadow: '2px 2px 4px #1a3300'}}/>
-    </ToolbarGroup>
-    <ToolbarGroup>
-      <ToolbarTitle text="Hello User!" style={{color: '#ffffff'}}/>
-    </ToolbarGroup>
-    <ToolbarGroup>
-      <FontIcon className="muidocs-icon-custom-sort" />
-      <ToolbarSeparator />
       <IconMenu
-        iconButtonElement={
-          <IconButton touch={true}>
-            <NavigationExpandMoreIcon />
-          </IconButton>
-        }
-      >
+          iconButtonElement={
+            <IconButton touch={true} style={{margin: '-46px 0 0 -10px'}}>
+              <Avatar size={70} src="https://stevesacooking.files.wordpress.com/2013/04/turnip.jpg" style={{boxShadow: '2px 2px 4px #1a3300'}}/>
+            </IconButton>
+          }
+        >
         <MenuItem primaryText="Change Avatar" />
         <MenuItem primaryText="Log Out" />
       </IconMenu>
+    </ToolbarGroup>
+    <ToolbarGroup>
+      <ToolbarTitle text="Hello User!" style={{color: '#ffffff'}}/>
     </ToolbarGroup>
   </Toolbar>
 
