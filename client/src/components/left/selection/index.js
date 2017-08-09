@@ -15,7 +15,7 @@ const image_style = {
 
 const title_style = {
   textAlign: 'center',
-  padding: '10px 0 10px 0',
+  padding: '0px 0 0px 0',
   backgroundColor: '#e6e6e6'
 };
 
