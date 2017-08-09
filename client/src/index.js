@@ -43,7 +43,7 @@ class App extends React.Component {
         </Flexbox>
       </MuiThemeProvider>
 
-    ) 
+    )  
 
   }
 
