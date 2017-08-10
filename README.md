@@ -23,10 +23,10 @@
 
 In order to start our app, you must follow the following procedure:
 
-1. Install all dependencies (see INSTALLATION)
-2. Start the mongoDB (see START THE DATABASE)
-3. Populate the data using the (SCRIPT NAME)
-4. Start the server (see STARTING THE SERVER)
+1. Install all dependencies (see Installation)
+2. Start the mongoDB (see Create and Start the Database)
+3. Populate the data using the buildData script (see Populate Database)
+4. Start the server (see Start the Server)
 
 
 
