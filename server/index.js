@@ -8,11 +8,19 @@ const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
 const config = require('../config.js');
 
-app.configure(function() {
-  app.use(express.static(__dirname + '/../client/dist'));
-  app.use(passport.initialize());
-  app.use(passport.session());
+// app.configure(function() {
+app.use(express.static(__dirname + '/../client/dist'));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(function(user, done) {
+  // console.log('Serialize User: ', user);
+  done(null, user);
 });
+passport.deserializeUser(function(user, done) {
+  // console.log('Deserialize User: ', user);
+  done(null, user);
+})
+// });
 
 
 passport.use(new Strategy({
@@ -20,14 +28,14 @@ passport.use(new Strategy({
     clientSecret: config.FACEBOOK_clientSecret,
     callbackURL: 'http://localhost:3000/auth/facebook/callback'
   },
-  function(accessToken, refreshToken, profile, cb) {
+  function(accessToken, refreshToken, profile, done) {
     // User's Facebook profile is supplied as the user record
 
     // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
     //   return cb(err, user);
     // });
-    console.log('accessToken', accessToken, 'refreshToken', refreshToken, 'profile', profile);
-    return cb(null, profile);
+    console.log(...arguments);
+    done(null, profile);
   }
 ));
 
@@ -45,7 +53,12 @@ app.get('/auth/facebook/callback',
     res.redirect('/');
   });
 
-app.get('/', (req, res) => {
+app.get('/', passport.authenticate('facebook'), (req, res) => {
+  console.log(req.user);
+  res.sendFile(path.join(__dirname, '../client/index.html'));
+});
+
+app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/login.html'));
 });
 

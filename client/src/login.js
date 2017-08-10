@@ -43,27 +43,8 @@ class Login extends React.Component {
             <div style={{textAlign: 'center'}}>
               <img style={{maxWidth: '100%'}} src="http://tuvanranghammat.vn/assets/lo-mieng-nen-an-gi-e1469805715695.jpg"/>
               <div>
-                <TextField 
-                  hintText="Username"
-                />
                 <br />
-                <TextField 
-                  hintText="Password"
-                />
-                <br />
-                <div> 
-                  <FlatButton
-                    label="Login"
-                    primary={true}
-                    onTouchTap={this.props.login}
-                   />
-                   <span style={{padding: '0 20px 0 20px'}} />
-                   <FlatButton
-                    label="Sign Up"
-                    primary={true}
-                    onTouchTap={this.props.login}
-                   />
-                </div>
+                <a href="/auth/facebook">Click me</a>
               </div>
             </div>
           </Dialog>
