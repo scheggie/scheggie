@@ -6,10 +6,13 @@ module.exports = {
   
   devtool: 'source-map',
   context: SRC_DIR,
-  entry: `${SRC_DIR}/index.js`,
+  entry: {
+    main:`${SRC_DIR}/index.js`,
+    login: `${SRC_DIR}/login.js`
+  },
   output: {
     path: DIST_DIR,
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [

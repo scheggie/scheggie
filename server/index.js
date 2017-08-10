@@ -1,5 +1,6 @@
 const express = require('express');
 const webpack = require('webpack');
+const path = require('path');
 const webpackConfig = require('../webpack.config');
 const app = express();
 const compiler = webpack(webpackConfig);
@@ -44,6 +45,9 @@ app.get('/auth/facebook/callback',
     res.redirect('/');
   });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/login.html'));
+});
 
 
 

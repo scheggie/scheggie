@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
 import { Provider } from "react-redux";
 import thunk from 'redux-thunk';
 import * as storage from 'redux-storage';
