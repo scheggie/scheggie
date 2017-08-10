@@ -84,6 +84,7 @@ flexbox-react: 4.4.0
 jquery: 3.2.1
 lodash: 4.17.4
 material-ui: 0.18.7
+mongoose: 4.11.6
 nodemon: 1.11.0
 react: 15.6.1
 react-dnd: 2.4.0
