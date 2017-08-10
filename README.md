@@ -114,7 +114,7 @@ From within the root directory:
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://docs.google.com/document/d/1Bv9lKkk7HN9q1PnMERsxCTUeNJh9IVQy1JROlKGM80I/edit?usp=sharing)
 
 
 ## Contributing
