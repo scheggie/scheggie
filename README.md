@@ -21,7 +21,16 @@
 
 ## Usage
 
-INSTALLATION:
+In order to start our app, you must follow the following procedure:
+
+1. Install all dependencies (see INSTALLATION)
+2. Start the mongoDB (see START THE DATABASE)
+3. Populate the data using the (SCRIPT NAME)
+4. Start the server (see STARTING THE SERVER)
+
+
+
+### Installation:
 
 For full instruction on installation of this application, see 'Installing Dependencies'.
 
@@ -32,7 +41,54 @@ For full instruction on installation of this application, see 'Installing Depend
 ~~~~~~~~~~~~
 
 
-STARTING THE SERVER
+
+### Create and Start the Database:
+
+Before you can build the static data, you must start up the database.
+
+- In the databases directory, run the following command:
+
+~~~~~~~~~~~~
+
+  mkdir -p data/db
+
+~~~~~~~~~~~~
+
+- Once the directory is created, run this command:
+
+~~~~~~~~~~~~
+
+  mongod --dbpath data/db
+
+~~~~~~~~~~~~
+
+At this point, the database is now created and ready to use.
+
+
+
+### Populate database: 
+
+This script will populate the database with recipes pulled from a predetermined list found inside of the server directory.
+
+Before running, ensure you are in the root directory.
+
+~~~~~~~~~~~~
+
+  npm run buildData
+
+~~~~~~~~~~~~
+
+Runtime:  ~ 1 minute
+
+The script will need time to run through all of the API calls to insert data into the database.
+
+Don't panic, your computer is not broken!
+
+Once the list is fully generated, to test if it is still pulling data, type some text into the console and wait for a few seconds.  If your text disappears into a wall of success messages, you're not finished yet.  Once finished, use "ctrl" + "c" to be able to escape out of the action.
+
+
+
+### Start the server:
 
 To start the server, ensure that you have first ran 'npm install' in your terminal.
 
@@ -43,17 +99,6 @@ For the full script, see the package.json
 ~~~~~~~~~~~~
 
   npm start
-
-~~~~~~~~~~~~
-
-
-COMPILE:
-
-Only run this function to compile the bundle.js for the first time using webpack.
-
-~~~~~~~~~~~~
-
-  npm run compile
 
 ~~~~~~~~~~~~
 
@@ -75,7 +120,7 @@ For all dependencies listed, please use the most up to date packages available t
 - eslint-config-hackreactor: "git://github.com/reactorcore/eslint-config-hackreactor"
 - webpack: 3.5.1 
 
-###Dependencies:
+Dependencies:
 
 For all dependencies listed, please use the most up to date packages available through npm.
 
