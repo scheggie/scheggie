@@ -3,7 +3,8 @@ const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
-
+  
+  devtool: 'source-map',
   context: SRC_DIR,
   entry: `${SRC_DIR}/index.js`,
   output: {
