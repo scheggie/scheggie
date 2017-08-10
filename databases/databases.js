@@ -11,29 +11,15 @@ db.once('open', function() {
 });
 
 var recipeSchema = mongoose.Schema({
-    name: String,
-    fullDataSorter: Boolean,
-    rating: Number,
-    abridgedData: Schema.Types.Mixed, 
-    fullData: Schema.Types.Mixed
+  name: String,
+  fullDataSorter: Boolean,
+  rating: Number,
+  abridgedData: {},
+  fullData: {}
 });
 
 var Recipe = mongoose.model('Recipe', recipeSchema);
 
-/*
-Note: 
--This code for the Search function is going to need to be adjusted 
-
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
-    }
-  });
-};
-
-module.exports.selectAll = selectAll;
-*/
-
+module.exports.db = db;
+module.exports.recipeSchema = recipeSchema;
+module.exports.Recipe = Recipe;
