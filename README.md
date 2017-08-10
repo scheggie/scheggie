@@ -79,23 +79,23 @@ For all dependencies listed, please use the most up to date packages available t
 
 For all dependencies listed, please use the most up to date packages available through npm.
 
-express: 4.15.4
-flexbox-react: 4.4.0
-jquery: 3.2.1
-lodash: 4.17.4
-material-ui: 0.18.7
-mongoose: 4.11.6
-nodemon: 1.11.0
-react: 15.6.1
-react-dnd: 2.4.0
-react-dnd-html5-backend": 2.4.1
-react-dom: 15.6.1
-react-redux: 5.0.6
-react-tap-event-plugin: 2.0.1
-redux: 3.7.2
-redux-thunk: 2.2.0
-request: 2.81.0
-request-promise: 4.2.1
+- express: 4.15.4
+- flexbox-react: 4.4.0
+- jquery: 3.2.1
+- lodash: 4.17.4
+- material-ui: 0.18.7
+- mongoose: 4.11.6
+- nodemon: 1.11.0
+- react: 15.6.1
+- react-dnd: 2.4.0
+- react-dnd-html5-backend": 2.4.1
+- react-dom: 15.6.1
+- react-redux: 5.0.6
+- react-tap-event-plugin: 2.0.1
+- redux: 3.7.2
+- redux-thunk: 2.2.0
+- request: 2.81.0
+- request-promise: 4.2.1
 
 
 ## Development
