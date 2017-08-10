@@ -4,12 +4,13 @@ const webpackConfig = require('../webpack.config');
 const app = express();
 const compiler = webpack(webpackConfig);
 const passport = require('passport-facebook');
+const config = require('../config.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 
 passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
+    clientID: config.FACEBOOK_clientID,
+    clientSecret: config.FACEBOOK_clientSecret,
     callbackURL: "http://localhost:3000/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
