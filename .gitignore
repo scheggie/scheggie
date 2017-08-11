@@ -31,4 +31,4 @@ bower_components/
 /client/dist/bundle.js
 
 # Data Directory
-/databases/data
+/databases/data/db
