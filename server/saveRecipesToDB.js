@@ -3,44 +3,27 @@ const request = require('request');
 const config = require('../config.js');
 const db = require('../databases/databases.js');
 
-let recipeList;
+var queryList = [];
+var fullObjectList;
 db.Recipe.find({}, (err, recipes) => {
   if (err) return handleError(err);
-  recipeList = recipes;
-  console.log('recipeList length:', recipeList.length);
+  sampleRecipeList = recipes.slice(0, 21);
+  sampleRecipeList.forEach(recipe => {
+    queryList.push(recipe.name);
+  });
+  let timeBase = 4000;
+  queryList.forEach((recipe, index) => {
+    setTimeout(() => {
+      rp({
+        uri: `http://api.yummly.com/v1/api/recipe/${recipe}?_app_id=${config.YUMMLY_APP_ID}&_app_key=${config.YUMMLY_APP_KEY}`
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }, timeBase * index);
+  });
+
 });
-
-
-// let timeBase = 4000;
-// foodTypes.forEach((foodType, index) => {
-//   setTimeout(() => {
-//     rp({
-//       uri: `http://api.yummly.com/v1/api/recipes?_app_id=${config.YUMMLY_APP_ID}&_app_key=${config.YUMMLY_APP_KEY}&allowedDiet[]=387^Lacto-ovo vegetarian&q=${foodType}&requirePictures=true&maxResult=${resultLimit}`
-//     })
-//     .then(data => {
-//       data = JSON.parse(data);
-//       data = data.matches;
-//       data.forEach(recipe => {
-//         if (recipe.rating >= 4) {
-//           let newRecipe = new db.Recipe;
-//           newRecipe.name = recipe.id;
-//           newRecipe.fullDataSorter = false;
-//           newRecipe.rating = recipe.rating;
-//           newRecipe.abridgedData = recipe;
-//           newRecipe.fullData = null;
-//           newRecipe.save(err => {
-//             if (err) {
-//               throw err;
-//             } else {
-//               console.log('Data successfully saved');
-//             }
-//           });
-//         }
-//       });
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
-//   }, timeBase * index);
-// });
-
