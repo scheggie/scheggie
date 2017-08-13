@@ -8,6 +8,9 @@ const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
 const config = require('../config.js');
 
+const dbRecipes = require('../databases/recipes.js');
+// const dbUsers = require('../databases/users.js');
+
 // app.configure(function() {
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(passport.initialize());
@@ -21,7 +24,6 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 })
 // });
-
 
 passport.use(new Strategy({
     clientID: config.FACEBOOK_clientID,
@@ -40,6 +42,7 @@ passport.use(new Strategy({
 ));
 
 
+// AUTHENTICATION ROUTES
 // ************************************
   
 // Login button leads here
@@ -63,6 +66,44 @@ app.get('/login', (req, res) => {
 });
 
 
+// RECIPE ROUTES
+// ************************************
+app.post('/addToCalendar', (req, res) => {
+  
+});
+
+app.post('/removeFromCalendar', (req, res) => {
+  
+});
+
+app.post('/addToFavorites', (req, res) => {
+//find user in db
+  // dbUsers.User.find({'id': userID})
+    // .then(user => {
+      // user.favorites.recipeName = fullRecipe; (**not sure yet what recipeName variable will be called. TBD**)
+      // user.save(err => {
+    //     if (err) {
+    //       throw err;
+    //     }
+    //     res.send('Recipe added to favorites');
+    //   })
+    // })
+
+
+// assuming user has favorites property in db...
+  // check if user.favorites['recipe name'] already exists
+  // if not, add recipe to property
+
+
+});
+
+app.post('/removeFromFavorites', (req, res) => {
+  
+});
+
+app.get('/recipeSearch', (req, res) => {
+  // dbRecipes.Recipe.find({'name': {$regex : '.*${req.query}.*'}})
+});
 
 
 // ************************************
