@@ -41,12 +41,12 @@ passport.use(new Strategy({
 
 
 // ************************************
-  
+
 // Login button leads here
 app.get('/auth/facebook',
   passport.authenticate('facebook'));
 
-// 
+//
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
@@ -68,7 +68,7 @@ app.get('/login', (req, res) => {
 // ************************************
 
 
-const server = app.listen(3000, function() {
+const server = app.listen(process.env.PORT || 3000, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log(`Scheggie app listening at http://${host}:${port}`);
