@@ -1,11 +1,11 @@
 const rp = require('request-promise');
 const request = require('request');
 const config = require('../config.js');
-const db = require('../databases/databases.js');
+const dbRecipes = require('../databases/recipes.js');
 
 var queryList = [];
 var fullObjectList;
-db.Recipe.find({}, (err, recipes) => {
+dbRecipes.Recipe.find({}, (err, recipes) => {
   if (err) return handleError(err);
   sampleRecipeList = recipes.slice(0, 21);
   sampleRecipeList.forEach(recipe => {

@@ -11,7 +11,7 @@ db.once('open', function() {
 });
 
 var recipeSchema = mongoose.Schema({
-  name: String,
+  name: {type: String, unique: true},
   fullDataSorter: Boolean,
   rating: Number,
   abridgedData: {},
