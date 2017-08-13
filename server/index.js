@@ -119,28 +119,40 @@ app.post('/removeFromCalendar', (req, res) => {
 });
 
 app.post('/addToFavorites', (req, res) => {
-//find user in db
-  // dbUsers.User.find({'id': userID})
-    // .then(user => {
-      // user.favorites.recipeName = fullRecipe; (**not sure yet what recipeName variable will be called. TBD**)
-      // user.save(err => {
-    //     if (err) {
-    //       throw err;
-    //     }
-    //     res.send('Recipe added to favorites');
-    //   })
-    // })
+// recipe should be passed into the ajax request via click handler.
+// favorites is an object on the user table.
 
-
-// assuming user has favorites property in db...
-  // check if user.favorites['recipe name'] already exists
-  // if not, add recipe to property
-
-
+// find user in db
+  dbUsers.User.find({'id': userID})
+    .then(user => {
+      // if recipe id is not already in favorites object
+      if (!user.favorites.id) {
+       // **id is the id of the recipe that was passed into the ajax request**
+        // set id equal to full recipe
+        user.favorites.id = fullRecipe;
+        user.save(err => {
+          if (err) {
+            throw err;
+          }
+          res.send('Recipe added to favorites');
+        });
+      }
+    });
 });
 
 app.post('/removeFromFavorites', (req, res) => {
-  
+  dbUsers.User.find({'id': userID})
+    .then(user => {
+      if (user.favorites.id) {
+        delete user.favorites.id;
+        user.save(err => {
+          if (err) {
+            throw err;
+          }
+          res.send('Recipe removed from favorites');
+        });
+      }
+    });
 });
 
 app.get('/recipeSearch', (req, res) => {
