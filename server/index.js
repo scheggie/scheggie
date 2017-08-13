@@ -123,13 +123,13 @@ app.post('/addToFavorites', (req, res) => {
 // favorites is an object on the user table.
 
 // find user in db
-  dbUsers.User.find({'id': userID})
-    .then(user => {
-      // if recipe id is not already in favorites object
-      if (!user.favorites.id) {
-       // **id is the id of the recipe that was passed into the ajax request**
-        // set id equal to full recipe
-        user.favorites.id = fullRecipe;
+  dbUsers.User.find({'id': userID}).
+    exec(user => {
+      // if recipe name is not already in favorites object
+      if (!user.favorites.name) {
+       // **name is the name of the recipe that was passed into the ajax request**
+        // set name equal to full recipe
+        user.favorites.name = fullRecipe;
         user.save(err => {
           if (err) {
             throw err;
@@ -141,10 +141,10 @@ app.post('/addToFavorites', (req, res) => {
 });
 
 app.post('/removeFromFavorites', (req, res) => {
-  dbUsers.User.find({'id': userID})
-    .then(user => {
-      if (user.favorites.id) {
-        delete user.favorites.id;
+  dbUsers.User.find({'id': userID}).
+    exec(user => {
+      if (user.favorites.name) {
+        delete user.favorites.name;
         user.save(err => {
           if (err) {
             throw err;
@@ -156,7 +156,9 @@ app.post('/removeFromFavorites', (req, res) => {
 });
 
 app.get('/recipeSearch', (req, res) => {
-  // dbRecipes.Recipe.find({'name': {$regex : '.*${req.query}.*'}})
+  dbRecipes.Recipe.find({'name': {$regex : '.*${req.query}.*'}}).
+    limit(10).
+    exec(recipes => res.json(recipes));
 });
 
 
