@@ -17,6 +17,10 @@ const toolbar_style = {
   borderRadius: '5px'
 }
 
+logoutHandler() {
+  console.log('This is the placeholder for the "logout" Action')
+}
+
 
 var User = () => (
 
@@ -29,7 +33,7 @@ var User = () => (
             </IconButton>
           }
         >
-        <MenuItem primaryText="Change Avatar" />
+        <MenuItem onClick={logoutHandler} primaryText="Change Avatar" />
         <MenuItem primaryText="Log Out" />
       </IconMenu>
     </ToolbarGroup>
