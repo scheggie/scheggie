@@ -25,6 +25,23 @@ passport.deserializeUser(function(user, done) {
 })
 // });
 
+/* Miles' code..making some adjustments below in order to add new users to the DB */
+// passport.use(new Strategy({
+//     clientID: config.FACEBOOK_clientID,
+//     clientSecret: config.FACEBOOK_clientSecret,
+//     callbackURL: 'http://localhost:3000/auth/facebook/callback'
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     // User's Facebook profile is supplied as the user record
+
+//     User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+//     console.log(...arguments);
+//     done(null, profile);
+//   }
+// ));
+
 passport.use(new Strategy({
     clientID: config.FACEBOOK_clientID,
     clientSecret: config.FACEBOOK_clientSecret,
@@ -32,16 +49,41 @@ passport.use(new Strategy({
   },
   function(accessToken, refreshToken, profile, done) {
     // User's Facebook profile is supplied as the user record
+    process.nextTick(function() {
 
-    // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    //   return cb(err, user);
-    // });
-    console.log(...arguments);
-    done(null, profile);
-  }
-));
+    User.findOne({ 'facebookId' : profile.id }, function(err, user) {
 
+    // if there is an error, stop everything and return that
+    // ie an error connecting to the database
+    if (err) {
+      return done(err);
+    }
 
+    if (user) {
+      return done(null, user); // user found, return that user
+    } else {
+      // if there is no user found with that facebook id, create them
+        var newUser            = new User();
+        // set all of the facebook information in our user model
+        newUser.facebookId  = profile.id; // set the users facebook id                   
+        newUser.favRecipes = {}; //we set the user's favorite recipes to a blank object
+        newUser.weeks = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]; // I thought we'd start with a blank object for each day. Then, if a user adds a recipe to a meal for a day we'll begin adding new key-value pairs here
+        newUser.name  = profile.name.givenName + ' ' + profile.name.familyName; // we will need to look at the passport user profile to see how names are returned. This was the suggestion in the article though
+        newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+        
+        // save our user to the database
+        newUser.save(function(err) {
+            if (err)
+                throw err;
+
+            // if successful, return the new user
+            return done(null, newUser);
+        });
+      }
+    });
+  })
+}
+ 
 // AUTHENTICATION ROUTES
 // ************************************
   
