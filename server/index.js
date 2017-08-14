@@ -7,8 +7,9 @@ const compiler = webpack(webpackConfig);
 const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
 const config = require('../config.js');
-
-const dbRecipes = require('../databases/recipes.js');
+const db = require('../databases');
+const User = require('../databases/users.js');
+const Recipe = require('../databases/recipes.js');
 // const dbUsers = require('../databases/users.js');
 
 // app.configure(function() {
@@ -48,42 +49,42 @@ passport.use(new Strategy({
     callbackURL: 'http://localhost:3000/auth/facebook/callback'
   },
   function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    done(null, 'test');
     // User's Facebook profile is supplied as the user record
-    process.nextTick(function() {
+    /*User.findOne({ 'facebookId' : profile.id }, function(err, user) {
 
-    User.findOne({ 'facebookId' : profile.id }, function(err, user) {
+      // if there is an error, stop everything and return that
+      // ie an error connecting to the database
+      if (err) {
+        return done(err);
+      }
 
-    // if there is an error, stop everything and return that
-    // ie an error connecting to the database
-    if (err) {
-      return done(err);
-    }
-
-    if (user) {
-      return done(null, user); // user found, return that user
-    } else {
-      // if there is no user found with that facebook id, create them
-        var newUser            = new User();
+      if (user) {
+        return done(null, user); // user found, return that user
+      } else {
+        // if there is no user found with that facebook id, create them
+        var newUser = new User();
         // set all of the facebook information in our user model
-        newUser.facebookId  = profile.id; // set the users facebook id                   
+        newUser.facebookId  = profile.id; // set the users facebook id
         newUser.favRecipes = {}; //we set the user's favorite recipes to a blank object
         newUser.weeks = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]; // I thought we'd start with a blank object for each day. Then, if a user adds a recipe to a meal for a day we'll begin adding new key-value pairs here
         newUser.name  = profile.name.givenName + ' ' + profile.name.familyName; // we will need to look at the passport user profile to see how names are returned. This was the suggestion in the article though
         newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-        
+
         // save our user to the database
         newUser.save(function(err) {
-            if (err)
-                throw err;
-
-            // if successful, return the new user
-            return done(null, newUser);
+          if (err) {
+            throw err;
+          }
+          // if successful, return the new user
+          return done(null, newUser);
         });
       }
-    });
-  })
-}
- 
+    });*/
+  }
+));
+
 // AUTHENTICATION ROUTES
 // ************************************
 
@@ -111,11 +112,11 @@ app.get('/login', (req, res) => {
 // RECIPE ROUTES
 // ************************************
 app.post('/addToCalendar', (req, res) => {
-  
+
 });
 
 app.post('/removeFromCalendar', (req, res) => {
-  
+
 });
 
 app.post('/addToFavorites', (req, res) => {
@@ -123,13 +124,13 @@ app.post('/addToFavorites', (req, res) => {
 // favorites is an object on the user table.
 
 // find user in db: facebookId will need to be in the data param of the ajax request.
-  dbUsers.User.find({'facebookId': req.body.facebookId}).
+  User.find({'facebookId': req.body.facebookId}).
     exec(user => {
       // if recipe name is not already in favorites object
       // ** Passing recipe name into ajax request as data param **
       if (!user.favorites[req.body.query]) {
         // Set name equal to full recipe
-        dbRecipes.Recipe.find({'name': req.body.query}).
+        Recipe.find({'name': req.body.query}).
         exec(recipe => user.favorites[req.body.query] = JSON.parse(recipe));
         user.save(err => {
           if (err) {
@@ -142,7 +143,7 @@ app.post('/addToFavorites', (req, res) => {
 });
 
 app.post('/removeFromFavorites', (req, res) => {
-  dbUsers.User.findOne().
+  User.findOne().
   where('facebookId').equals(req.body.facebookId).
     exec(user => {
       if (user.favorites.name) {
@@ -159,7 +160,7 @@ app.post('/removeFromFavorites', (req, res) => {
 
 app.get('/recipeSearch', (req, res) => {
   // Need to pass search term into ajax call
-  dbRecipes.Recipe.find({'name': {$regex : '.*${req.body.query}.*'}}).
+  Recipe.find({'name': {$regex : '.*${req.body.query}.*'}}).
     limit(10).
     exec(recipes => res.json(recipes));
 });
