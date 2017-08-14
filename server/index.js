@@ -123,7 +123,7 @@ app.post('/addToFavorites', (req, res) => {
 // favorites is an object on the user table.
 
 // find user in db
-  dbUsers.User.find({'id': userID}).
+  dbUsers.User.find({'id': userId}).
     exec(user => {
       // if recipe name is not already in favorites object
       if (!user.favorites.name) {
@@ -156,7 +156,7 @@ app.post('/removeFromFavorites', (req, res) => {
 });
 
 app.get('/recipeSearch', (req, res) => {
-  dbRecipes.Recipe.find({'name': {$regex : '.*${req.query}.*'}}).
+  dbRecipes.Recipe.find({'name': {$regex : '.*${req.body.query}.*'}}).
     limit(10).
     exec(recipes => res.json(recipes));
 });
