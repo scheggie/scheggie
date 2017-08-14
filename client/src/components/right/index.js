@@ -1,4 +1,6 @@
 import React from 'react';
+import Search from './search';
+import Results from './results';
 
 
 class Right extends React.Component {
@@ -12,7 +14,8 @@ class Right extends React.Component {
     return (
 
       <div style={{flexGrow: 2, flexBasis: '67%'}}>
-        Hello World
+        <Search />
+        <Results />
       </div>
 
     )
