@@ -37,7 +37,7 @@ class Selection extends React.Component {
   viewMoreHandler() {
     this.setState({
       viewMore: !this.state.viewMore
-    })
+    });
   }
 
   render() {
@@ -48,7 +48,7 @@ class Selection extends React.Component {
         secondary={true}
         onTouchTap={this.viewMoreHandler}
       />
-    ]
+    ];
 
     let dialogBox = null;
 

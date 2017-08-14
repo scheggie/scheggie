@@ -28,7 +28,11 @@ node_modules/
 bower_components/
 
 # Bundle File
-/client/dist/bundle.js
+/client/dist/main.bundle.js
+/client/dist/main.bundle.js.map
+/client/dist/login.bundle.js
+/client/dist/login.bundle.js.map
+
 
 # Data Directory
 /databases/data/db
