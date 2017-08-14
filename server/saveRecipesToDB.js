@@ -25,5 +25,4 @@ dbRecipes.Recipe.find({}, (err, recipes) => {
       });
     }, timeBase * index);
   });
-
 });
