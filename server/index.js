@@ -4,8 +4,8 @@ const path = require('path');
 const webpackConfig = require('../webpack.config');
 const app = express();
 const compiler = webpack(webpackConfig);
-const passport = require('passport');
-const Strategy = require('passport-facebook').Strategy;
+// const passport = require('passport');
+// const Strategy = require('passport-facebook').Strategy;
 const config = require('../config.js');
 
 const dbRecipes = require('../databases/recipes.js');
@@ -13,50 +13,50 @@ const dbRecipes = require('../databases/recipes.js');
 
 // app.configure(function() {
 app.use(express.static(__dirname + '/../client/dist'));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.serializeUser(function(user, done) {
-  // console.log('Serialize User: ', user);
-  done(null, user);
-});
-passport.deserializeUser(function(user, done) {
-  // console.log('Deserialize User: ', user);
-  done(null, user);
-})
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.serializeUser(function(user, done) {
+//   // console.log('Serialize User: ', user);
+//   done(null, user);
+// });
+// passport.deserializeUser(function(user, done) {
+//   // console.log('Deserialize User: ', user);
+//   done(null, user);
+// })
 // });
 
-passport.use(new Strategy({
-    clientID: config.FACEBOOK_clientID,
-    clientSecret: config.FACEBOOK_clientSecret,
-    callbackURL: 'http://localhost:3000/auth/facebook/callback'
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // User's Facebook profile is supplied as the user record
+// passport.use(new Strategy({
+//     clientID: config.FACEBOOK_clientID,
+//     clientSecret: config.FACEBOOK_clientSecret,
+//     callbackURL: 'http://localhost:3000/auth/facebook/callback'
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     // User's Facebook profile is supplied as the user record
 
-    // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    //   return cb(err, user);
-    // });
-    console.log(...arguments);
-    done(null, profile);
-  }
-));
+//     // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+//     //   return cb(err, user);
+//     // });
+//     console.log(...arguments);
+//     done(null, profile);
+//   }
+// ));
 
 
 // AUTHENTICATION ROUTES
 // ************************************
   
 // Login button leads here
-app.get('/auth/facebook',
-  passport.authenticate('facebook'));
+// app.get('/auth/facebook',
+//   passport.authenticate('facebook'));
 
-// 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+// // 
+// app.get('/auth/facebook/callback',
+//   passport.authenticate('facebook', { failureRedirect: '/login' }),
+//   function(req, res) {
+//     res.redirect('/');
+//   });
 
-app.get('/', passport.authenticate('facebook'), (req, res) => {
+app.get('/', (req, res) => {
   console.log(req.user);
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
