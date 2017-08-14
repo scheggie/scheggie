@@ -122,14 +122,15 @@ app.post('/addToFavorites', (req, res) => {
 // recipe should be passed into the ajax request via click handler.
 // favorites is an object on the user table.
 
-// find user in db
-  dbUsers.User.find({'id': userId}).
+// find user in db: facebookId will need to be in the data param of the ajax request.
+  dbUsers.User.find({'facebookId': req.body.facebookId}).
     exec(user => {
       // if recipe name is not already in favorites object
-      if (!user.favorites.name) {
-       // **name is the name of the recipe that was passed into the ajax request**
-        // set name equal to full recipe
-        user.favorites.name = fullRecipe;
+      // ** Passing recipe name into ajax request as data param **
+      if (!user.favorites[req.body.query]) {
+        // Set name equal to full recipe
+        dbRecipes.Recipe.find({'name': req.body.query}).
+        exec(recipe => user.favorites[req.body.query] = JSON.parse(recipe));
         user.save(err => {
           if (err) {
             throw err;
@@ -141,7 +142,8 @@ app.post('/addToFavorites', (req, res) => {
 });
 
 app.post('/removeFromFavorites', (req, res) => {
-  dbUsers.User.find({'id': userID}).
+  dbUsers.User.findOne().
+  where('facebookId').equals(req.body.facebookId).
     exec(user => {
       if (user.favorites.name) {
         delete user.favorites.name;
@@ -156,6 +158,7 @@ app.post('/removeFromFavorites', (req, res) => {
 });
 
 app.get('/recipeSearch', (req, res) => {
+  // Need to pass search term into ajax call
   dbRecipes.Recipe.find({'name': {$regex : '.*${req.body.query}.*'}}).
     limit(10).
     exec(recipes => res.json(recipes));
