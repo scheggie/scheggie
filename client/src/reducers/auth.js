@@ -1,4 +1,5 @@
 import * as types from '../actions/types.js';
+import { LOAD } from 'redux-storage';
 
 const INITIAL_STATE = {
   loggedIn: false,
@@ -6,19 +7,23 @@ const INITIAL_STATE = {
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
-  if (action.type === types.LOG_IN) {
-    return {
-      loggedIn: true,
-      user: action.user
-    };
-  } else if (action.type === types.LOG_OUT) {
-    return {
-      loggedIn: false,
-      user: null
-    };
-  } else {
-    return state;
+  switch (action.type) {
+    case types.LOG_IN:
+      return {
+        loggedIn: true,
+        user: action.user
+      };
+
+    case types.LOG_OUT:
+      return {
+        loggedIn: false,
+        user: null
+      };
+
+    case LOAD:
+      return action.payload.auth
   }
-}
+  return state;
+};
 
 export default reducer;
