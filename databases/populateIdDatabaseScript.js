@@ -42,7 +42,17 @@ const foodTypes = [
   'potato',
   'omelette',
   'oatmeal',
-  'curry'
+  'curry',
+  'chips',
+  'pepper',
+  'tomato',
+  'zucchini',
+  'avocado',
+  'stew',
+  'dip',
+  'asparagus',
+  'falafel',
+  'corn'
 ];
 
 let timeBase = 4000;

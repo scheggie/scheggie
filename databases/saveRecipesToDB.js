@@ -9,8 +9,8 @@ var fullObjectList;
 
 Recipe.find({}, (err, recipes) => {
   if (err) return handleError(err);
-  sampleRecipeList = recipes.slice(0, 20);
-  const timeBase = 4000;
+  sampleRecipeList = recipes.slice(500, recipes.length);
+  const timeBase = 20;
   sampleRecipeList.forEach((recipe, index) => {
     if (recipe.fullData === null) {
       setTimeout(() => {
@@ -27,6 +27,8 @@ Recipe.find({}, (err, recipes) => {
           console.log(err);
         });
       }, timeBase * index);
+    } else {
+      console.log('recipe index:', index, 'fullDataSorter:', recipe.fullDataSorter);
     }
   });
 });

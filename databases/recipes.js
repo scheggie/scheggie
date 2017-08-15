@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var recipeSchema = mongoose.Schema({
-  name: {type: String, unique: true},
+  name: {type: String},
   fullDataSorter: Boolean,
   rating: Number,
   abridgedData: {},
