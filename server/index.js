@@ -50,7 +50,10 @@ app.post('/login', (req, res) => {
       var user = new User({
         facebookId: facebookId,
         name: req.body.name,
-        email: req.body.email
+        email: req.body.email,
+        favRecipes: {},
+        week_one: _.map(_.range(7), () => {}),
+        week_two: _.map(_.range(7), () => {})
       });
       return user.save();
     })
@@ -139,6 +142,48 @@ app.get('/recipeSearch', (req, res) => {
     limit(10).
     exec(recipes => res.json(recipes));
 });
+
+/*
+Thoughts on Meal Add/Remove Flow:
+-User is going to login
+-Immediately upon login, we run a function that populates state for the user with their latest values from the database
+-> assuming a completely new user, the week state for them would look as follows:
+
+this.state = {
+  week_one: [{}, {}, {}, {}, {}, {}, {}],
+  week_two: [{}, {}, {}, {}, {}, {}, {}]
+}
+Some sample front-end code for populating breakfast, lunch, and dinner values on the front-end based on the state ('week one' is used here, but this could also be done for 'week two' as well)
+for (var i = 0; i < 7; i++) {
+  if (!week_one[i].breakfast) {
+    return 'Empty'
+  }
+  else {
+    return week_one[i].breakfast;
+  }
+  if (!week_one[i].lunch) {
+     return 'Empty'
+  }
+  else {
+    return week_one[i].lunch;
+  }
+  if (!week_one[i].dinner) {
+     return 'Empty'
+  }
+  else {
+    return week_one[i].dinner;
+  }
+}
+-We pass an onChange handler down from the highest level of the app to each calendar entry component. In the event of a change (either add or remove a meal),
+we connect to the DB, update those values, then reset state for the user and re-render things
+-We keep track of values in the calendar on the front-end as follows:
+-> Name = Breakfast/Lunch/Dinner
+-> Id = 0, 1, 2, 3, 4, etc. (Day of Week)
+-> Class = Week (i.e. Week_One, Week_Two)
+-For example, if a user updates lunch for Week 1, Lunch, on Wednesday, we would do the following:
+onChange={this.state['class']['id']['name'] = name}
+-We then re-render things
+*/
 
 
 // ************************************
