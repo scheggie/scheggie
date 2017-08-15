@@ -19,7 +19,8 @@ class App extends React.Component {
         {
           this.props.auth.loggedIn ?
           <Flexbox flexDirection="row" width="100%" height="100%">
-            <Left planner = {this.props.planner}/>
+            <Left 
+              planner = {this.props.planner}
               user={this.props.auth.user}
               actions={this.props.actions}
             />
@@ -27,10 +28,6 @@ class App extends React.Component {
           </Flexbox> :
           <LogIn logIn={this.props.actions.logInAjax} />
         }
-        <Flexbox flexDirection="row" width="100%" height="100%">
-          <Left planner = {this.props.planner}/>
-          <Right />
-        </Flexbox>
       </MuiThemeProvider>
     );
   }
