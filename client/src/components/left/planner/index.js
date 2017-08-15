@@ -8,30 +8,28 @@ class Planner extends React.Component {
 
   constructor(props) {
     super(props)
-    this.days = [
-      { day: 'Mon' },
-      { day: 'Tues' },
-      { day: 'Wed' },
-      { day: 'Thu' },
-      { day: 'Fri' },
-      { day: 'Sat' },
-      { day: 'Sun' },
-    ];
+  }
+
+  updateCalendar() {
+    console.log('this value was clicked!');
+    // $.ajax({
+    //   url: 
+    // })
   }
 
   getTableRows() {
-    var cells = [];
-    for (var day of this.days) {
-      cells.push(
-        <Flexbox style={{flexGrow: 2}}>
-          <PlannerDow day={day.day}/>
-          <PlannerCell />
-          <PlannerCell />
-          <PlannerCell />
-        </Flexbox >
-      );
-    }
-    return cells;
+    // var cells = [];
+    // for (var day of this.props.planner.days) {
+    //   cells.push(
+    //     <Flexbox style={{flexGrow: 2}}>
+    //       <PlannerDow day={day.day}/>
+    //       <PlannerCell name = "breakfast" id = {day.id} week = {day.week} onClick = {this.updateCalendar}/>
+    //       <PlannerCell name = "lunch" id = {day.id} week = {day.week} onClick = {this.updateCalendar}/>
+    //       <PlannerCell name = "dinner" id = {day.id} week = {day.week} onClick = {this.updateCalendar}/>
+    //     </Flexbox >
+    //   );
+    // }
+    // return cells;
   }
 
   render() {
@@ -112,5 +110,7 @@ class PlannerCell extends React.Component {
     }}> Empty </Flexbox>
   }
 }
+
+
 
 export default Planner;
