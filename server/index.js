@@ -5,7 +5,8 @@ const webpackConfig = require('../webpack.config');
 const app = express();
 const compiler = webpack(webpackConfig);
 const passport = require('passport');
-const Strategy = require('passport-facebook').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
+//const Strategy = require('passport-facebook').Strategy;
 const config = require('../config.js');
 const db = require('../databases');
 const User = require('../databases/users.js');
@@ -13,6 +14,7 @@ const Recipe = require('../databases/recipes.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 
+<<<<<<< HEAD
 // app.use(passport.initialize());
 // app.use(passport.session());
 // passport.serializeUser(function(user, done) {
@@ -174,6 +176,22 @@ app.get('/auth/facebook/callback',
   function(req, res) {
     res.redirect('/');
   });
+=======
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
+>>>>>>> (feat) local auth in progress
 
 app.get('/', (req, res) => {
   console.log(req.user);
@@ -183,6 +201,12 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/login.html'));
 });
+
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login',
+                                   failureFlash: true })
+);
 
 
 // RECIPE ROUTES
