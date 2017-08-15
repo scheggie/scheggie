@@ -46,6 +46,8 @@ const foodTypes = [
 ];
 
 let timeBase = 4000;
+let recipeSet = new Set();
+
 foodTypes.forEach((foodType, index) => {
   setTimeout(() => {
     rp({
@@ -55,7 +57,9 @@ foodTypes.forEach((foodType, index) => {
       data = JSON.parse(data);
       data = data.matches;
       data.forEach(recipe => {
-        if (recipe.rating >= 4) {
+        if (recipe.rating >= 4 && !recipeSet.has(recipe.id)) {
+          recipeSet.add(recipe.id);
+
           let newRecipe = new Recipe;
           newRecipe.name = recipe.id;
           newRecipe.fullDataSorter = false;
