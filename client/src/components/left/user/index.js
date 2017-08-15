@@ -17,23 +17,25 @@ const toolbar_style = {
   borderRadius: '5px'
 }
 
-var User = () => (
+var User = (props) => (
 
   <Toolbar style={toolbar_style}>
     <ToolbarGroup>
       <IconMenu
           iconButtonElement={
             <IconButton touch={true} style={{margin: '-46px 0 0 -10px'}}>
-              <Avatar size={70} src="https://stevesacooking.files.wordpress.com/2013/04/turnip.jpg" style={{boxShadow: '2px 2px 4px #1a3300'}}/>
+              <Avatar size={70} src={props.user.picture.data.url} style={{boxShadow: '2px 2px 4px #1a3300'}}/>
             </IconButton>
           }
         >
         <MenuItem primaryText="Change Avatar" />
-        <MenuItem primaryText="Log Out" />
+        <MenuItem primaryText="Log Out" onTouchTap={props.logOut} />
       </IconMenu>
     </ToolbarGroup>
     <ToolbarGroup>
-      <ToolbarTitle text="Hello User!" style={{color: '#ffffff'}}/>
+      <ToolbarTitle
+        text={`Hello ${props.user.name.split(' ')[0]}!`}
+        style={{color: '#ffffff'}}/>
     </ToolbarGroup>
   </Toolbar>
 

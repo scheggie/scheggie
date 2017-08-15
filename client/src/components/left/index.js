@@ -20,7 +20,10 @@ class Left extends React.Component {
 
     return (
       <div style={generalStyle}>
-        <User />
+        <User
+          user={this.props.user}
+          logOut={this.props.actions.logOut}
+        />
         <Selection />
         <Planner />
       </div>

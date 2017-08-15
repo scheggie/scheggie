@@ -2,11 +2,9 @@ const express = require('express');
 const webpack = require('webpack');
 const path = require('path');
 const webpackConfig = require('../webpack.config');
+const session = require('express-session');
+const bodyParser = require('body-parser')
 const app = express();
-const compiler = webpack(webpackConfig);
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-//const Strategy = require('passport-facebook').Strategy;
 const config = require('../config.js');
 const db = require('../databases');
 const User = require('../databases/users.js');
@@ -14,199 +12,53 @@ const Recipe = require('../databases/recipes.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 
-<<<<<<< HEAD
-// app.use(passport.initialize());
-// app.use(passport.session());
-// passport.serializeUser(function(user, done) {
-//   // console.log('Serialize User: ', user);
-//   done(null, user);
-// });
-// passport.deserializeUser(function(user, done) {
-//   // console.log('Deserialize User: ', user);
-//   done(null, user);
-// })
+app.use(bodyParser.json());
 
-// passport.use(new Strategy({
-//     clientID: config.FACEBOOK_clientID,
-//     clientSecret: config.FACEBOOK_clientSecret,
-//     callbackURL: 'http://localhost:3000/auth/facebook/callback'
-//   },
-//   function(accessToken, refreshToken, profile, done) {
-//     console.log(profile);
-//     done(null, 'test');
-//     // User's Facebook profile is supplied as the user record
-//     User.findOne({ 'facebookId' : profile.id }, function(err, user) {
-//
-//       // if there is an error, stop everything and return that
-//       // ie an error connecting to the database
-//       if (err) {
-//         return done(err);
-//       }
-//
-//       if (user) {
-//         return done(null, user); // user found, return that user
-//       } else {
-//         // if there is no user found with that facebook id, create them
-//         var newUser = new User();
-//         // set all of the facebook information in our user model
-//         newUser.facebookId  = profile.id; // set the users facebook id
-//         newUser.favRecipes = {}; //we set the user's favorite recipes to a blank object
-//         newUser.weeks = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]; // I thought we'd start with a blank object for each day. Then, if a user adds a recipe to a meal for a day we'll begin adding new key-value pairs here
-//         newUser.name  = profile.name.givenName + ' ' + profile.name.familyName; // we will need to look at the passport user profile to see how names are returned. This was the suggestion in the article though
-//         newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-//
-//         // save our user to the database
-//         newUser.save(function(err) {
-//           if (err) {
-//             throw err;
-//           }
-//           // if successful, return the new user
-//           return done(null, newUser);
-//         });
-//       }
-//     });*/
-//   }
-// ));
+app.use(session({
+  secret: 'test',
+  resave: false,
+  saveUninitialized: true,
+}));
 
-// passport.use(new Strategy({
-//     clientID: config.FACEBOOK_clientID,
-//     clientSecret: config.FACEBOOK_clientSecret,
-//     callbackURL: 'http://localhost:3000/auth/facebook/callback'
-//   },
-//   function(accessToken, refreshToken, profile, done) {
-//     // User's Facebook profile is supplied as the user record
-//     process.nextTick(function() {
-
-//     User.findOne({ 'facebookId' : profile.id }, function(err, user) {
-
-//     // if there is an error, stop everything and return that
-//     // ie an error connecting to the database
-//     if (err) {
-//       return done(err);
-//     }
-
-//     if (user) {
-//       return done(null, user); // user found, return that user
-//     } else {
-//       // if there is no user found with that facebook id, create them
-//         var newUser            = new User();
-//         // set all of the facebook information in our user model
-//         newUser.facebookId  = profile.id; // set the users facebook id                   
-//         newUser.favRecipes = {}; //we set the user's favorite recipes to a blank object
-//         newUser.week_one = [{}, {}, {}, {}, {}, {}, {}]; // I thought we'd start with a blank object for each day. Then, if a user adds a recipe to a meal for a day we'll begin adding new key-value pairs here
-//         newUser.week_two = [{}, {}, {}, {}, {}, {}, {}];
-//         newUser.name  = profile.name.givenName + ' ' + profile.name.familyName; // we will need to look at the passport user profile to see how names are returned. This was the suggestion in the article though
-//         newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-        
-//         // save our user to the database
-//         newUser.save(function(err) {
-//             if (err)
-//                 throw err;
-
-//             // if successful, return the new user
-//             return done(null, newUser);
-//         });
-//       }
-//     });
-//   })
-// }
-
-/*
-
-Thoughts on Meal Add/Remove Flow:
-
--User is going to login 
--Immediately upon login, we run a function that populates state for the user with their latest values from the database
--> assuming a completely new user, the week state for them would look as follows:
- 
-this.state = {
-  week_one: [{}, {}, {}, {}, {}, {}, {}],
-  week_two: [{}, {}, {}, {}, {}, {}, {}]
-}
-
-Some sample front-end code for populating breakfast, lunch, and dinner values on the front-end based on the state ('week one' is used here, but this could also be done for 'week two' as well)
-for (var i = 0; i < 7; i++) {
-  if (!week_one[i].breakfast) {
-    return 'Empty'
+app.use((req, res, next) => {
+  if (req.session.userId) {
+    User.findById(req.session.userId)
+      .then((user)=>{
+        req.user = user;
+        next();
+      });
+  } else {
+    next();
   }
-  else {
-    return week_one[i].breakfast;
-  }
-
-  if (!week_one[i].lunch) {
-     return 'Empty'
-  }
-  else {
-    return week_one[i].lunch;
-  }
-
-  if (!week_one[i].dinner) {
-     return 'Empty'
-  }
-  else {
-    return week_one[i].dinner;
-  }
-}
-
--We pass an onChange handler down from the highest level of the app to each calendar entry component. In the event of a change (either add or remove a meal), 
-we connect to the DB, update those values, then reset state for the user and re-render things
--We keep track of values in the calendar on the front-end as follows:
--> Name = Breakfast/Lunch/Dinner
--> Id = 0, 1, 2, 3, 4, etc. (Day of Week)
--> Class = Week (i.e. Week_One, Week_Two)
-
--For example, if a user updates lunch for Week 1, Lunch, on Wednesday, we would do the following:
-
-onChange={this.state['class']['id']['name'] = name} 
--We then re-render things 
-
-*/
- 
-// AUTHENTICATION ROUTES
-// ************************************
-
-// Login button leads here
-// app.get('/auth/facebook',
-//   passport.authenticate('facebook'));
-
-//
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
-=======
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
->>>>>>> (feat) local auth in progress
+})
 
 app.get('/', (req, res) => {
-  console.log(req.user);
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/login.html'));
+app.post('/login', (req, res) => {
+  let facebookId = req.body.id;
+  User.findOne({facebookId})
+    .then((user) => {
+      if (user) {
+        return user;
+      } else {
+        throw 'User not found';
+      }
+    })
+    .catch(() => {
+      var user = new User({
+        facebookId: facebookId,
+        name: req.body.name,
+        email: req.body.email
+      });
+      return user.save();
+    })
+    .then((user) => {
+      req.session.userId = user._id;
+      res.send();
+    });
 });
-
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
-                                   failureFlash: true })
-);
 
 
 // RECIPE ROUTES
