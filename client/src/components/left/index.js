@@ -2,6 +2,8 @@ import React from 'react';
 import User from './user';
 import Selection from './selection';
 import Planner from './planner';
+import Paper from 'material-ui/Paper';
+
 
 const generalStyle = {
   flexGrow: 1,
@@ -19,14 +21,14 @@ class Left extends React.Component {
   render() {
 
     return (
-      <div style={generalStyle}>
+      <Paper style={generalStyle} zDepth={3}>
         <User
           user={this.props.user}
           logOut={this.props.actions.logOut}
         />
         <Selection />
         <Planner />
-      </div>
+      </Paper>
     )
 
   }

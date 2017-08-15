@@ -15,7 +15,12 @@ class Right extends React.Component {
 
       <div style={{flexGrow: 2, flexBasis: '67%'}}>
         <Search />
-        <Results />
+        <div style={{
+          height: '87%',
+          overflowY: 'scroll'
+        }}>
+          <Results />
+        </div>
       </div>
 
     )
