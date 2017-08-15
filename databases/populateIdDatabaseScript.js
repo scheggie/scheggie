@@ -7,30 +7,31 @@ ONLY RUN FOR ~8 FOOD TYPES AT A TIME. OTHERWISE YOU MAY ENCOUNTER ERRORS. */
 const rp = require('request-promise');
 const request = require('request');
 const config = require('../config.js');
-const dbRecipes = require('../databases/recipes.js');
+const Recipe = require('./recipes.js');
+const db = require('./index.js');
 
 const resultLimit = 500;
 const foodTypes = [
-  'salad', 
-  'soup', 
-  'pizza', 
-  'burger', 
-  'sandwich', 
-  'fries', 
-  'rice', 
-  'pasta', 
+  'salad',
+  'soup',
+  'pizza',
+  'burger',
+  'sandwich',
+  'fries',
+  'rice',
+  'pasta',
   'tofu',
   'tempeh',
   'soy',
-  'lentil', 
-  'chili', 
-  'quinoa', 
-  'taco', 
-  'burrito', 
-  'eggplant', 
-  'squash', 
-  'mushroom', 
-  'pesto', 
+  'lentil',
+  'chili',
+  'quinoa',
+  'taco',
+  'burrito',
+  'eggplant',
+  'squash',
+  'mushroom',
+  'pesto',
   'casserole',
   'daal',
   'kale',
@@ -55,7 +56,7 @@ foodTypes.forEach((foodType, index) => {
       data = data.matches;
       data.forEach(recipe => {
         if (recipe.rating >= 4) {
-          let newRecipe = new dbRecipes.Recipe;
+          let newRecipe = new Recipe;
           newRecipe.name = recipe.id;
           newRecipe.fullDataSorter = false;
           newRecipe.rating = recipe.rating;
