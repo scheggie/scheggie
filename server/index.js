@@ -66,8 +66,6 @@ app.use(express.static(__dirname + '/../client/dist'));
 //   }
 // ));
 
-<<<<<<< HEAD
-=======
 // passport.use(new Strategy({
 //     clientID: config.FACEBOOK_clientID,
 //     clientSecret: config.FACEBOOK_clientSecret,
@@ -162,7 +160,6 @@ onChange={this.state['class']['id']['name'] = name}
 
 */
  
->>>>>>> Wrote out comments for adding recipes to the calendar for both front-end, server, and DB. Added routes to connect server to DB
 // AUTHENTICATION ROUTES
 // ************************************
 
@@ -219,7 +216,6 @@ app.post('/removeFromCalendar', (req, res) => {
     }
     res.send('Recipe removed from calendar');
   });
->>>>>>> Wrote out comments for adding recipes to the calendar for both front-end, server, and DB. Added routes to connect server to DB
 });
 
 app.post('/addToFavorites', (req, res) => {
