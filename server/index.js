@@ -9,6 +9,7 @@ const config = require('../config.js');
 const db = require('../databases');
 const User = require('../databases/users.js');
 const Recipe = require('../databases/recipes.js');
+const _ = require('lodash');
 
 app.use(express.static(__dirname + '/../client/dist'));
 

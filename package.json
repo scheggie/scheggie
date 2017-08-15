@@ -14,7 +14,9 @@
     "heroku-postbuild": "webpack -p --progress"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "express-session": "^1.15.5",
     "flexbox-react": "^4.4.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
