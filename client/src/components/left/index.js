@@ -28,7 +28,7 @@ class Left extends React.Component {
         />
         <Selection />
         <Planner planner = {this.props.planner} />
-      </div>
+      </Paper>
     )
 
   }
