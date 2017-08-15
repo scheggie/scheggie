@@ -66,23 +66,43 @@ At this point, the database is now created and ready to use.
 
 
 
-### Populate database: 
+### Populate database with recipe IDs: 
 
-This script will populate the database with recipes pulled from a predetermined list found inside of the server directory.
+This script will populate the database with recipe IDs pulled from a predetermined food list found inside of the server directory.
 
 Before running, ensure you are in the root directory.
 
 ~~~~~~~~~~~~
 
-  npm run buildData
+  npm run buildInitialData
 
 ~~~~~~~~~~~~
 
 Runtime:  ~ 1 minute
 
-The script will need time to run through all of the API calls to insert data into the database.
+The script will need time to run through all of the API calls to insert initial data into the database.
 
 Don't panic, your computer is not broken!
+
+Once the list is fully generated, to test if it is still pulling data, type some text into the console and wait for a few seconds.  If your text disappears into a wall of success messages, you're not finished yet.  Once finished, use "ctrl" + "c" to be able to escape out of the action.
+
+
+
+### Populate database with full recipe data: 
+
+This script will populate the database with full recipe data for each recipe ID that already exists in the databse.
+
+Before running, ensure you are in the root directory.
+
+~~~~~~~~~~~~
+
+  npm run buildFullData
+
+~~~~~~~~~~~~
+
+Runtime:  ~ 3-4 minutes
+
+The script will need time to hit the Yummly API for every recipe ID in the database. Upon successfully retrieving a full recipe from the API, the script will update each recipe entry in the database by setting the fullData property equal to the API's response, and fullDataSorter equal to 'true'.
 
 Once the list is fully generated, to test if it is still pulling data, type some text into the console and wait for a few seconds.  If your text disappears into a wall of success messages, you're not finished yet.  Once finished, use "ctrl" + "c" to be able to escape out of the action.
 
