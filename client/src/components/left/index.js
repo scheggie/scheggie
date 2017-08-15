@@ -27,7 +27,7 @@ class Left extends React.Component {
           logOut={this.props.actions.logOut}
         />
         <Selection />
-        <Planner />
+        <Planner planner = {this.props.planner} />
       </Paper>
     )
 

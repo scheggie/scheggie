@@ -19,7 +19,8 @@ class App extends React.Component {
         {
           this.props.auth.loggedIn ?
           <Flexbox flexDirection="row" width="100%" height="100%">
-            <Left
+            <Left 
+              planner = {this.props.planner}
               user={this.props.auth.user}
               actions={this.props.actions}
             />

@@ -1,5 +1,5 @@
 import React from 'react';
-import Flexbox from 'flexbox-react';
+// import Flexbox from 'Flexbox-react';
 import _ from 'lodash';
 
 const BORDER_STYLE = 'solid rgb(180, 180, 180) 1px';
@@ -8,55 +8,51 @@ class Planner extends React.Component {
 
   constructor(props) {
     super(props)
-    this.days = [
-      { day: 'Mon' },
-      { day: 'Tues' },
-      { day: 'Wed' },
-      { day: 'Thu' },
-      { day: 'Fri' },
-      { day: 'Sat' },
-      { day: 'Sun' },
-    ];
+  }
+
+  updateCalendar() {
+    console.log('this value was clicked!');
   }
 
   getTableRows() {
     var cells = [];
-    for (var day of this.days) {
+    for (var day of this.props.planner.days) {
       cells.push(
-        <Flexbox style={{flexGrow: 2}}>
+        <div style={{display: 'flex', flexGrow: 2}}>
           <PlannerDow day={day.day}/>
-          <PlannerCell />
-          <PlannerCell />
-          <PlannerCell />
-        </Flexbox >
+          <PlannerCell update = {this.updateCalendar.bind(this)} />
+          <PlannerCell update = {this.updateCalendar.bind(this)} />
+          <PlannerCell update = {this.updateCalendar.bind(this)} />
+        </div >
       );
     }
     return cells;
   }
-
+   
   render() {
     return (
-      <Flexbox style={{flexFlow: "column", flexGrow: 1}}>
-        <Flexbox style={{flexGrow: 0}}>
+      <div style={{display: 'flex', flexFlow: "column", flexGrow: 1}}>
+        <div style={{display: 'flex', flexGrow: 0}}>
           <PlannerCorner />
           <PlannerHeader title="Breakfast" />
           <PlannerHeader title="Lunch" />
           <PlannerHeader title="Dinner" />
-        </Flexbox>
+        </div>
         { this.getTableRows() }
-        <Flexbox style={{flexGrow: 1}}>
+        <div style={{display: 'flex', flexGrow: 1}}>
           <div style={{padding: '10px'}}> Last Week </div>
           <div style={{flexGrow: 1}}> </div>
           <div style={{padding: '10px'}}> Next Week </div>
-        </Flexbox >
-      </Flexbox>
+        </div >
+      </div>
     )
   }
 }
 
 class PlannerHeader extends React.Component {
   render() {
-    return <Flexbox style={{
+    return <div style={{
+      display: 'flex',
       flex: '1 1',
       alignItems: 'center',
       borderBottom: BORDER_STYLE,
@@ -69,22 +65,24 @@ class PlannerHeader extends React.Component {
       backgroundColor: 'rgb(40, 130, 150)'
     }}>
       {this.props.title}
-    </Flexbox>
+    </div>
   }
 }
 
 class PlannerCorner extends React.Component {
   render() {
-    return <Flexbox style={{
+    return <div style={{
+      display: 'flex',
       borderRight: BORDER_STYLE_WHITE,
       flex: '0 0 40px',
-    }}> </Flexbox>
+    }}> </div>
   }
 }
 
 class PlannerDow extends React.Component {
   render() {
-    return <Flexbox style={{
+    return <div style={{
+      display: 'flex',
       flex: '0 0 40px',
       borderBottom: BORDER_STYLE_WHITE,
       borderLeft: BORDER_STYLE_WHITE,
@@ -94,23 +92,29 @@ class PlannerDow extends React.Component {
       backgroundColor: 'rgb(40, 130, 150)'
     }}>
       {this.props.day}
-    </Flexbox>
+    </div>
   }
 }
 
 class PlannerCell extends React.Component {
   render() {
-    return <Flexbox style={{
-      flex: '1 1',
-      borderBottom: BORDER_STYLE,
-      borderRight: BORDER_STYLE,
-      color: 'rgb(120, 120, 120)',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '12px',
-      fontSize: '12px'
-    }}> Empty </Flexbox>
+    return <div 
+      onClick = {this.props.update}
+      style={{
+        display: 'flex',
+        flex: '1 1',
+        borderBottom: BORDER_STYLE,
+        borderRight: BORDER_STYLE,
+        color: 'rgb(120, 120, 120)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '12px',
+        fontSize: '12px'
+      }}
+    > Empty </div>
   }
 }
+
+
 
 export default Planner;

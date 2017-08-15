@@ -73,14 +73,18 @@ app.post('/addToCalendar', (req, res) => {
   var meal = req.body.meal;
   var recipe_id = req.body.recipeId;
   var facebookId = req.body.facebookId;
-  dbUsers.User.find({'facebookId': facebookId}).
-  exec(user => user[week_number][day_id][meal] = recipe_id);
-  user.save(err => {
-    if (err) {
-      throw err;
-    }
-    res.send('Recipe added to calendar');
-  });
+  console.log(week_number);
+  console.log(day_id);
+  console.log(meal);
+  console.log(facebookId);
+  // dbUsers.User.find({'facebookId': facebookId}).
+  // exec(user => user[week_number][day_id][meal] = recipe_id);
+  // user.save(err => {
+  //   if (err) {
+  //     throw err;
+  //   }
+  //   res.send('Recipe added to calendar');
+  // });
 });
 
 app.post('/removeFromCalendar', (req, res) => {
