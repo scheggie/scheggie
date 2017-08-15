@@ -10,9 +10,33 @@ const Results = () => (
       flexWrap: 'nowrap',
       justifyContent: 'center',
       alignContent: 'center',
-      padding: '15px 30px 15px 30px'
+      padding: '0px 30px 0px 30px'
     }}>
 
+    <Entry />
+      <span style={{
+        height: '5px'
+      }}></span>
+    <Entry />
+      <span style={{
+        height: '5px'
+      }}></span>
+    <Entry />
+      <span style={{
+        height: '5px'
+      }}></span>
+    <Entry />
+      <span style={{
+        height: '5px'
+      }}></span>
+    <Entry />
+      <span style={{
+        height: '5px'
+      }}></span>
+    <Entry />
+      <span style={{
+        height: '5px'
+      }}></span>
     <Entry />
       <span style={{
         height: '5px'
