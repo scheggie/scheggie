@@ -20,8 +20,6 @@ const state = {
 
 const uri = 'mongodb://127.0.0.1:27017/test';
 
-exports.MODE_TEST = 'mode_test';
-
 exports.connect = function(mode, done) {
   if (state.db) {
     return done();

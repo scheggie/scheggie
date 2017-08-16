@@ -7,8 +7,8 @@ const bodyParser = require('body-parser')
 const app = express();
 const config = require('../config.js');
 const db = require('../databases');
-const UserModel = require('../databases/users.js');
-const RecipeModel = require('../databases/recipes.js');
+const User = require('../databases/users.js');
+const Recipe = require('../databases/recipes.js');
 const _ = require('lodash');
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -23,7 +23,7 @@ app.use(session({
 
 app.use((req, res, next) => {
   if (req.session.userId) {
-    UserModel.User.findById(req.session.userId)
+    User.findById(req.session.userId)
       .then((user)=>{
         req.user = user;
         next();
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
   let facebookId = req.body.id;
-  UserModel.User.findOne({facebookId})
+  User.findOne({facebookId})
     .then((user) => {
       if (user) {
         return user;
@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
       }
     })
     .catch(() => {
-      var user = new UserModel.User({
+      var user = new User({
         facebookId: facebookId,
         name: req.body.name,
         email: req.body.email,
@@ -92,7 +92,7 @@ app.post('/removeFromCalendar', (req, res) => {
   var day_id = req.body.dayId;
   var meal = req.body.meal;
   var facebookId = req.body.facebookId;
-  UserModel.User.find({'facebookId': facebookId}).
+  User.find({'facebookId': facebookId}).
   exec(user => delete user[week_number][day_id][meal]);
   user.save(err => {
     if (err) {
@@ -103,10 +103,10 @@ app.post('/removeFromCalendar', (req, res) => {
 });
 
 app.post('/addToFavorites', (req, res) => {
-  UserModel.User.find({'facebookId': req.body.facebookId}).
+  User.find({'facebookId': req.body.facebookId}).
     exec(user => {
       if (!user.favorites[req.body.query]) {
-        RecipeModel.Recipe.find({'name': req.body.query}).
+        Recipe.find({'name': req.body.query}).
         exec(recipe => user.favorites[req.body.query] = JSON.parse(recipe));
         user.save(err => {
           if (err) {
@@ -119,7 +119,7 @@ app.post('/addToFavorites', (req, res) => {
 });
 
 app.post('/removeFromFavorites', (req, res) => {
-  UserModel.User.findOne().
+  User.findOne().
   where('facebookId').equals(req.body.facebookId).
     exec(user => {
       if (user.favorites.name) {
@@ -136,7 +136,7 @@ app.post('/removeFromFavorites', (req, res) => {
 
 app.get('/recipeSearch', (req, res) => {
   // Need to pass search term into ajax call
-  RecipeModel.Recipe.find({'name': {$regex : '.*${req.body.query}.*'}}).
+  Recipe.find({'name': {$regex : '.*${req.body.query}.*'}}).
     limit(10).
     exec(recipes => res.json(recipes));
 });
