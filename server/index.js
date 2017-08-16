@@ -53,8 +53,8 @@ app.post('/login', (req, res) => {
         name: req.body.name,
         email: req.body.email,
         favRecipes: {},
-        week_one: _.map(_.range(7), () => {}),
-        week_two: _.map(_.range(7), () => {})
+        week_one: _.map(_.range(7), () => ({})),
+        week_two: _.map(_.range(7), () => ({}))
       });
       return user.save();
     })

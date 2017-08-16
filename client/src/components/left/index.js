@@ -28,7 +28,10 @@ class Left extends React.Component {
         />
         <Selection />
         <span style={{height: '30px'}}></span>
-        <Planner planner={this.props.planner} />
+        <Planner
+          planner = {this.props.planner}
+          syncCalendarDay = {this.props.actions.syncCalendarDay}
+        />
       </Paper>
     )
 

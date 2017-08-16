@@ -1,18 +1,14 @@
+import * as types from '../actions/types';
+import _ from 'lodash';
+
 const INITIAL_STATE = {
-	week: 'week_one',
-	days: [
-      {day: 'Mon'},
-      {day: 'Tues'},
-      {day: 'Wed'},
-      {day: 'Thu'},
-      {day: 'Fri'},
-      {day: 'Sat'},
-      {day: 'Sun'}
-    ]
+	selectedWeek: 'week_one',
+  week_one: _.map(_.range(7), ()=>({})),
+  week_two: _.map(_.range(7), ()=>({}))
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
-  return state;
+	return state;
 }
 
 export default reducer;
