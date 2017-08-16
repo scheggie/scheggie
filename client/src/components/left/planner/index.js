@@ -4,6 +4,17 @@ import _ from 'lodash';
 
 const BORDER_STYLE = 'solid rgb(180, 180, 180) 1px';
 const BORDER_STYLE_WHITE = 'solid rgb(230, 255, 255) 1px';
+
+const DAY_LABELS = {
+  0: 'Mon',
+  1: 'Tues',
+  2: 'Mon',
+  3: 'Mon',
+  4: 'Mon',
+  5: 'Mon',
+  6: 'Mon',
+}
+
 class Planner extends React.Component {
 
   constructor(props) {
@@ -16,19 +27,37 @@ class Planner extends React.Component {
 
   getTableRows() {
     var cells = [];
-    for (var day of this.props.planner.days) {
+    this.props.planner.week_one.forEach((day, index) => {
       cells.push(
         <div style={{display: 'flex', flexGrow: 2}}>
-          <PlannerDow day={day.day}/>
-          <PlannerCell update = {this.updateCalendar.bind(this)} />
-          <PlannerCell update = {this.updateCalendar.bind(this)} />
-          <PlannerCell update = {this.updateCalendar.bind(this)} />
+          <PlannerDow day={DAY_LABELS[index]}/>
+          <PlannerCell
+            onClick={() => {
+              let selectedCell = {selectedDay: index, selectedMeal: 'breakfast'}
+              console.log(selectedCell);
+              this.props.syncCalendarDay(selectedCell);
+            }}
+          />
+          <PlannerCell
+            onClick={() => {
+              let selectedCell = {selectedDay: index, selectedMeal: 'lunch'}
+              console.log(selectedCell);
+              this.props.syncCalendarDay(selectedCell);
+            }}
+          />
+          <PlannerCell
+            onClick={() => {
+              let selectedCell = {selectedDay: index, selectedMeal: 'dinner'}
+              console.log(selectedCell);
+              this.props.syncCalendarDay(selectedCell);
+            }}
+          />
         </div >
       );
-    }
+    });
     return cells;
   }
-   
+
   render() {
     return (
       <div style={{display: 'flex', flexFlow: "column", flexGrow: 1}}>
@@ -98,8 +127,8 @@ class PlannerDow extends React.Component {
 
 class PlannerCell extends React.Component {
   render() {
-    return <div 
-      onClick = {this.props.update}
+    return <div
+      onClick = {this.props.onClick}
       style={{
         display: 'flex',
         flex: '1 1',
