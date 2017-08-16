@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var recipeSchema = mongoose.Schema({
+const recipeSchema = mongoose.Schema({
   name: {type: String},
   fullDataSorter: Boolean,
   rating: Number,
@@ -8,6 +8,15 @@ var recipeSchema = mongoose.Schema({
   fullData: {}
 });
 
-var Recipe = mongoose.model('Recipe', recipeSchema);
+const Recipe = mongoose.model('Recipe', recipeSchema);
 
-module.exports = Recipe;
+const getFullRecipeByName = (name, cb) => {
+  Recipe.find({'name': name}).
+  exec(cb);
+};
+
+module.exports = {
+  Recipe,
+  getFullRecipeByName
+};
+
