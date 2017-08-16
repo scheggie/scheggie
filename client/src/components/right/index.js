@@ -1,12 +1,12 @@
 import React from 'react';
 import Search from './search';
 import Results from './results';
-
+import data from '../../../../databases/data/sampleData.js';
 
 class Right extends React.Component {
   constructor(props) {
     super(props);
-  }
+  };
 
 
   render() {
@@ -19,7 +19,7 @@ class Right extends React.Component {
           height: '87%',
           overflowY: 'scroll'
         }}>
-          <Results />
+          <Results data={data}/>
         </div>
       </div>
 

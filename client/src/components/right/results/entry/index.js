@@ -2,7 +2,7 @@ import React from 'react';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 
-const Entry = () => (
+const Entry = (props) => (
 
   <div style={{
     display: 'flex',
@@ -22,7 +22,7 @@ const Entry = () => (
         style={{
           height: '100px'
         }}
-        src="http://tuvanranghammat.vn/assets/lo-mieng-nen-an-gi-e1469805715695.jpg"
+        src={props.recipe.fullData.images[0]['hostedLargeUrl']}
       />
     </div>
 
@@ -33,15 +33,16 @@ const Entry = () => (
       flexGrow: 3,
     }}>
       <div style={{
-        height: '20px'
+        height: '20px',
+        'font-weight': 'bold'
       }}>
-        Food Title Here
+        {props.recipe.fullData.name}
       </div>
       <span style={{height: '5px'}}></span>
       <div style={{
         height: '75px'
       }}>
-        Lorem ipsum dolor sit amet, elitr convenire ei per, id vis idque quodsi intellegat, inermis veritus quaerendum vis at. Eam deserunt suscipiantur ea, mutat gubergren est id. Ea liber senserit vim. Salutatus similique complectitur ex pro, pro eu altera labitur. Te ignota perpetua quo, id mea nostrud feugiat, nec falli decore fuisset an.
+        Ingredients: {props.recipe.abridgedData.ingredients.join(',  ')}
       </div>
     </div>
 
