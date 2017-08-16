@@ -36,5 +36,5 @@ bower_components/
 /client/dist/main.bundle.js.map
 
 # Data Directory
-
 /databases/data/db
+/databases/data
