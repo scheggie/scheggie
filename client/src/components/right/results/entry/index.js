@@ -55,7 +55,7 @@ const Entry = (props) => (
         tooltip="Favorite"
         iconClassName="material-icons"
       >
-        favorite
+        favorites
       </IconButton>
     </div>
 
