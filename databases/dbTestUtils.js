@@ -1,3 +1,15 @@
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+
+db.once('open', function() {
+  console.log('Connected to test DB');
+});
+
 const MongoClient = require('mongodb').MongoClient
   , async = require('async');
 
