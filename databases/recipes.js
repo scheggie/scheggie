@@ -8,6 +8,7 @@ const recipeSchema = mongoose.Schema({
   fullData: {}
 });
 
+// Get full recipe from db by recipeName
 recipeSchema.statics.getFullRecipeByName = function(name) {
   return this.find({'name': name});
 };
