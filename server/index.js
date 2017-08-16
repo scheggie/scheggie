@@ -123,10 +123,10 @@ app.post('/removeFromFavorites', (req, res) => {
 });
 
 app.get('/recipeSearch', (req, res) => {
-  // Need to pass search term into ajax call
-  Recipe.find({'name': {$regex : '.*${req.body.query}.*'}}).
-    limit(10).
-    exec(recipes => res.json(recipes));
+  Recipe.getFullRecipesForSearchResults(req.body.query).
+    then(recipes => {
+      res.json(recipes);
+    });
 });
 
 /*
