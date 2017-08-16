@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from './search';
 import Results from './results';
-import data from '../../../../databases/data/sampleData.js';
+import data from '../../../../sampleData.js';
 
 class Right extends React.Component {
   constructor(props) {
