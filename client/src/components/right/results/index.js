@@ -30,18 +30,7 @@ class Results extends React.Component {
             overflowY: 'scroll'
           }}
         >
-          {fakeTileData.map( (tile, i) => {
-            return (
-              <GridTile
-                key={i}
-                title={tile.title}
-                subtitle={<span>by <b>{tile.author}</b></span>}
-                actionIcon={<IconButton><FavoriteBorder color="white" /></IconButton>}
-              >
-                <img src={tile.img} />
-              </GridTile>
-            )
-          })}
+          
         </GridList>
 
       </div>
@@ -51,6 +40,26 @@ class Results extends React.Component {
 }
 
 // commented out for reference later on:
+
+// GRID TILE MAPPING FUNCTION:
+
+// {
+//   fakeTileData.map( (tile, i) => {
+//     return (
+//       <GridTile
+//         key={i}
+//         title={tile.title}
+//         subtitle={<span>by <b>{tile.author}</b></span>}
+//         actionIcon={<IconButton><FavoriteBorder color="white" /></IconButton>}
+//       >
+//         <img src={tile.img} />
+//       </GridTile>
+//     )
+//   })
+// }
+
+
+// OLD REFERENCE TO LIST:
 
 // <div 
 //   style={{
