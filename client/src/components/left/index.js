@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 
 const generalStyle = {
   flexGrow: 1,
-  flexBasis: '400px',
+  flexBasis: '500px',
   display: 'flex',
   height: '100%',
   flexDirection: 'column',
@@ -27,7 +27,8 @@ class Left extends React.Component {
           logOut={this.props.actions.logOut}
         />
         <Selection />
-        <Planner planner = {this.props.planner} />
+        <span style={{height: '30px'}}></span>
+        <Planner planner={this.props.planner} />
       </Paper>
     )
 

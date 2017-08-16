@@ -1,28 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import Flexbox from 'flexbox-react';
 
-const general_style = {
-  fontFamily: 'sans-serif',
-  font: 'roboto',
-  backgroundColor: '#ffffff'
-};
-
-const image_style = {
-  alignItems: 'center',
-};
-
-const title_style = {
-  textAlign: 'center',
-  backgroundColor: '#e6e6e6'
-
-};
-
-const desc_style = {
-  textAlign: 'left',
-  padding: '0px 10px 10px 10px'
-};
 
 class Selection extends React.Component {
 
@@ -82,20 +61,51 @@ class Selection extends React.Component {
     }
 
     return (
-      <Flexbox flexDirection="row" maxWidth="33vw" style={general_style}>
-        <Flexbox flexGrow="1" style={image_style}>
+
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'nowrap',
+        justifyContent: 'space-around',
+      }}>
+
+        <div>
           <img style={{maxWidth: '100%'}} src="http://tuvanranghammat.vn/assets/lo-mieng-nen-an-gi-e1469805715695.jpg"/>
-        </Flexbox>
-        <Flexbox flexDirection="column" flexGrow="2">
-          <h3 style={title_style}>Food Title</h3>
-          <p style={desc_style}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </div>
+
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexWrap: 'nowrap',
+          justifyContent: 'space-between',
+        }}>
+          <span style={{
+            textAlign: 'center',
+            padding: '10px 0 10px 0',
+            backgroundColor: '#E0F2F1',
+          }}>
+            Food Title
+          </span>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
           <FlatButton label="Read More" onTouchTap={this.viewMoreHandler}/>
-        </Flexbox>
-        { dialogBox }
-      </Flexbox>
+        </div>
+
+      </div>
+      
     )
   }
-
 }
+
+// <Flexbox flexDirection="row" maxWidth="33vw" style={general_style}>
+//         <Flexbox flexGrow="1" style={image_style}>
+          // <img style={{maxWidth: '100%'}} src="http://tuvanranghammat.vn/assets/lo-mieng-nen-an-gi-e1469805715695.jpg"/>
+//         </Flexbox>
+//         <Flexbox flexDirection="column" flexGrow="2">
+//           <h3 style={title_style}>Food Title</h3>
+//           <p style={desc_style}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+//           <FlatButton label="Read More" onTouchTap={this.viewMoreHandler}/>
+//         </Flexbox>
+//         { dialogBox }
+//       </Flexbox>
 
 export default Selection;

@@ -3,16 +3,6 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
-// const searchStyle = {
-//   display: 'flex',
-//   flexDirection: 'row',
-//   flexWrap: 'nowrap',
-//   justifyContent: 'space-around',
-//   alignItems: 'center',
-//   alignContent: 'center',
-//   padding: '15px 30px 15px 30px',
-// };
-
 const Search = () => (
 
   <div style={{
@@ -34,7 +24,7 @@ const Search = () => (
         paddingLeft: '30px'
       }}>
         <FlatButton 
-          label="View Favorites"
+          label="Favorites"
           hoverColor='rgb(40, 130, 150)'
           rippleColor='#E1F5FE'
         />
