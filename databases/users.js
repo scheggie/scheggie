@@ -1,4 +1,4 @@
-const RecipeModel = require('./recipes.js');
+const Recipe = require('./recipes.js');
 
 const mongoose = require('mongoose');
 
@@ -14,32 +14,25 @@ const userSchema = mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Get single user by facebookId
-const getUserById = (id, cb) => {
+userSchema.methods.getUserById = (id, cb) => {
   User.find({'facebookId': id}).
-    exec(user => {
-      cb(user);
-    });
+    resolve(user);
 };
 
 // Save recipe to user's favorites
-const saveRecipeToFavorites = (user, recipe) => {
-  if (!user.favorites[recipe.name]) {
-    RecipeModel.getFullRecipeByName(recipe.name, recipe => {
-      user.favorites[recipe.name] = JSON.parse(recipe);
-      user.save(err => {
+userSchema.methods.saveRecipeToFavorites = (user, selectedRecipe) => {
+  if (!user.favorites[selectedRecipe.name]) {
+    Recipe.getFullRecipeByName(selectedRecipe.name).
+      then(recipe => {
+        user.favorites[selectedRecipe.name] = JSON.parse(recipe);
+        user.save(err => {
           if (err) {
             throw err;
           }
+        });  
       });
-    });
   }
 };
 
 
-module.exports = {
-  User,
-  getUserById,
-
-};
-
-
+module.exports = User;

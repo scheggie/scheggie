@@ -10,13 +10,10 @@ const recipeSchema = mongoose.Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
-const getFullRecipeByName = (name, cb) => {
+recipeSchema.methods.getFullRecipeByName = name => {
   Recipe.find({'name': name}).
-  exec(cb);
+    resolve(recipe);
 };
 
-module.exports = {
-  Recipe,
-  getFullRecipeByName
-};
+module.exports = Recipe;
 
