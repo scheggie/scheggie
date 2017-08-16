@@ -42,7 +42,7 @@ const Entry = (props) => (
       <div style={{
         height: '75px'
       }}>
-        Ingredients: 
+        Ingredients: {props.recipe.abridgedData.ingredients.join(',  ')}
       </div>
     </div>
 
