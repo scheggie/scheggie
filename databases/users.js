@@ -11,16 +11,13 @@ const userSchema = mongoose.Schema({
   week_two: Array 
 });
 
-const User = mongoose.model('User', userSchema);
-
 // Get single user by facebookId
-userSchema.methods.getUserById = (id, cb) => {
-  User.find({'facebookId': id}).
-    resolve(user);
+userSchema.statics.getUserById = function(id) {
+  return this.find({'facebookId': id});
 };
 
 // Save recipe to user's favorites
-userSchema.methods.saveRecipeToFavorites = (user, selectedRecipe) => {
+userSchema.statics.saveRecipeToFavorites = function(user, selectedRecipe) {
   if (!user.favorites[selectedRecipe.name]) {
     Recipe.getFullRecipeByName(selectedRecipe.name).
       then(recipe => {
@@ -29,10 +26,24 @@ userSchema.methods.saveRecipeToFavorites = (user, selectedRecipe) => {
           if (err) {
             throw err;
           }
-        });  
+        });
       });
   }
 };
 
+// Remove recipe from user's favorites
+userSchema.statics.removeRecipeFromFavorites = function(user, selectedRecipe) {
+  if (user.favorites[selectedRecipe.name]) {
+    delete user.favorites[selectedRecipe.name];
+    user.save(err => {
+      if (err) {
+        throw err;
+      }
+    });
+  }
+};
+
+
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

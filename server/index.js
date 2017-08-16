@@ -103,34 +103,22 @@ app.post('/removeFromCalendar', (req, res) => {
 });
 
 app.post('/addToFavorites', (req, res) => {
-  User.find({'facebookId': req.body.facebookId}).
-    exec(user => {
-      if (!user.favorites[req.body.query]) {
-        Recipe.find({'name': req.body.query}).
-        exec(recipe => user.favorites[req.body.query] = JSON.parse(recipe));
-        user.save(err => {
-          if (err) {
-            throw err;
-          }
-          res.send('Recipe added to favorites');
-        });
-      }
+  User.getUserById(req.body.id)
+    .then(user => {
+      User.saveRecipeToFavorites(user, req.body.recipe);    
+    })
+    .then(user => {
+      res.send('Recipe added to favorites')
     });
 });
 
 app.post('/removeFromFavorites', (req, res) => {
-  User.findOne().
-  where('facebookId').equals(req.body.facebookId).
-    exec(user => {
-      if (user.favorites.name) {
-        delete user.favorites.name;
-        user.save(err => {
-          if (err) {
-            throw err;
-          }
-          res.send('Recipe removed from favorites');
-        });
-      }
+  User.getUserById(req.body.id)
+    .then(user => {
+      User.removeRecipeFromFavorites(user, req.body.recipe);    
+    })
+    .then(user => {
+      res.send('Recipe removed from favorites')
     });
 });
 

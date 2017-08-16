@@ -8,12 +8,11 @@ const recipeSchema = mongoose.Schema({
   fullData: {}
 });
 
-const Recipe = mongoose.model('Recipe', recipeSchema);
-
-recipeSchema.methods.getFullRecipeByName = name => {
-  Recipe.find({'name': name}).
-    resolve(recipe);
+recipeSchema.statics.getFullRecipeByName = function(name) {
+  return this.find({'name': name});
 };
+
+const Recipe = mongoose.model('Recipe', recipeSchema);
 
 module.exports = Recipe;
 
