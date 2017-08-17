@@ -34,6 +34,7 @@ class Right extends React.Component {
         <Search
           actions={this.props.actions}
           searchTerm={this.props.search.searchTerm}
+          searchType={this.props.search.searchType}
         />
         <div style={{
           height: '87%',

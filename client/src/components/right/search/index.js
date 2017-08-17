@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Search extends React.Component {
   constructor(props) {
@@ -21,6 +22,26 @@ class Search extends React.Component {
     this.setState({searchTerm: event.target.value});
   }
 
+  getFavoritesButton() {
+    let toggled = this.props.searchType === 'FAVORITES';
+
+    return (
+      toggled ?
+        <RaisedButton
+          label="Favorites"
+          backgroundColor='rgb(40, 130, 150)'
+          labelColor='white'
+          hoverColor='rgb(40, 130, 150)'
+          rippleColor='#E1F5FE'
+          onClick={this.props.actions.updateSearchType}
+        /> :
+        <RaisedButton
+          label="Favorites"
+          onClick={this.props.actions.updateSearchType}
+        />
+    )
+  }
+
   render() {
     return (
       <div style={{
@@ -37,12 +58,7 @@ class Search extends React.Component {
           <div style={{
             paddingLeft: '30px'
           }}>
-            <FlatButton
-              label="Favorites"
-              hoverColor='rgb(40, 130, 150)'
-              rippleColor='#E1F5FE'
-              onClick={this.props.actions.updateSearchType}
-            />
+            { this.getFavoritesButton() }
           </div>
           <div style={{
             paddingLeft: '30px'
