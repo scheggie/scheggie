@@ -46,14 +46,12 @@ class Results extends React.Component {
                   key={i}
                   title={recipe.fullData.name}
                   subtitle={
-                    <span>Source:
-                      <a
-                        href={recipe.fullData.source.sourceRecipeUrl}
-                        style={{color: 'white', marginLeft: '5px'}}
-                      >
-                        { recipe.fullData.source.sourceRecipeUrl }
-                      </a>
-                    </span>
+                    <a
+                      href={recipe.fullData.source.sourceRecipeUrl}
+                      style={{color: 'white'}}
+                    >
+                      { recipe.fullData.source.sourceRecipeUrl }
+                    </a>
                   }
                   actionIcon={this.getFavoriteIcon(recipe)}
                 >
