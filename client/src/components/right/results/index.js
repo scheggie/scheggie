@@ -42,11 +42,21 @@ class Results extends React.Component {
         >
           {
             this.props.data.map( (recipe, i) => {
+              console.log(recipe);
               return (
                 <GridTile
                   key={i}
                   title={recipe.fullData.name}
-                  subtitle={<span>by <b>{recipe.author}</b></span>}
+                  subtitle={
+                    <span >Source:
+                      <a
+                        href={recipe.fullData.source.sourceRecipeUrl}
+                        style={{color: 'white', marginLeft: '5px'}}
+                      >
+                        { recipe.fullData.source.sourceRecipeUrl }
+                      </a>
+                    </span>
+                  }
                   actionIcon={this.getFavoriteIcon(recipe)}
                 >
                   <img
