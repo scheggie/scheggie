@@ -48,8 +48,7 @@ exports.drop = function(done) {
       }
       done(null);
     });
-  }, done);
-  
+  }, done);  
 }
 
 exports.fixtures = function(data, done) {

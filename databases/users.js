@@ -18,10 +18,10 @@ userSchema.statics.getUserById = function(id) {
 
 // Save recipe to user's favorites
 userSchema.statics.saveRecipeToFavorites = function(user, selectedRecipe) {
-  if (!user.favorites[selectedRecipe.name]) {
-    Recipe.getFullRecipeByName(selectedRecipe.name).
+  if (!user.favRecipes[selectedRecipe._id]) {
+    Recipe.getFullRecipeById(selectedRecipe._id).
       then(recipe => {
-        user.favorites[selectedRecipe.name] = JSON.parse(recipe);
+        user.favRecipes[selectedRecipe.name] = JSON.parse(recipe);
         user.save(err => {
           if (err) {
             throw err;
@@ -33,8 +33,8 @@ userSchema.statics.saveRecipeToFavorites = function(user, selectedRecipe) {
 
 // Remove recipe from user's favorites
 userSchema.statics.removeRecipeFromFavorites = function(user, selectedRecipe) {
-  if (user.favorites[selectedRecipe.name]) {
-    delete user.favorites[selectedRecipe.name];
+  if (user.favRecipes[selectedRecipe._id]) {
+    delete user.favRecipes[selectedRecipe._id];
     user.save(err => {
       if (err) {
         throw err;

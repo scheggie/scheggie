@@ -4,8 +4,8 @@ const db = require('./dbTestUtils.js');
 
 const sampleUserData = {
   "users": [
-    {"_id" : "59935f7210f4eec889a1039f", "favRecipes": {}, "facebookId" : "10155254108838780", "name" : "John Doe", "email" : "JohnD@gmail.com", "week_two" : [ null, null, null, null, null, null, null ], "week_one" : [ null, null, null, null, null, null, null ], "__v" : 0 },
-    {"_id" : "64935f7210f4eec889a1039f", "favRecipes": {}, "facebookId" : "10155256408838780", "name" : "Joe Schmoe", "email" : "JoeS@gmail.com", "week_two" : [ null, null, null, null, null, null, null ], "week_one" : [ null, null, null, null, null, null, null ], "__v" : 0 }
+    {"_id" : "59935f7210f4eec889a1039f", "favRecipes": {null: null}, "facebookId" : "10155254108838780", "name" : "John Doe", "email" : "JohnD@gmail.com", "week_two" : [ null, null, null, null, null, null, null ], "week_one" : [ null, null, null, null, null, null, null ], "__v" : 0 },
+    {"_id" : "64935f7210f4eec889a1039f", "favRecipes": {null: null}, "facebookId" : "10155256408838780", "name" : "Joe Schmoe", "email" : "JoeS@gmail.com", "week_two" : [ null, null, null, null, null, null, null ], "week_one" : [ null, null, null, null, null, null, null ], "__v" : 0 }
   ]
 };
 
@@ -27,13 +27,21 @@ describe('Model User Tests', () => {
     })
   });
 
-  it('getUserById ', (done) => {
-    User.getUserById("10155254108838780").
+  // it('getUserById ', (done) => {
+  //   User.getUserById("10155254108838780")
+  //     then(user => {
+  //       console.log(user);
+  //       user.name.should.eql('John Doe');
+  //     });
+  //    done(); 
+  // });
+
+  it('saveRecipeToFavorites', (done) => {
+    User.getUserById(sampleUserData.users[0]['facebookId']).
       then(user => {
-        console.log(user);
-        user.name.should.eql('John Doe');
-      });
-     done(); 
+        User.saveRecipeToFavorites(user, 'Light-and-healthy-pasta-salad-335500');
+      })
+    
   });
 
 });
