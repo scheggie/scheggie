@@ -49,6 +49,7 @@ class Results extends React.Component {
                     <a
                       href={recipe.fullData.source.sourceRecipeUrl}
                       style={{color: 'white'}}
+                      target="_blank"
                     >
                       { recipe.abridgedData.sourceDisplayName }
                     </a>
