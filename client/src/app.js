@@ -19,12 +19,16 @@ class App extends React.Component {
         {
           this.props.auth.loggedIn ?
           <Flexbox flexDirection="row" width="100%" height="100%">
-            <Left 
+            <Left
               planner = {this.props.planner}
               user={this.props.auth.user}
               actions={this.props.actions}
             />
-            <Right />
+            <Right
+              actions={this.props.actions}
+              favorites={this.props.favorites}
+              search={this.props.search}
+            />
           </Flexbox> :
           <LogIn logIn={this.props.actions.logInAjax} />
         }

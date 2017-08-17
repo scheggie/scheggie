@@ -13,12 +13,11 @@ const Entry = (props) => (
     height: '100px',
     backgroundColor: '#F1F8E9'
   }}>
-
     <div style={{
       flexGrow: 0,
       padding: '0px 30px 0px 0px'
     }}>
-      <img 
+      <img
         style={{
           height: '100px'
         }}
@@ -51,7 +50,7 @@ const Entry = (props) => (
       flexGrow: 0,
       alignItems: 'center'
     }}>
-      <IconButton 
+      <IconButton
         tooltip="Favorite"
         iconClassName="material-icons"
       >
@@ -60,7 +59,6 @@ const Entry = (props) => (
     </div>
 
   </div>
-
 )
 
 export default Entry;

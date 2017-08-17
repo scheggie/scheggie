@@ -4,6 +4,7 @@ import * as plannerActions from './planner';
 import * as searchActions from './search';
 import * as selectionActions from './selection';
 import * as authActions from './auth';
+import * as favoritesActions from './favorites';
 
 const actions = _.extend(
   {},
@@ -11,9 +12,9 @@ const actions = _.extend(
   searchActions,
   selectionActions,
   authActions,
+  favoritesActions
 );
 
-console.log(plannerActions);
 console.log(actions);
 
 export default actions;

@@ -4,25 +4,35 @@ import IconButton from 'material-ui/IconButton';
 import Favorite from 'material-ui/svg-icons/action/favorite';
 import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 
-
 class Results extends React.Component {
   constructor(props) {
     console.log('full data', props.data);
     super(props);
   };
 
+  getFavoriteIcon(recipe) {
+    return (
+      <IconButton onClick={()=>{
+        this.props.actions.toggleFavorite(recipe);
+      }}>
+        {recipe._id in this.props.favorites ?
+         <Favorite color="white" /> :
+         <FavoriteBorder color="white" />
+        }
+      </IconButton>
+    );
+  }
 
   render() {
     return (
-      
-      <div 
+      <div
         style={{
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'space-around',
           padding: '0px 100px 0px 100px'
-        }}>
-
+        }}
+      >
         <GridList
           cellHeight={200}
           cols={3}
@@ -30,11 +40,35 @@ class Results extends React.Component {
             overflowY: 'scroll'
           }}
         >
-          
+          {
+            this.props.data.map( (recipe, i) => {
+              console.log(recipe);
+              return (
+                <GridTile
+                  key={i}
+                  title={recipe.fullData.name}
+                  subtitle={
+                    <span >Source:
+                      <a
+                        href={recipe.fullData.source.sourceRecipeUrl}
+                        style={{color: 'white', marginLeft: '5px'}}
+                      >
+                        { recipe.fullData.source.sourceRecipeUrl }
+                      </a>
+                    </span>
+                  }
+                  actionIcon={this.getFavoriteIcon(recipe)}
+                >
+                  <img
+                    src={recipe.fullData.images[0]['hostedLargeUrl']}
+                    onClick={()=>console.log('hello world')}
+                  />
+                </GridTile>
+              )
+            })
+          }
         </GridList>
-
       </div>
-
     )
   }
 }
@@ -61,7 +95,7 @@ class Results extends React.Component {
 
 // OLD REFERENCE TO LIST:
 
-// <div 
+// <div
 //   style={{
 //     display: 'flex',
 //     flexDirection: 'column',
@@ -72,7 +106,7 @@ class Results extends React.Component {
 //   }}>
 
 //   {
-//     this.props.data.map(recipe => 
+//     this.props.data.map(recipe =>
 //       <div>
 //         <Entry recipe={recipe}/>
 //         <span style={{
@@ -80,9 +114,7 @@ class Results extends React.Component {
 //         }}></span>
 //       </div>
 //     )
-//   } 
+//   }
 // </div>
 
 export default Results;
-
-

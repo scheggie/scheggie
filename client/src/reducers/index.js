@@ -3,6 +3,7 @@ import auth from './auth';
 import planner from './planner';
 import search from './search';
 import selection from './selection';
+import favorites from './favorites';
 import * as types from '../actions/types';
 
 const applyReducersSequentially = (...reducers) => {
@@ -19,7 +20,8 @@ const appReducer = combineReducers({
   auth,
   selection,
   planner,
-  search
+  search,
+  favorites
 });
 
 // Any update that need multiple branchs of the store tree go here
