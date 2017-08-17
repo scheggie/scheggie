@@ -33,7 +33,7 @@ describe('Model User Tests', () => {
         console.log(user);
         user.name.should.eql('John Doe');
       });
-      
+     done(); 
   });
 
 });
