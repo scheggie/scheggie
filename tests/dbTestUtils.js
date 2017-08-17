@@ -1,4 +1,9 @@
 const mongoose = require('mongoose');
+const async = require('async');
+const _ = require('lodash');
+
+const User = require('../databases/users.js');
+const Recipe = require('../databases/recipes.js');
 
 const state = {
   db: null
@@ -11,15 +16,15 @@ exports.connect = function(done) {
     return done();
   }
 
-  mongoose.connect(uri, function(err, db) {
+  mongoose.connect(uri, function(err) {
     if (err) return done(err);
-    state.db = db;
+    state.db = mongoose.connection;
     done();
   });
 }
 
 const mongooseDB = mongoose.connection;
-
+    
 mongooseDB.on('error', console.error.bind(console, 'connection error:'));
 
 mongooseDB.once('open', function() {
@@ -31,16 +36,20 @@ exports.getDB = function() {
 }
 
 exports.drop = function(done) {
-  if (!state.db) return done()
-  // This is faster then dropping the database
-  state.db.collections(function(err, collections) {
-    async.each(collections, function(collection, cb) {
-      if (collection.collectionName.indexOf('system') === 0) {
-        return cb();
+  if (!state.db) {
+    return done();
+  }
+  const collections = _.keys(mongooseDB.collections);
+  async.forEach(collections, (collectionName, done) => {
+    let collection = mongooseDB.collections[collectionName];
+    collection.drop(err => {
+      if (err && err.message !== 'ns not found') {
+        done(err);
       }
-      collection.remove(cb);
-    }, done);
-  })
+      done(null);
+    });
+  }, done);
+  
 }
 
 exports.fixtures = function(data, done) {
@@ -49,14 +58,17 @@ exports.fixtures = function(data, done) {
     return done(new Error('Missing database connection.'));
   }
 
-  const names = Object.keys(data.collections);
-  async.each(name, function(name, cb) {
-    db.createCollection(name, function(err, collection) {
-      if (err) {
-        return cb(err);
-      }
-      collection.insert(data.collections[name], cb);
-    })
-  }, done);
+  data.users.forEach(user => {
+    let newUser = new User;
+    newUser.favRecipes = user.favRecipes;
+    newUser.facebookId = user.facebookId;
+    newUser.name = user.name;
+    newUser.email = user.email;
+    newUser.week_one = user.week_one;
+    newUser.week_two = user.week_two;
+    newUser.save();
+  });
+
+  done();
 }
 
