@@ -110,7 +110,7 @@ class Selection extends React.Component {
           flexDirection: 'column',
           flexWrap: 'nowrap',
           justifyContent: 'space-between',
-          height: '145px'
+          height: '150px'
         }}>
           <span style={{
             textAlign: 'center',
