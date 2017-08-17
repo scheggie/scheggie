@@ -27,14 +27,14 @@ const appReducer = combineReducers({
 // Any update that need multiple branchs of the store tree go here
 const rootReducer = (state, action) => {
   switch (action.type) {
-    case types.SYNC_CALENDAR_DAY:
+    case types.ADD_CALENDAR_DAY:
       let selectedDay = action.selectedDay;
       let selectedMeal = action.selectedMeal;
       let selectedWeek = state.planner.selectedWeek;
-      let updatedState = _.extend({}, state);
+      let updatedState = JSON.parse(JSON.stringify(state));
 
       updatedState.planner[selectedWeek][selectedDay][selectedMeal] =
-        state.selection.selection;
+        state.selection;
 
       return updatedState;
   }

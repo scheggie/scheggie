@@ -23,6 +23,7 @@ class App extends React.Component {
               planner = {this.props.planner}
               user={this.props.auth.user}
               actions={this.props.actions}
+              selection={this.props.selection}
             />
             <Right
               actions={this.props.actions}

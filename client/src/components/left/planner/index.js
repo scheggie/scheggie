@@ -1,5 +1,8 @@
 import React from 'react';
-// import Flexbox from 'Flexbox-react';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import ContentDelete from 'material-ui/svg-icons/action/delete';
+import ContentTouchApp from 'material-ui/svg-icons/action/touch-app';
 import _ from 'lodash';
 
 const BORDER_STYLE = 'solid rgb(180, 180, 180) 1px';
@@ -8,11 +11,11 @@ const BORDER_STYLE_WHITE = 'solid rgb(230, 255, 255) 1px';
 const DAY_LABELS = {
   0: 'Mon',
   1: 'Tues',
-  2: 'Mon',
-  3: 'Mon',
-  4: 'Mon',
-  5: 'Mon',
-  6: 'Mon',
+  2: 'Wed',
+  3: 'Thu',
+  4: 'Fri',
+  5: 'Sat',
+  6: 'Sun',
 }
 
 class Planner extends React.Component {
@@ -21,9 +24,67 @@ class Planner extends React.Component {
     super(props)
   }
 
-  updateCalendar() {
-    console.log('this value was clicked!');
+  getPlannerItem({selectedDay, selectedMeal}) {
+    let plannerItem = this.props.planner.week_one[selectedDay][selectedMeal];
+    return plannerItem;
   }
+
+  getPlannerCell(selectedDay, selectedMeal) {
+    let cell = {selectedDay, selectedMeal};
+    return (
+      <PlannerCell
+        editMode={this.props.planner.editMode}
+        cell={cell}
+        plannerItem={this.getPlannerItem(cell)}
+        selection={this.props.selection}
+        actions={this.props.actions}
+      />
+    )
+  }
+
+  getBottomAddButton() {
+    let buttonToggled = this.props.planner.editMode === 'ADD';
+    let buttonProps = {
+      mini: true,
+      onClick: () => this.props.actions.setPlannerEditMode('ADD'),
+    }
+    if (!buttonToggled) {
+      _.extend(buttonProps, {
+        style: {boxShadow: 'unset'},
+        backgroundColor: 'white',
+        iconStyle: {fill:'#00BCD4'}
+      });
+    }
+    return (
+      <FloatingActionButton {...buttonProps} >
+        <ContentAdd />
+      </FloatingActionButton>
+    )
+  }
+
+  getBottomRemoveButton() {
+    let buttonToggled = this.props.planner.editMode === 'REMOVE';
+    let buttonProps = {
+      mini: true,
+      style: {marginRight: '10px'},
+      onClick: () => this.props.actions.setPlannerEditMode('REMOVE'),
+    }
+    if (buttonToggled) {
+      buttonProps.secondary = true;;
+    } else {
+      _.extend(buttonProps, {
+        style: {boxShadow: 'unset', marginRight: '10px'},
+        backgroundColor: 'white',
+        iconStyle: {fill:'#FF4081'}
+      });
+    }
+    return (
+      <FloatingActionButton {...buttonProps} >
+        <ContentDelete />
+      </FloatingActionButton>
+    )
+  }
+
 
   getTableRows() {
     var cells = [];
@@ -31,27 +92,9 @@ class Planner extends React.Component {
       cells.push(
         <div style={{display: 'flex', flexGrow: 2}}>
           <PlannerDow day={DAY_LABELS[index]}/>
-          <PlannerCell
-            onClick={() => {
-              let selectedCell = {selectedDay: index, selectedMeal: 'breakfast'}
-              console.log(selectedCell);
-              this.props.syncCalendarDay(selectedCell);
-            }}
-          />
-          <PlannerCell
-            onClick={() => {
-              let selectedCell = {selectedDay: index, selectedMeal: 'lunch'}
-              console.log(selectedCell);
-              this.props.syncCalendarDay(selectedCell);
-            }}
-          />
-          <PlannerCell
-            onClick={() => {
-              let selectedCell = {selectedDay: index, selectedMeal: 'dinner'}
-              console.log(selectedCell);
-              this.props.syncCalendarDay(selectedCell);
-            }}
-          />
+          { this.getPlannerCell(index, 'breakfast') }
+          { this.getPlannerCell(index, 'lunch') }
+          { this.getPlannerCell(index, 'dinner') }
         </div >
       );
     });
@@ -68,10 +111,13 @@ class Planner extends React.Component {
           <PlannerHeader title="Dinner" />
         </div>
         { this.getTableRows() }
-        <div style={{display: 'flex', flexGrow: 1}}>
-          <div style={{padding: '10px'}}> Last Week </div>
-          <div style={{flexGrow: 1}}> </div>
-          <div style={{padding: '10px'}}> Next Week </div>
+        <div style={{display: 'flex', flexGrow: 1, padding:'10px'}}>
+          <div> Last Week </div>
+          <div style={{flexGrow: 1, textAlign: 'center'}} >
+            { this.getBottomRemoveButton() }
+            { this.getBottomAddButton() }
+          </div>
+          <div> Next Week </div>
         </div >
       </div>
     )
@@ -126,24 +172,85 @@ class PlannerDow extends React.Component {
 }
 
 class PlannerCell extends React.Component {
+  getCellContents() {
+    let item = this.props.plannerItem;
+
+    if (
+      this.props.editMode === 'REMOVE' &&
+      item
+    ) {
+      return (
+        <FloatingActionButton
+          mini={true}
+          backgroundColor='#F06292'
+          onClick={()=>{
+            this.props.actions.removeCalendarDay(this.props.cell);
+          }}
+        >
+          <ContentDelete />
+        </FloatingActionButton>
+      )
+    }
+
+    if (item) {
+      return (
+        <div onClick={()=>{this.props.actions.selectItem(item)}}>
+          <img width="100" src={item.fullData.images[0].hostedLargeUrl} />
+        </div>
+      )
+    }
+
+    if (
+      this.props.editMode === 'ADD' &&
+      this.props.selection
+    ) {
+      return (
+        <FloatingActionButton
+          mini={true}
+          backgroundColor='rgb(150,230,230)'
+          onClick={()=>{
+            this.props.actions.addCalendarDay(this.props.cell);
+          }}
+        >
+          <ContentAdd />
+        </FloatingActionButton>
+      );
+    }
+
+    if (
+      this.props.editMode === 'ADD' &&
+      !this.props.selection
+    ) {
+      return (
+        <FloatingActionButton mini={true} disabled={true}>
+          <ContentAdd />
+        </FloatingActionButton>
+      );
+    }
+
+    return 'Empty'
+  }
+
   render() {
-    return <div
-      onClick = {this.props.onClick}
-      style={{
-        display: 'flex',
-        flex: '1 1',
-        borderBottom: BORDER_STYLE,
-        borderRight: BORDER_STYLE,
-        color: 'rgb(120, 120, 120)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '12px',
-        fontSize: '12px'
-      }}
-    > Empty </div>
+    return (
+      <div
+        onClick = {this.props.onClick}
+        style={{
+          display: 'flex',
+          flex: '1 1',
+          borderBottom: BORDER_STYLE,
+          borderRight: BORDER_STYLE,
+          color: 'rgb(120, 120, 120)',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '12px',
+          fontSize: '12px'
+        }}
+      >
+        {this.getCellContents()}
+      </div>
+    );
   }
 }
-
-
 
 export default Planner;

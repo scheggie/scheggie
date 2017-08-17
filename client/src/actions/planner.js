@@ -11,8 +11,19 @@ export const addCalendarDayAjax = ({ selectedDay, selectedMeal }) => {
 }
 */
 
-export const syncCalendarDay = ({ selectedDay, selectedMeal }) => ({
-  type: types.SYNC_CALENDAR_DAY,
+export const addCalendarDay = ({ selectedDay, selectedMeal }) => ({
+  type: types.ADD_CALENDAR_DAY,
   selectedDay,
   selectedMeal
 });
+
+export const removeCalendarDay = ({ selectedDay, selectedMeal }) => ({
+  type: types.REMOVE_CALENDAR_DAY,
+  selectedDay,
+  selectedMeal
+});
+
+export const setPlannerEditMode = (mode) => ({
+  type: types.SET_PLANNER_EDIT_MODE,
+  mode
+})

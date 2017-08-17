@@ -4,7 +4,6 @@ import Selection from './selection';
 import Planner from './planner';
 import Paper from 'material-ui/Paper';
 
-
 const generalStyle = {
   flexGrow: 1,
   flexBasis: '500px',
@@ -19,25 +18,21 @@ class Left extends React.Component {
   }
 
   render() {
-
     return (
       <Paper style={generalStyle} zDepth={3}>
         <User
           user={this.props.user}
           logOut={this.props.actions.logOut}
         />
-        <Selection />
-        <span style={{height: '30px'}}></span>
+        <Selection selection={this.props.selection} />
         <Planner
-          planner = {this.props.planner}
-          syncCalendarDay = {this.props.actions.syncCalendarDay}
+          planner={this.props.planner}
+          selection={this.props.selection}
+          actions={this.props.actions}
         />
       </Paper>
     )
-
   }
-
 }
-
 
 export default Left;
