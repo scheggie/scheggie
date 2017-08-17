@@ -76,20 +76,7 @@ class Results extends React.Component {
 
 // GRID TILE MAPPING FUNCTION:
 
-// {
-//   fakeTileData.map( (tile, i) => {
-//     return (
-//       <GridTile
-//         key={i}
-//         title={tile.title}
-//         subtitle={<span>by <b>{tile.author}</b></span>}
-//         actionIcon={<IconButton><FavoriteBorder color="white" /></IconButton>}
-//       >
-//         <img src={tile.img} />
-//       </GridTile>
-//     )
-//   })
-// }
+
 
 
 // OLD REFERENCE TO LIST:
