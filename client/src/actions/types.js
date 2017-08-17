@@ -1,7 +1,9 @@
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 
-export const SYNC_CALENDAR_DAY = 'SYNC_CALENDAR_DAY';
+export const ADD_CALENDAR_DAY = 'ADD_CALENDAR_DAY';
+export const REMOVE_CALENDAR_DAY = 'REMOVE_CALENDAR_DAY';
+export const SET_PLANNER_EDIT_MODE = 'SET_PLANNER_EDIT_MODE';
 
 export const SELECT = 'SELECT';
 

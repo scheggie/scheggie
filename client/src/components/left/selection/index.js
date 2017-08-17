@@ -2,7 +2,6 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 
-
 class Selection extends React.Component {
 
   constructor(props) {
@@ -20,7 +19,6 @@ class Selection extends React.Component {
   }
 
   render() {
-
     const actions = [
       <FlatButton
         label="Close"
@@ -34,12 +32,30 @@ class Selection extends React.Component {
     if (this.state.viewMore) {
       dialogBox = (
         <Dialog
-          title="INSERT_TITLE_HERE"
           actions={actions}
+          autoDetectWindowHeight={false}
+          contentStyle={{
+            width: "92%",
+            height:"90%",
+            maxWidth: "none",
+            transform: "none"
+          }}
+          bodyStyle={{
+            height: "90%",
+            maxHeight: 'none',
+          }}
           modal={false}
-          open={this.viewMoreHandler}
+          open={this.state.viewMore}
           onRequestClose={this.viewMoreHandler}
         >
+          <iframe
+            src={this.props.selection.fullData.source.sourceRecipeUrl}
+            style={{
+              width: '96%',
+              height: '90%'
+            }}
+          />
+          {/*
           <div style={{textAlign: 'center'}}>
             <img style={{maxWidth: '100%'}} src="http://tuvanranghammat.vn/assets/lo-mieng-nen-an-gi-e1469805715695.jpg"/>
           </div>
@@ -54,23 +70,23 @@ class Selection extends React.Component {
               <li>INGREDIENTS</li>
             </ul>
           </div>
+          */}
         </Dialog>
       )
-    } else {
-      dialogBox = null;
     }
 
-    return (
-
+    return this.props.selection ?
       <div style={{
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'nowrap',
         justifyContent: 'space-around',
       }}>
-
         <div>
-          <img style={{maxWidth: '100%'}} src="http://tuvanranghammat.vn/assets/lo-mieng-nen-an-gi-e1469805715695.jpg"/>
+          <img
+            style={{maxWidth: '100%'}}
+            src={this.props.selection.fullData.images[0].hostedLargeUrl}
+          />
         </div>
 
         <div style={{
@@ -84,15 +100,14 @@ class Selection extends React.Component {
             padding: '10px 0 10px 0',
             backgroundColor: '#E0F2F1',
           }}>
-            Food Title
+            {this.props.selection.fullData.name}
           </span>
           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
           <FlatButton label="Read More" onTouchTap={this.viewMoreHandler}/>
         </div>
-
-      </div>
-      
-    )
+        { dialogBox }
+      </div> :
+      <div> No Recipe Selected</div>
   }
 }
 

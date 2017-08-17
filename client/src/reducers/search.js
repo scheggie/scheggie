@@ -6,6 +6,7 @@ const INITIAL_STATE = {
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
+  console.log(action);
   switch (action.type) {
     case types.UPDATE_SEARCH_TERM:
       return _.extend({}, state, {searchTerm: action.searchTerm});

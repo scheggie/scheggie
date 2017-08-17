@@ -6,7 +6,6 @@ import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 
 class Results extends React.Component {
   constructor(props) {
-    console.log('full data', props.data);
     super(props);
   };
 
@@ -42,26 +41,25 @@ class Results extends React.Component {
         >
           {
             this.props.data.map( (recipe, i) => {
-              console.log(recipe);
               return (
                 <GridTile
                   key={i}
                   title={recipe.fullData.name}
                   subtitle={
-                    <span >Source:
-                      <a
-                        href={recipe.fullData.source.sourceRecipeUrl}
-                        style={{color: 'white', marginLeft: '5px'}}
-                      >
-                        { recipe.fullData.source.sourceRecipeUrl }
-                      </a>
-                    </span>
+                    <a
+                      href={recipe.fullData.source.sourceRecipeUrl}
+                      style={{color: 'white'}}
+                    >
+                      { recipe.fullData.source.sourceRecipeUrl }
+                    </a>
                   }
                   actionIcon={this.getFavoriteIcon(recipe)}
                 >
                   <img
                     src={recipe.fullData.images[0]['hostedLargeUrl']}
-                    onClick={()=>console.log('hello world')}
+                    onClick={()=>{
+                      this.props.actions.selectItem(recipe)
+                    }}
                   />
                 </GridTile>
               )
