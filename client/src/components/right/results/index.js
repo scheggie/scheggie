@@ -29,7 +29,7 @@ class Results extends React.Component {
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'space-around',
-          padding: '0px 100px 0px 100px'
+          padding: '0px 30px 0px 30px'
         }}
       >
         <GridList
@@ -50,7 +50,7 @@ class Results extends React.Component {
                       href={recipe.fullData.source.sourceRecipeUrl}
                       style={{color: 'white'}}
                     >
-                      { recipe.fullData.source.sourceRecipeUrl }
+                      { recipe.abridgedData.sourceDisplayName }
                     </a>
                   }
                   actionIcon={this.getFavoriteIcon(recipe)}
