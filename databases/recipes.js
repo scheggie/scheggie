@@ -14,7 +14,7 @@ recipeSchema.statics.getFullRecipeByName = function(name) {
 };
 
 // Get *limit* recipes with search query in name
-recipeSchema.statics.getFullRecipesForSearchResults = function(query, limit) {
+recipeSchema.statics.getFullRecipesForSearchResults = function(query, limit=21) {
   return this.find({
     'name': {'$regex': new RegExp(query, "i")}
   }).limit(limit);
