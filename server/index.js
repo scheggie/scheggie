@@ -60,7 +60,7 @@ app.post('/login', (req, res) => {
     })
     .then((user) => {
       req.session.userId = user._id;
-      res.send();
+      res.send('User has been logged in');
     });
 });
 
@@ -68,14 +68,14 @@ app.post('/login', (req, res) => {
 // RECIPE ROUTES
 // ************************************
 app.post('/addToCalendar', (req, res) => {
-  var week_number = req.body.weekNumber;
-  var day_id = req.body.dayId;
+  var weekNumber = req.body.weekNumber;
+  var dayId = req.body.dayId;
   var meal = req.body.meal;
-  var recipe_id = req.body.recipeId;
+  var recipeId = req.body.recipeId;
   var facebookId = req.body.facebookId;
-  console.log(week_number);
-  console.log(day_id);
+  console.log(dayId);
   console.log(meal);
+  console.log(recipeId);
   console.log(facebookId);
   // dbUsers.User.find({'facebookId': facebookId}).
   // exec(user => user[week_number][day_id][meal] = recipe_id);
@@ -85,6 +85,7 @@ app.post('/addToCalendar', (req, res) => {
   //   }
   //   res.send('Recipe added to calendar');
   // });
+  res.send('the route was effective!');
 });
 
 app.post('/removeFromCalendar', (req, res) => {
@@ -123,7 +124,7 @@ app.post('/removeFromFavorites', (req, res) => {
 });
 
 app.get('/recipeSearch', (req, res) => {
-  Recipe.getFullRecipesForSearchResults(req.body.query).
+  Recipe.getFullRecipesForSearchResults(req.query.query).
     then(recipes => {
       res.json(recipes);
     });
