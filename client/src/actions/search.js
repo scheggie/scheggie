@@ -1,12 +1,30 @@
 import * as types from './types';
+import $ from 'jquery';
 
-export const updateSearchTerm = (input) => {
-  var searchTerm = typeof input === 'string' ?
-    input :
-    input.target.value;
-  return { type: types.UPDATE_SEARCH_TERM, searchTerm }
+export const updateSearchThunk = (input) => {
+  return (dispatch) => {
+    var searchTerm = typeof input === 'string' ?
+      input :
+      input.target.value;
+    dispatch(updateSearchTerm(searchTerm));
+    $.get({
+      url: '/recipeSearch',
+      data: {
+        query: searchTerm
+      },
+      dataType: 'json',
+      success: (results) => {
+        dispatch(updateSearchResults(results));
+      }
+    });
+  };
 }
 
-export const updateSearchType = () => ({
-  type: types.UPDATE_SEARCH_TYPE,
-});
+export const updateSearchResults = results =>
+  ({ type: types.UPDATE_SEARCH_RESULTS, results });
+
+export const updateSearchTerm = searchTerm =>
+  ({ type: types.UPDATE_SEARCH_TERM, searchTerm });
+
+export const updateSearchType = () =>
+  ({ type: types.UPDATE_SEARCH_TYPE });
