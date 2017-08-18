@@ -9,7 +9,7 @@ class Selection extends React.Component {
     super(props);
     this.state = {
       viewMore: false
-    }
+    };
     this.viewMoreHandler = this.viewMoreHandler.bind(this);
   }
 
