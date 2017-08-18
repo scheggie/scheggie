@@ -14,6 +14,9 @@ const _ = require('lodash');
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.use(bodyParser.json());
+// app.use(bodyParser.text({ type: 'text/html' }))
+// app.use(bodyParser.text({ type: 'text/plain' }))
+// bodyParser.urlencoded({ extended: false })
 
 app.use(session({
   secret: 'test',
@@ -73,19 +76,15 @@ app.post('/addToCalendar', (req, res) => {
   var meal = req.body.meal;
   var recipeId = req.body.recipeId;
   var facebookId = req.body.facebookId;
-  console.log(dayId);
-  console.log(meal);
-  console.log(recipeId);
   console.log(facebookId);
-  // dbUsers.User.find({'facebookId': facebookId}).
-  // exec(user => user[week_number][day_id][meal] = recipe_id);
-  // user.save(err => {
-  //   if (err) {
-  //     throw err;
-  //   }
-  //   res.send('Recipe added to calendar');
-  // });
-  res.send('the route was effective!');
+  dbUsers.User.find({'facebookId': facebookId}).
+  exec(user => user[week_number][day_id][meal] = recipe_id);
+  user.save(err => {
+    if (err) {
+      throw err;
+    }
+    res.send('Recipe added to calendar');
+  });
 });
 
 app.post('/removeFromCalendar', (req, res) => {
