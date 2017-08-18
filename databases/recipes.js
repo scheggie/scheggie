@@ -15,9 +15,11 @@ recipeSchema.statics.getFullRecipeByName = function(name) {
 
 // Get 20 recipes with search query in name
 recipeSchema.statics.getFullRecipesForSearchResults = function(query) {
-  return this.find({'name': {$regex : '.*${req.body.query}.*'}}).
+  var query = query;
+  return this.find({'name': {'$regex': query}}).
     limit(20);
 };
+// {'name': {$regex : '.*${query}.*'}}
 
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
