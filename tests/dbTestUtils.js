@@ -23,6 +23,10 @@ exports.connect = function(done) {
   });
 }
 
+exports.disconnect = function(done) {
+  mongoose.disconnect();
+};
+
 const mongooseDB = mongoose.connection;
     
 mongooseDB.on('error', console.error.bind(console, 'connection error:'));
@@ -66,8 +70,8 @@ exports.fixtures = function(data, done) {
       newUser.week_one = user.week_one;
       newUser.week_two = user.week_two;
       newUser.save();
-    })).
-    then(() => {
+    }))
+    .then(() => {
       data.recipes.forEach(recipe => {
         let newRecipe = new Recipe;
         newRecipe.name = recipe.name;
