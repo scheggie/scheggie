@@ -13,8 +13,68 @@ const sampleData = {
   ]
 };
 
+
 const User = require('../databases/users.js');
 const Recipe = require('../databases/recipes.js');
+
+xdescribe('getRecipeByName', () => {
+  before(done => {
+    db.connect(done);
+  });
+
+  before(done => {
+    db.drop(err => {
+      if (err) {
+        return done(err);
+      }
+      db.fixtures(sampleData, done);
+    })
+  });
+
+  it('should return full recipe data ', () => {
+    return Recipe.getRecipeByName('Corn-Salad-1693958')
+      .then(recipe => {
+        recipe[0]['abridgedData']['id'].should.eql(sampleData.recipes[1]['name']);
+      });
+  });
+
+  db.disconnect();
+});
+
+describe('getFullRecipesForSearchResults', () => {
+  before(done => {
+    db.connect(done);
+  });
+
+  before(done => {
+    db.drop(err => {
+      if (err) {
+        return done(err);
+      }
+      db.fixtures(sampleData, done);
+    })
+  });
+
+  it('should return at most *limit* # of matches', () => {
+    return Recipe.getFullRecipesForSearchResults('Avocado', 2).should.eventually.have.length(2);
+  });
+
+  it('should return results with exact matches', () => {
+    return Recipe.getFullRecipesForSearchResults('Avocado')
+      .then(recipes => {
+        recipes[0]['name'].should.eql(sampleData['recipes'][0]['name']);
+      });
+  });
+
+  it('should be case insensitive', () => {
+    return Recipe.getFullRecipesForSearchResults('cOrn')
+      .then(recipes => {
+        recipes[0]['name'].should.eql(sampleData['recipes'][1]['name']);
+      });
+  });
+
+  db.disconnect();  
+});
 
 describe('getUserById', () => {
   before(done => {
