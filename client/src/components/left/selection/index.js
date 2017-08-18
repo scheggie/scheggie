@@ -136,9 +136,15 @@ class Selection extends React.Component {
         { dialogBox }
       </div> :
       <div style={{
+        display: 'flex',
+        height: '150px',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#E0E0E0',
+        color: '#BDBDBD',
         fontSize: '22px',
-        textAlign: 'center',
-        fontFamily: 'Sans-Serif'
+        fontFamily: 'Sans-Serif',
         }}>
         <p> Click on a recipe image to get started! </p>
       </div>
