@@ -3,7 +3,7 @@ const Recipe = require('./recipes.js');
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-  favRecipes: Object,
+  favRecipes: Object, 
   facebookId: String,
   name: String,
   email: String,
@@ -18,10 +18,10 @@ userSchema.statics.getUserById = function(id) {
 
 // Save recipe to user's favorites
 userSchema.statics.saveRecipeToFavorites = function(user, selectedRecipe) {
-  if (!user.favRecipes[selectedRecipe.name]) {
-    Recipe.getFullRecipeByName(selectedRecipe.name).
+  if (!user.favRecipes[selectedRecipe._id]) {
+    Recipe.getFullRecipeByName(selectedRecipe._id).
       then(recipe => {
-        user.favRecipes[selectedRecipe.name] = JSON.parse(recipe);
+        user.favRecipes[selectedRecipe._id] = JSON.parse(recipe);
         user.save(err => {
           if (err) {
             throw err;
@@ -33,8 +33,8 @@ userSchema.statics.saveRecipeToFavorites = function(user, selectedRecipe) {
 
 // Remove recipe from user's favorites
 userSchema.statics.removeRecipeFromFavorites = function(user, selectedRecipe) {
-  if (user.favRecipes[selectedRecipe.name]) {
-    delete user.favRecipes[selectedRecipe.name];
+  if (user.favRecipes[selectedRecipe._id]) {
+    delete user.favRecipes[selectedRecipe._id];
     user.save(err => {
       if (err) {
         throw err;
