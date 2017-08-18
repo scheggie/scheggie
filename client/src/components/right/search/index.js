@@ -83,7 +83,6 @@ class Search extends React.Component {
             <span style={{width: '30px'}}></span>
           </div>
         </div>
-
         <div style={{
           paddingRight: '30px'
         }}>
