@@ -49,7 +49,6 @@ exports.drop = function(done) {
       done(null);
     });
   }, done);
-  
 }
 
 exports.fixtures = function(data, done) {
@@ -58,16 +57,27 @@ exports.fixtures = function(data, done) {
     return done(new Error('Missing database connection.'));
   }
 
-  data.users.forEach(user => {
-    let newUser = new User;
-    newUser.favRecipes = user.favRecipes;
-    newUser.facebookId = user.facebookId;
-    newUser.name = user.name;
-    newUser.email = user.email;
-    newUser.week_one = user.week_one;
-    newUser.week_two = user.week_two;
-    newUser.save();
-  });
+  Promise.resolve(data.users.forEach(user => {
+      let newUser = new User;
+      newUser.favRecipes = user.favRecipes;
+      newUser.facebookId = user.facebookId;
+      newUser.name = user.name;
+      newUser.email = user.email;
+      newUser.week_one = user.week_one;
+      newUser.week_two = user.week_two;
+      newUser.save();
+    })).
+    then(() => {
+      data.recipes.forEach(recipe => {
+        let newRecipe = new Recipe;
+        newRecipe.name = recipe.name;
+        newRecipe.fullDataSorter = recipe.fullDataSorter;
+        newRecipe.rating = recipe.rating;
+        newRecipe.abridgedData = recipe.abridgedData;
+        newRecipe.fullData = recipe.fullData;
+        newRecipe.save();
+      });    
+    });
 
   done();
 }
