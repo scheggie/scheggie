@@ -13,6 +13,9 @@ const reducer = (state = INITIAL_STATE, action) => {
 		case types.SET_PLANNER_EDIT_MODE:
 			return _.extend({}, state, {editMode: action.mode})
 
+		case types.SET_PLANNER_WEEK:
+			return _.extend({}, state, {selectedWeek: action.week})
+
 		case types.REMOVE_CALENDAR_DAY:
       let selectedDay = action.selectedDay;
       let selectedMeal = action.selectedMeal;
@@ -23,6 +26,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         null;
 
       return updatedState;
+
 	}
 
 	return state;

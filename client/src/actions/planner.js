@@ -27,3 +27,8 @@ export const setPlannerEditMode = (mode) => ({
   type: types.SET_PLANNER_EDIT_MODE,
   mode
 })
+
+export const setPlannerWeek = (week) => ({
+  type: types.SET_PLANNER_WEEK,
+  week
+})

@@ -1,5 +1,6 @@
 import React from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentDelete from 'material-ui/svg-icons/action/delete';
 import ContentTouchApp from 'material-ui/svg-icons/action/touch-app';
@@ -25,7 +26,8 @@ class Planner extends React.Component {
   }
 
   getPlannerItem({selectedDay, selectedMeal}) {
-    let plannerItem = this.props.planner.week_one[selectedDay][selectedMeal];
+    let selectedWeek = this.props.planner.selectedWeek;
+    let plannerItem = this.props.planner[selectedWeek][selectedDay][selectedMeal];
     return plannerItem;
   }
 
@@ -39,6 +41,52 @@ class Planner extends React.Component {
         selection={this.props.selection}
         actions={this.props.actions}
       />
+    )
+  }
+
+  getThisWeekButton() {
+    let buttonToggled = this.props.planner.selectedWeek === 'week_one';
+    let buttonProps = {
+      label: 'This Week',
+      onClick: ()=>{ this.props.actions.setPlannerWeek('week_one') }
+    }
+
+    if (buttonToggled) {
+      _.extend(buttonProps, {
+        backgroundColor: 'rgb(40, 130, 150)',
+        labelColor: 'white',
+        hoverColor: 'rgb(40, 130, 150)',
+        rippleColor: '#E1F5FE'
+      });
+    }
+
+    return (
+      <div>
+        <RaisedButton {...buttonProps} />
+      </div>
+    )
+  }
+
+  getNextWeekButton() {
+    let buttonToggled = this.props.planner.selectedWeek === 'week_two';
+    let buttonProps = {
+      label: 'Next Week',
+      onClick: ()=>{ this.props.actions.setPlannerWeek('week_two') }
+    };
+
+    if (buttonToggled) {
+      _.extend(buttonProps, {
+        backgroundColor: 'rgb(40, 130, 150)',
+        labelColor: 'white',
+        hoverColor: 'rgb(40, 130, 150)',
+        rippleColor: '#E1F5FE'
+      });
+    }
+
+    return (
+      <div>
+        <RaisedButton {...buttonProps} />
+      </div>
     )
   }
 
@@ -85,10 +133,10 @@ class Planner extends React.Component {
     )
   }
 
-
   getTableRows() {
     var cells = [];
-    this.props.planner.week_one.forEach((day, index) => {
+    let selectedWeek = this.props.planner.selectedWeek;
+    this.props.planner[selectedWeek].forEach((day, index) => {
       cells.push(
         <div style={{display: 'flex', flexGrow: 2}}>
           <PlannerDow day={DAY_LABELS[index]}/>
@@ -110,14 +158,18 @@ class Planner extends React.Component {
           <PlannerHeader title="Lunch" />
           <PlannerHeader title="Dinner" />
         </div>
+
         { this.getTableRows() }
-        <div style={{display: 'flex', flexGrow: 1, padding:'10px'}}>
-          <div> Last Week </div>
+
+        <div style={{display: 'flex', flexGrow: 1, padding: '6px'}}>
+          { this.getThisWeekButton() }
+
           <div style={{flexGrow: 1, textAlign: 'center'}} >
             { this.getBottomRemoveButton() }
             { this.getBottomAddButton() }
           </div>
-          <div> Next Week </div>
+
+          { this.getNextWeekButton() }
         </div >
       </div>
     )
@@ -200,7 +252,10 @@ class PlannerCell extends React.Component {
     if (item) {
       return (
         <div onClick={()=>{this.props.actions.selectItem(item)}}>
-          <img width="100" src={item.fullData.images[0].hostedLargeUrl} />
+          <img
+            src={item.fullData.images[0].hostedLargeUrl}
+            style={{width: '100px'}}
+          />
         </div>
       )
     }
