@@ -40,6 +40,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+//this route works 
 app.post('/login', (req, res) => {
   let facebookId = req.body.id;
   User.findOne({facebookId})
@@ -70,22 +71,41 @@ app.post('/login', (req, res) => {
 
 // RECIPE ROUTES
 // ************************************
+
 app.post('/addToCalendar', (req, res) => {
   var weekNumber = req.body.weekNumber;
   var dayId = req.body.dayId;
   var meal = req.body.meal;
   var recipeId = req.body.recipeId;
   var facebookId = req.body.facebookId;
-  console.log(facebookId);
-  dbUsers.User.find({'facebookId': facebookId}).
-  exec(user => user[week_number][day_id][meal] = recipe_id);
-  user.save(err => {
-    if (err) {
-      throw err;
-    }
-    res.send('Recipe added to calendar');
-  });
-});
+  console.log('the meal is ' + meal);
+  User.findOne({'facebookId': facebookId}, function(err, user) {
+    console.log('blah blah blah' + user);
+    user[weekNumber][dayId] = {[meal]: recipeId};
+    console.log('new user is!! ' + user);
+    user.save(err => {
+      if (err) {
+        res.send(err);
+      }
+      else {
+        res.send('the user in the DB has been updated!');
+      }
+    })
+  })
+})
+
+   
+   
+//       console.log('new user is ' + user);
+//       res.send('cool');
+//       if (err) {
+//         throw err;
+//         res.send('There was a problem saving the user');
+//       }
+//       res.send('User has been updated in the DB!');
+//     })
+//   })
+// })
 
 app.post('/removeFromCalendar', (req, res) => {
   var week_number = req.body.weekNumber;
@@ -122,6 +142,7 @@ app.post('/removeFromFavorites', (req, res) => {
     });
 });
 
+//this route works
 app.get('/recipeSearch', (req, res) => {
   Recipe.getFullRecipesForSearchResults(req.query.query).
     then(recipes => {
