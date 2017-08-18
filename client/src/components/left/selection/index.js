@@ -135,7 +135,13 @@ class Selection extends React.Component {
         </div>
         { dialogBox }
       </div> :
-      <div> No Recipe Selected</div>
+      <div style={{
+        fontSize: '22px',
+        textAlign: 'center',
+        fontFamily: 'Sans-Serif'
+        }}>
+        <p> Click on a recipe image to get started! </p>
+      </div>
   }
 }
 

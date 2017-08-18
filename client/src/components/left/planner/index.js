@@ -148,9 +148,14 @@ class PlannerCorner extends React.Component {
   render() {
     return <div style={{
       display: 'flex',
+      borderLeft: BORDER_STYLE_WHITE,
       borderRight: BORDER_STYLE_WHITE,
+      borderBottom: BORDER_STYLE,
+      borderTop: BORDER_STYLE_WHITE,
       flex: '0 0 40px',
-    }}> </div>
+      backgroundColor: 'rgb(40, 130, 150)'
+    }}> 
+    </div>
   }
 }
 
