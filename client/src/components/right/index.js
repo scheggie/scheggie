@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import Search from './search';
 import Results from './results';
-import data from '../../../../sampleData.js';
 
 const filterFavorites = (favorites, searchTerm) => {
   return _.filter(favorites, (value, key) => {
@@ -20,7 +19,7 @@ class Right extends React.Component {
     if (props.search.searchType === 'FAVORITES') {
       this.results = filterFavorites(props.favorites, props.search.searchTerm);
     } else {
-      this.results = data;
+      this.results = props.search.results;
     }
   }
 

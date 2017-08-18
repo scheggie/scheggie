@@ -11,13 +11,13 @@ class Search extends React.Component {
       searchTerm: ''
     };
     this.debouncedSearch = _.debounce(
-      this.props.actions.updateSearchTerm,
+      this.props.actions.updateSearchThunk,
       500
     );
-    this.updateSearchTerm = this.updateSearchTerm.bind(this);
+    this.updateSearch = this.updateSearch.bind(this);
   }
 
-  updateSearchTerm(event) {
+  updateSearch(event) {
     this.debouncedSearch(event.target.value);
     this.setState({searchTerm: event.target.value});
   }
@@ -78,7 +78,7 @@ class Search extends React.Component {
                 width: '500px'
               }}
               value={this.state.searchTerm}
-              onChange={this.updateSearchTerm}
+              onChange={this.updateSearch}
             />
             <span style={{width: '30px'}}></span>
           </div>
