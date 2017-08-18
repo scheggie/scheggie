@@ -13,11 +13,11 @@ recipeSchema.statics.getFullRecipeByName = function(name) {
   return this.find({'name': name});
 };
 
-// Get 20 recipes with search query in name
-recipeSchema.statics.getFullRecipesForSearchResults = function(query) {
+// Get *limit* recipes with search query in name
+recipeSchema.statics.getFullRecipesForSearchResults = function(query, limit) {
   return this.find({
     'name': {'$regex': new RegExp(query, "i")}
-  }).limit(20);
+  }).limit(limit);
 };
 
 
