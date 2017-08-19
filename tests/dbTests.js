@@ -35,7 +35,7 @@ describe('getFullRecipeByName', () => {
   it('should return full recipe data ', (done) => {
     Recipe.getFullRecipeByName('Corn-Salad-1693958')
       .then(recipes => {
-        expect(recipes[0]['abridgedData']['id']).to.eql(sampleData.recipes[1]['name']);
+        expect(recipes[0]['abridgedData']['id']).to.equal(sampleData.recipes[1]['name']);
         done();
       })
       .catch(err => { throw err; });
