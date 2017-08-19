@@ -88,7 +88,7 @@ app.post('/addToCalendar', (req, res) => {
     }
   User.findOneAndUpdate({'facebookId': facebookId}, {[weekNumber]: weekarray}, function(err, user) {
     if (err) throw err;
-    res.send('the recipe has been added to the calendar!');
+    res.send('The recipe has been added to the calendar!');
       });
     })
   })
@@ -109,7 +109,7 @@ app.post('/removeFromCalendar', (req, res) => {
   }
   User.findOneAndUpdate({'facebookId': facebookId}, {[weekNumber]: weekarray}, function(err, user) {
     if (err) throw err;
-    res.send('the recipe has been removed from the calendar!');
+    res.send('The recipe has been removed from the calendar!');
     });
   })
 })
@@ -122,7 +122,7 @@ app.post('/addToFavorites', (req, res) => {
     .then((user) => {
       return user.saveRecipeToFavorites(recipe);
     }).then(() => {
-      res.send('Recipe added to favorites')
+      res.send('Recipe added to favorites.')
     })
 });
 

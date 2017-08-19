@@ -36,6 +36,19 @@ userSchema.methods.removeRecipeFromFavorites = function(selectedRecipe) {
   }
 };
 
+// Add recipe to calendar
+userSchema.methods.addToCalendar = function(recipeId, weekNumber, dayId, meal) {
+  let weekArray = this[weekNumber];
+  if (weekArray[dayId] === null) {
+    weekArray[dayId] = {[meal]: recipeId};
+  } else {
+    weekArray[dayId][meal] = recipeId;
+  }
+  return this.save();
+};
+
+// Remove recipe from calendar
+
 
 const User = mongoose.model('User', userSchema);
 
