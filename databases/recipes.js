@@ -20,7 +20,6 @@ recipeSchema.statics.getFullRecipesForSearchResults = function(query, limit=21) 
   }).limit(limit);
 };
 
-
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
 module.exports = Recipe;
