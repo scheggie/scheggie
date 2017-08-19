@@ -18,7 +18,7 @@ const sampleData = {
 const User = require('../databases/users.js');
 const Recipe = require('../databases/recipes.js');
 
-xdescribe('getFullRecipeByName', () => {
+describe('getFullRecipeByName', () => {
   before(done => {
     db.connect(done);
   });
@@ -32,17 +32,19 @@ xdescribe('getFullRecipeByName', () => {
     })
   });
 
-  it('should return full recipe data ', () => {
-    return Recipe.getFullRecipeByName('Corn-Salad-1693958')
-      .then(recipe => {
-        recipe[0]['abridgedData']['id'].should.eql(sampleData.recipes[1]['name']);
-      });
+  it('should return full recipe data ', (done) => {
+    Recipe.getFullRecipeByName('Corn-Salad-1693958')
+      .then(recipes => {
+        recipes[0]['abridgedData']['id'].should.eql(sampleData.recipes[1]['name']);
+        done();
+      })
+      .catch(err => { throw err; });
   });
 
   db.disconnect();
 });
 
-xdescribe('getFullRecipesForSearchResults', () => {
+describe('getFullRecipesForSearchResults', () => {
   before(done => {
     db.connect(done);
   });
@@ -77,7 +79,7 @@ xdescribe('getFullRecipesForSearchResults', () => {
   db.disconnect();
 });
 
-xdescribe('getUserById', () => {
+describe('getUserById', () => {
   before(done => {
     db.connect(done);
   });
