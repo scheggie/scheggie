@@ -48,6 +48,15 @@ userSchema.methods.addToCalendar = function(recipeId, weekNumber, dayId, meal) {
 };
 
 // Remove recipe from calendar
+userSchema.methods.removeFromCalendar = function(recipeId, weekNumber, dayId, meal) {
+  let weekArray = this[weekNumber];
+  if (Object.keys(weekArray[dayId]).length === 1) {
+    weekArray[dayId] = null;
+  } else {
+    delete weekArray[dayId][meal];
+  }
+  return this.save();
+};
 
 
 const User = mongoose.model('User', userSchema);

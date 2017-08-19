@@ -73,45 +73,33 @@ app.post('/login', (req, res) => {
 // ************************************
 
 app.post('/addToCalendar', (req, res) => {
-  var weekNumber = req.body.weekNumber;
-  var dayId = req.body.dayId;
-  var meal = req.body.meal;
-  var recipeId = req.body.recipeId;
-  var facebookId = req.body.facebookId;
-  User.findOne({'facebookId': facebookId}).then((user) => {
-    var weekArray = user[weekNumber];
-    if (typeof(weekArray[dayId]) !== 'object') {
-      weekArray[dayId] = {[meal]: recipeId}
-    } else {
-      weekArray[dayId][meal] = recipeId;
-      console.log('the week array is ' + weekarray);
-    }
-  User.findOneAndUpdate({'facebookId': facebookId}, {[weekNumber]: weekarray}, function(err, user) {
-    if (err) throw err;
-    res.send('The recipe has been added to the calendar!');
-      });
-    })
-  })
+  const weekNumber = req.body.weekNumber;
+  const dayId = req.body.dayId;
+  const meal = req.body.meal;
+  const recipeId = req.body.recipeId;
+  const facebookId = req.body.facebookId;
+
+  User.getUserById(userId)
+    .then((user) => {
+      return user.addToCalendar(recipeId, weekNumber, dayId, meal);
+    }).then(() => {
+      res.send('Recipe added to calendar.');
+    });
+})
 
 app.post('/removeFromCalendar', (req, res) => {
-  var weekNumber = req.body.weekNumber;
-  var dayId = req.body.dayId;
-  var meal = req.body.meal;
-  var recipeId = req.body.recipeId;
-  var facebookId = req.body.facebookId;
-   User.findOne({'facebookId': facebookId}).then((user) => {
-    var weekarray = user[weekNumber];
-    if (Object.keys(weekarray[dayId]).length === 1) {
-      weekarray[dayId] = null;
-    }
-    else {
-      delete weekarray[dayId][meal];
-  }
-  User.findOneAndUpdate({'facebookId': facebookId}, {[weekNumber]: weekarray}, function(err, user) {
-    if (err) throw err;
-    res.send('The recipe has been removed from the calendar!');
+  const weekNumber = req.body.weekNumber;
+  const dayId = req.body.dayId;
+  const meal = req.body.meal;
+  const recipeId = req.body.recipeId;
+  const facebookId = req.body.facebookId;
+  
+  User.getUserById(userId)
+    .then((user) => {
+      return user.removeFromCalendar(recipeId, weekNumber, dayId, meal);
+    }).then(() => {
+      res.send('Recipe removed to calendar.');
     });
-  })
 })
 
 app.post('/addToFavorites', (req, res) => {

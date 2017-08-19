@@ -35,10 +35,6 @@ mongooseDB.once('open', function() {
   console.log('Connected to test DB');
 });
 
-exports.getDB = function() {
-  return state.db;
-}
-
 exports.drop = function(done) {
   if (!state.db) {
     return done();
