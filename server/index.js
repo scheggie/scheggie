@@ -40,7 +40,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-//this route works
 app.post('/login', (req, res) => {
   let facebookId = req.body.id;
   User.findOne({facebookId})
@@ -68,9 +67,13 @@ app.post('/login', (req, res) => {
     });
 });
 
-
-// RECIPE ROUTES
-// ************************************
+app.get('/user', (req, res) => {
+  let facebookId = req.body.id;
+  User.findOne({facebookId})
+    .then(user => {
+      res.json(user);
+    });
+});
 
 app.post('/addToCalendar', (req, res) => {
   const weekNumber = req.body.weekNumber;
@@ -85,7 +88,7 @@ app.post('/addToCalendar', (req, res) => {
     }).then(() => {
       res.send('Recipe added to calendar.');
     });
-})
+});
 
 app.post('/removeFromCalendar', (req, res) => {
   const weekNumber = req.body.weekNumber;
@@ -100,7 +103,7 @@ app.post('/removeFromCalendar', (req, res) => {
     }).then(() => {
       res.send('Recipe removed to calendar.');
     });
-})
+});
 
 app.post('/addToFavorites', (req, res) => {
   let userId = res.body.facebookId;
