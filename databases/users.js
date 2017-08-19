@@ -19,18 +19,14 @@ userSchema.statics.getUserById = function(facebookId) {
 // Save recipe to user's favorites
 userSchema.statics.saveRecipeToFavorites = function(user, selectedRecipe) {
   if (!user.favRecipes[selectedRecipe.name]) {
-    return this.getUserById(user.facebookId)
-      .then(user => {
-        console.log(user);
-        // user.favRecipes = selectedRecipe;
-        user.name = 'Bob';
-        user.save(err => {
-          if (err) {
-            throw err;
-          }
-          console.log('saved user');
-        });
-      });
+    var favorites = user.favRecipes;
+    favorites[selectedRecipe.name] = selectedRecipe;
+    User.update({'facebookId': user.facebookId}, {$set: {'favRecipes': favorites}}, (err, response) => {
+      if (err) {
+        throw err;
+      }
+      console.log(response);
+    });
   }
 };
 
@@ -38,10 +34,12 @@ userSchema.statics.saveRecipeToFavorites = function(user, selectedRecipe) {
 userSchema.statics.removeRecipeFromFavorites = function(user, selectedRecipe) {
   if (user.favRecipes[selectedRecipe.name]) {
     delete user.favRecipes[selectedRecipe.name];
-    user.save(err => {
+    var favorites = user.favRecipes;
+    User.update({'facebookId': user.facebookId}, {$set: {'favRecipes': favorites}}, (err, response) => {
       if (err) {
         throw err;
       }
+      console.log(response);
     });
   }
 };
