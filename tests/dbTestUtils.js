@@ -28,7 +28,7 @@ exports.disconnect = function(done) {
 };
 
 const mongooseDB = mongoose.connection;
-    
+
 mongooseDB.on('error', console.error.bind(console, 'connection error:'));
 
 mongooseDB.once('open', function() {
@@ -61,7 +61,8 @@ exports.fixtures = function(data, done) {
     return done(new Error('Missing database connection.'));
   }
 
-  Promise.resolve(data.users.forEach(user => {
+  Promise.all(
+    data.users.map(user => {
       let newUser = new User;
       newUser.favRecipes = user.favRecipes;
       newUser.facebookId = user.facebookId;
@@ -69,10 +70,12 @@ exports.fixtures = function(data, done) {
       newUser.email = user.email;
       newUser.week_one = user.week_one;
       newUser.week_two = user.week_two;
-      newUser.save();
-    }))
-    .then(() => {
-      data.recipes.forEach(recipe => {
+      return newUser.save();
+    })
+  )
+  .then(() => {
+    return Promise.all(
+      data.recipes.map(recipe => {
         let newRecipe = new Recipe;
         newRecipe.name = recipe.name;
         newRecipe.fullDataSorter = recipe.fullDataSorter;
@@ -80,9 +83,8 @@ exports.fixtures = function(data, done) {
         newRecipe.abridgedData = recipe.abridgedData;
         newRecipe.fullData = recipe.fullData;
         newRecipe.save();
-      });    
-      done();
-    });
-
+      })
+    );
+  })
+  .then(() => done());
 }
-

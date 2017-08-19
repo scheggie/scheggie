@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-//this route works 
+//this route works
 app.post('/login', (req, res) => {
   let facebookId = req.body.id;
   User.findOne({facebookId})
@@ -79,12 +79,11 @@ app.post('/addToCalendar', (req, res) => {
   var recipeId = req.body.recipeId;
   var facebookId = req.body.facebookId;
   User.findOne({'facebookId': facebookId}).then((user) => {
-    var weekarray = user[weekNumber];
-    if (typeof(weekarray[dayId]) !== 'object') {
-      weekarray[dayId] = {[meal]: recipeId}
-    }
-    else {
-      weekarray[dayId][meal] = recipeId;
+    var weekArray = user[weekNumber];
+    if (typeof(weekArray[dayId]) !== 'object') {
+      weekArray[dayId] = {[meal]: recipeId}
+    } else {
+      weekArray[dayId][meal] = recipeId;
       console.log('the week array is ' + weekarray);
     }
   User.findOneAndUpdate({'facebookId': facebookId}, {[weekNumber]: weekarray}, function(err, user) {
@@ -116,23 +115,33 @@ app.post('/removeFromCalendar', (req, res) => {
 })
 
 app.post('/addToFavorites', (req, res) => {
-  User.saveRecipeToFavorites(user, req.body.recipe)
-    .then(user => {
+  let userId = res.body.facebookId;
+  let recipe = res.body.recipe;
+
+  User.getUserById(res.body.facebookId)
+    .then((user) => {
+      return user.saveRecipeToFavorites(recipe);
+    }).then(() => {
       res.send('Recipe added to favorites')
-    });
+    })
 });
 
 app.post('/removeFromFavorites', (req, res) => {
-  User.removeRecipeFromFavorites(user, req.body.recipe)
-    .then(user => {
-      res.send('Recipe removed from favorites')
+  let userId = res.body.facebookId;
+  let recipe = res.body.recipe;
+
+  User.getUserById(userId)
+    .then((user) => {
+      return user.removeRecipeFromFavorites(recipe);
+    }).then(() => {
+      res.send('Recipe removed from favorites.');
     });
 });
 
 //this route works
 app.get('/recipeSearch', (req, res) => {
-  Recipe.getFullRecipesForSearchResults(req.query.query).
-    then(recipes => {
+  Recipe.getFullRecipesForSearchResults(req.query.query)
+    .then(recipes => {
       res.json(recipes);
     });
 });
