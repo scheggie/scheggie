@@ -1,12 +1,8 @@
-/*
--Note: in order to run these tests, make sure to first npm-install then to run 'mocha' in the terminal
-*/
-
-var chai = require('chai');
-var chaiHttp = require('chai-http');
-var server = require('../server/index');
-var bodyParser = require('body-parser');
-var should = chai.should();
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const server = require('../server/index');
+const bodyParser = require('body-parser');
+const should = chai.should();
 
 chai.use(chaiHttp);
 
