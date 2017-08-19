@@ -104,20 +104,14 @@ app.post('/removeFromCalendar', (req, res) => {
 });
 
 app.post('/addToFavorites', (req, res) => {
-  User.getUserById(req.body.id)
-    .then(user => {
-      User.saveRecipeToFavorites(user, req.body.recipe);
-    })
+  User.saveRecipeToFavorites(user, req.body.recipe)
     .then(user => {
       res.send('Recipe added to favorites')
     });
 });
 
 app.post('/removeFromFavorites', (req, res) => {
-  User.getUserById(req.body.id)
-    .then(user => {
-      User.removeRecipeFromFavorites(user, req.body.recipe);
-    })
+  User.removeRecipeFromFavorites(user, req.body.recipe)
     .then(user => {
       res.send('Recipe removed from favorites')
     });
