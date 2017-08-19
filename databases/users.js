@@ -12,20 +12,23 @@ const userSchema = mongoose.Schema({
 });
 
 // Get single user by facebookId
-userSchema.statics.getUserById = function(id) {
-  return this.find({'facebookId': id});
+userSchema.statics.getUserById = function(facebookId) {
+  return this.findOne({'facebookId': facebookId});
 };
 
 // Save recipe to user's favorites
 userSchema.statics.saveRecipeToFavorites = function(user, selectedRecipe) {
-  if (!user.favRecipes[selectedRecipe._id]) {
-    Recipe.getFullRecipeByName(selectedRecipe._id).
-      then(recipe => {
-        user.favRecipes[selectedRecipe._id] = JSON.parse(recipe);
+  if (!user.favRecipes[selectedRecipe.name]) {
+    return this.getUserById(user.facebookId)
+      .then(user => {
+        console.log(user);
+        // user.favRecipes = selectedRecipe;
+        user.name = 'Bob';
         user.save(err => {
           if (err) {
             throw err;
           }
+          console.log('saved user');
         });
       });
   }
@@ -33,8 +36,8 @@ userSchema.statics.saveRecipeToFavorites = function(user, selectedRecipe) {
 
 // Remove recipe from user's favorites
 userSchema.statics.removeRecipeFromFavorites = function(user, selectedRecipe) {
-  if (user.favRecipes[selectedRecipe._id]) {
-    delete user.favRecipes[selectedRecipe._id];
+  if (user.favRecipes[selectedRecipe.name]) {
+    delete user.favRecipes[selectedRecipe.name];
     user.save(err => {
       if (err) {
         throw err;
