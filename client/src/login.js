@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import Flexbox from 'flexbox-react';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
@@ -17,7 +16,7 @@ class LogIn extends React.Component {
   }
 
   render() {
-    let imgPath = 'http://tuvanranghammat.vn/assets/lo-mieng-nen-an-gi-e1469805715695.jpg'
+    let imgPath = 'http://i.imgur.com/3RjUCdI.png';
     let image = new Image();
     image.onload = () => {
       this.setState({
@@ -30,17 +29,25 @@ class LogIn extends React.Component {
     return (
       <div>
         <Dialog
-          title="Scheggie Login"
+          title="Login"
           modal={true}
           open={this.state.open}
         >
-          <div style={{textAlign: 'center'}}>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-evenly'
+          }}>
+            <span style={{height: '50px'}}></span>
             {this.state.dialogImage}
+            <span style={{height: '75px'}}></span>
             <FacebookLogin
               appId="1998888367009644"
               fields="name,email,picture"
               callback={this.props.logIn}
             />
+            <span style={{height: '75px'}}></span>
           </div>
         </Dialog>
       </div>

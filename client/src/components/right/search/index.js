@@ -29,9 +29,8 @@ class Search extends React.Component {
       toggled ?
         <RaisedButton
           label="Favorites"
-          backgroundColor='rgb(40, 130, 150)'
           labelColor='white'
-          hoverColor='rgb(40, 130, 150)'
+          backgroundColor='rgb(40, 130, 150)'
           rippleColor='#E1F5FE'
           onClick={this.props.actions.updateSearchType}
         /> :
@@ -100,9 +99,3 @@ class Search extends React.Component {
 }
 
 export default Search;
-
-// <FlatButton
-//   label="Search"
-//   hoverColor='rgb(40, 130, 150)'
-//   rippleColor='#E1F5FE'
-// />
