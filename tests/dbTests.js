@@ -74,7 +74,7 @@ xdescribe('getFullRecipesForSearchResults', () => {
       });
   });
 
-  db.disconnect();  
+  db.disconnect();
 });
 
 xdescribe('getUserById', () => {
@@ -110,30 +110,43 @@ describe('Favorite Recipes', () => {
         return done(err);
       }
       db.fixtures(sampleData, done);
-    })
+    });
   });
 
-  it('should save a recipe to a user\'s favorites', () => {
-    User.saveRecipeToFavorites(sampleData.users[0], sampleData.recipes[0]);
-    return User.getUserById(sampleData.users[0].facebookId).
-      then(user => {
-        user.favRecipes[sampleData.recipes[0].name].should.eql(sampleData.recipes[0]);
+  it('should save a recipe to a user\'s favorites', (done) => {
+    User.getUserById(sampleData.users[0].facebookId)
+      .then((user) => {
+        return user.saveRecipeToFavorites(sampleData.recipes[0]);
+      })
+      .then(user => {
+        user.favRecipes[sampleData.recipes[0]._id].should.eql(sampleData.recipes[0]);
+        done();
       });
   });
 
-  it('should save a recipe to a user\'s favorites only once', () => {
-    User.saveRecipeToFavorites(sampleData.users[0], sampleData.recipes[0]);
-    return User.getUserById(sampleData.users[0].facebookId).
-      then(user => {
+  it('should save a recipe to a user\'s favorites only once', (done) => {
+    User.getUserById(sampleData.users[0].facebookId)
+      .then(user => {
+        return user.saveRecipeToFavorites(sampleData.recipes[0]);
+      })
+      .then(user => {
         Object.keys(user.favRecipes).length.should.eql(2);
+        done();
       });
   });
 
-  it('should remove a recipe from a user\'s favorites', () => {
-    User.removeRecipeFromFavorites(sampleData.users[1], sampleData.recipes[0]);
-    return User.getUserById(sampleData.users[1].facebookId).
-      then(user => {
+  it('should remove a recipe from a user\'s favorites', (done) => {
+    //User.removeRecipeFromFavorites(sampleData.users[1], sampleData.recipes[0]);
+    User.getUserById(sampleData.users[1].facebookId)
+      .then(user => {
+        return user.saveRecipeToFavorites(sampleData.recipes[0]);
+      })
+      .then(user => {
+        Object.keys(user.favRecipes).length.should.eql(2);
+        return user.removeRecipeFromFavorites(sampleData.recipes[0]);
+      }).then(user => {
         Object.keys(user.favRecipes).length.should.eql(1);
+        done();
       });
   });
 });
