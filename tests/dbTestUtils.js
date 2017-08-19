@@ -81,8 +81,8 @@ exports.fixtures = function(data, done) {
         newRecipe.fullData = recipe.fullData;
         newRecipe.save();
       });    
+      done();
     });
 
-  done();
 }
 
