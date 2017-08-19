@@ -14,6 +14,9 @@ const _ = require('lodash');
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.use(bodyParser.json());
+// app.use(bodyParser.text({ type: 'text/html' }))
+// app.use(bodyParser.text({ type: 'text/plain' }))
+// bodyParser.urlencoded({ extended: false })
 
 app.use(session({
   secret: 'test',
@@ -37,6 +40,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+//this route works 
 app.post('/login', (req, res) => {
   let facebookId = req.body.id;
   User.findOne({facebookId})
@@ -67,41 +71,49 @@ app.post('/login', (req, res) => {
 
 // RECIPE ROUTES
 // ************************************
+
 app.post('/addToCalendar', (req, res) => {
   var weekNumber = req.body.weekNumber;
   var dayId = req.body.dayId;
   var meal = req.body.meal;
   var recipeId = req.body.recipeId;
   var facebookId = req.body.facebookId;
-  console.log(dayId);
-  console.log(meal);
-  console.log(recipeId);
-  console.log(facebookId);
-  // dbUsers.User.find({'facebookId': facebookId}).
-  // exec(user => user[week_number][day_id][meal] = recipe_id);
-  // user.save(err => {
-  //   if (err) {
-  //     throw err;
-  //   }
-  //   res.send('Recipe added to calendar');
-  // });
-  res.send('the route was effective!');
-});
+  User.findOne({'facebookId': facebookId}).then((user) => {
+    var weekarray = user[weekNumber];
+    if (typeof(weekarray[dayId]) !== 'object') {
+      weekarray[dayId] = {[meal]: recipeId}
+    }
+    else {
+      weekarray[dayId][meal] = recipeId;
+      console.log('the week array is ' + weekarray);
+    }
+  User.findOneAndUpdate({'facebookId': facebookId}, {[weekNumber]: weekarray}, function(err, user) {
+    if (err) throw err;
+    res.send('the recipe has been added to the calendar!');
+      });
+    })
+  })
 
 app.post('/removeFromCalendar', (req, res) => {
-  var week_number = req.body.weekNumber;
-  var day_id = req.body.dayId;
+  var weekNumber = req.body.weekNumber;
+  var dayId = req.body.dayId;
   var meal = req.body.meal;
+  var recipeId = req.body.recipeId;
   var facebookId = req.body.facebookId;
-  User.find({'facebookId': facebookId}).
-  exec(user => delete user[week_number][day_id][meal]);
-  user.save(err => {
-    if (err) {
-      throw err;
+   User.findOne({'facebookId': facebookId}).then((user) => {
+    var weekarray = user[weekNumber];
+    if (Object.keys(weekarray[dayId]).length === 1) {
+      weekarray[dayId] = null;
     }
-    res.send('Recipe removed from calendar');
-  });
-});
+    else {
+      delete weekarray[dayId][meal];
+  }
+  User.findOneAndUpdate({'facebookId': facebookId}, {[weekNumber]: weekarray}, function(err, user) {
+    if (err) throw err;
+    res.send('the recipe has been removed from the calendar!');
+    });
+  })
+})
 
 app.post('/addToFavorites', (req, res) => {
   User.getUserById(req.body.id)
@@ -123,6 +135,7 @@ app.post('/removeFromFavorites', (req, res) => {
     });
 });
 
+//this route works
 app.get('/recipeSearch', (req, res) => {
   Recipe.getFullRecipesForSearchResults(req.query.query).
     then(recipes => {
