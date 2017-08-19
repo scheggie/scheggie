@@ -56,7 +56,6 @@ exports.fixtures = function(data, done) {
   if (!db) {
     return done(new Error('Missing database connection.'));
   }
-
   Promise.all(
     data.users.map(user => {
       let newUser = new User;
@@ -78,9 +77,11 @@ exports.fixtures = function(data, done) {
         newRecipe.rating = recipe.rating;
         newRecipe.abridgedData = recipe.abridgedData;
         newRecipe.fullData = recipe.fullData;
-        newRecipe.save();
+        return newRecipe.save();
       })
     );
   })
-  .then(() => done());
+  .then(() => {
+    done();
+  });
 }
