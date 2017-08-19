@@ -1,5 +1,5 @@
 const mocha = require('mocha');
-const should = require('should');
+const expect = require('chai').expect
 const db = require('./dbTestUtils.js');
 
 const sampleData = {
@@ -35,7 +35,7 @@ xdescribe('getFullRecipeByName', () => {
   it('should return full recipe data ', () => {
     return Recipe.getFullRecipeByName('Corn-Salad-1693958')
       .then(recipe => {
-        recipe[0]['abridgedData']['id'].should.eql(sampleData.recipes[1]['name']);
+        expect(recipe[0]['abridgedData']['id']).to.equal(sampleData.recipes[1]['name']);
       });
   });
 
@@ -57,20 +57,23 @@ xdescribe('getFullRecipesForSearchResults', () => {
   });
 
   it('should return at most *limit* # of matches', () => {
-    return Recipe.getFullRecipesForSearchResults('Avocado', 2).should.eventually.have.length(2);
+    return Recipe.getFullRecipesForSearchResults('Avocado', 2)
+    .then(recipes => {
+        expect(recipes).to.have.length(2);
+    })
   });
 
   it('should return results with exact matches', () => {
     return Recipe.getFullRecipesForSearchResults('Avocado')
       .then(recipes => {
-        recipes[0]['name'].should.eql(sampleData['recipes'][0]['name']);
+        expect(recipes[0]['name']).to.equal(sampleData['recipes'][0]['name']);
       });
   });
 
   it('should be case insensitive', () => {
     return Recipe.getFullRecipesForSearchResults('cOrn')
       .then(recipes => {
-        recipes[0]['name'].should.eql(sampleData['recipes'][1]['name']);
+        expect(recipes[0]['name']).to.equal(sampleData['recipes'][1]['name']);
       });
   });
 
@@ -94,14 +97,14 @@ xdescribe('getUserById', () => {
   it('should return correct name of user', () => {
     return User.getUserById(sampleData.users[0].facebookId)
       .then(user => {
-        user.name.should.eql('John Doe');
+        expect(user.name).to.equal('John Doe');
       });
   });
 
   db.disconnect();
 });
 
-xdescribe('Favorite Recipes', () => {
+describe('Favorite Recipes', () => {
   before(done => {
     db.connect(done);
   });
@@ -121,7 +124,7 @@ xdescribe('Favorite Recipes', () => {
         return user.saveRecipeToFavorites(sampleData.recipes[0]);
       })
       .then(user => {
-        user.favRecipes[sampleData.recipes[0]._id].should.eql(sampleData.recipes[0]);
+        expect(user.favRecipes[sampleData.recipes[0]._id]).to.equal(sampleData.recipes[0]);
         done();
       });
   });
@@ -132,7 +135,7 @@ xdescribe('Favorite Recipes', () => {
         return user.saveRecipeToFavorites(sampleData.recipes[0]);
       })
       .then(user => {
-        Object.keys(user.favRecipes).length.should.eql(2);
+        expect(Object.keys(user.favRecipes).length).to.equal(2);
         done();
       });
   });
@@ -144,10 +147,10 @@ xdescribe('Favorite Recipes', () => {
         return user.saveRecipeToFavorites(sampleData.recipes[0]);
       })
       .then(user => {
-        Object.keys(user.favRecipes).length.should.eql(2);
+        expect(Object.keys(user.favRecipes).length).to.equal(2);
         return user.removeRecipeFromFavorites(sampleData.recipes[0]);
       }).then(user => {
-        Object.keys(user.favRecipes).length.should.eql(1);
+        expect(Object.keys(user.favRecipes).length).to.equal(1);
         done();
       });
   });
@@ -155,7 +158,7 @@ xdescribe('Favorite Recipes', () => {
   db.disconnect();
 });
 
-describe('saveRecipeToCalendar', () => {
+describe('addRecipeToCalendar', () => {
   before(done => {
     db.connect(done);
   });
@@ -175,11 +178,11 @@ describe('saveRecipeToCalendar', () => {
         return user.addToCalendar(sampleData.recipes[0]._id, 'week_one', '0', 'dinner');
       })
       .then(user => {
-        user.week_one[0]['dinner'].should.eql(sampleData.recipes[0]._id);
+        expect(user.week_one[0]['dinner']).to.equal(sampleData.recipes[0]._id);
         return user.addToCalendar(sampleData.recipes[1]._id, 'week_two', '1', 'lunch');
       })
       .then(user => {
-        user.week_two[1]['lunch'].should.eql(sampleData.recipes[1]._id);
+        expect(user.week_two[1]['lunch']).to.equal(sampleData.recipes[1]._id);
       })
   });
 });
@@ -204,11 +207,11 @@ describe('removeRecipeFromCalendar', () => {
         return user.addToCalendar(sampleData.recipes[0]._id, 'week_one', '0', 'dinner');
       })
       .then(user => {
-        user.week_one[0]['dinner'].should.eql(sampleData.recipes[0]._id);
-        return user.addToCalendar(sampleData.recipes[1]._id, 'week_two', '1', 'lunch');
+        expect(user.week_one[0]['dinner']).to.equal(sampleData.recipes[0]._id);
+        return user.removeFromCalendar(sampleData.recipes[0]._id, 'week_one', '0', 'dinner');
       })
       .then(user => {
-        user.week_two[1]['lunch'].should.eql(sampleData.recipes[1]._id);
+        expect(user.week_one[0]).to.be.null;
       })
   });
 });
