@@ -6,6 +6,11 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FacebookLogin from 'react-facebook-login';
 
+const customContentStyle = {
+  textAlign: "center"
+};
+
+
 class LogIn extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +37,7 @@ class LogIn extends React.Component {
           title="Login"
           modal={true}
           open={this.state.open}
+          contentStyle={customContentStyle}
         >
           <div style={{
             display: 'flex',

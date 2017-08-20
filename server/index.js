@@ -122,6 +122,7 @@ app.post('/removeFromFavorites', (req, res) => {
 app.get('/recipeSearch', (req, res) => {
   Recipe.getFullRecipesForSearchResults(req.query.query)
     .then(recipes => {
+      recipes = _.shuffle(recipes);
       res.json(recipes);
     });
 });
