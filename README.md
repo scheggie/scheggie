@@ -68,7 +68,7 @@ At this point, the database is now created and ready to use.
 
 ### Populate database with recipe IDs: 
 
-We used the Yummly Recipe API to populate our database. To proceed, you must first obtain an API key from https://developer.yummly.com. Add the APP_KEY and APP_ID to the config.js file.
+We used the Yummly Recipe API to populate our database. To proceed, you must first obtain an API key from https://developer.yummly.com. Add the APP_KEY and APP_ID to your config.js file.
 
 This script will populate the database with recipe IDs pulled from a predetermined food list found inside of the server directory.
 

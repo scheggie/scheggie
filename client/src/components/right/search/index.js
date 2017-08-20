@@ -89,7 +89,7 @@ class Search extends React.Component {
             style={{
               height: '100px'
             }}
-            src="http://i.imgur.com/3RjUCdI.png"
+            src="https://i.imgur.com/3RjUCdI.png"
             alt="Scheggie: The vegetarian's meal planner"
           />
         </div>
