@@ -21,7 +21,11 @@ const reducer = (state = INITIAL_STATE, action) => {
       };
 
     case LOAD:
-      return action.payload.auth
+      if (action.payload.auth.loggedIn) {
+        return action.payload.auth
+      } else {
+        return state;
+      }
   }
   return state;
 };

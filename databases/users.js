@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
   week_two: Array
 });
 
+userSchema.set('minimize', false);
 // Get single user by facebookId
 userSchema.statics.getUserById = function(facebookId) {
   return this.findOne({'facebookId': facebookId});
@@ -20,6 +21,7 @@ userSchema.statics.getUserById = function(facebookId) {
 userSchema.methods.saveRecipeToFavorites = function(selectedRecipe) {
   if (!this.favRecipes[selectedRecipe._id]) {
     this.favRecipes[selectedRecipe._id] = selectedRecipe;
+    this.markModified('favRecipes');
     return this.save();
   } else {
     return Promise.resolve(this);
@@ -30,6 +32,7 @@ userSchema.methods.saveRecipeToFavorites = function(selectedRecipe) {
 userSchema.methods.removeRecipeFromFavorites = function(selectedRecipe) {
   if (this.favRecipes[selectedRecipe._id]) {
     delete this.favRecipes[selectedRecipe._id];
+    this.markModified('favRecipes');
     return this.save();
   } else {
     return Promise.resolve(this);
@@ -37,24 +40,17 @@ userSchema.methods.removeRecipeFromFavorites = function(selectedRecipe) {
 };
 
 // Add recipe to calendar
-userSchema.methods.addToCalendar = function(recipeId, weekNumber, dayId, meal) {
-  let weekArray = this[weekNumber];
-  if (weekArray[dayId] === null) {
-    weekArray[dayId] = {[meal]: recipeId};
-  } else {
-    weekArray[dayId][meal] = recipeId;
-  }
+userSchema.methods.addToCalendar = function(recipe, weekNumber, dayId, meal) {
+  this[weekNumber][dayId][meal] = recipe;
+  this.markModified(weekNumber);
   return this.save();
 };
 
 // Remove recipe from calendar
-userSchema.methods.removeFromCalendar = function(recipeId, weekNumber, dayId, meal) {
+userSchema.methods.removeFromCalendar = function(recipe, weekNumber, dayId, meal) {
   let weekArray = this[weekNumber];
-  if (Object.keys(weekArray[dayId]).length === 1) {
-    weekArray[dayId] = null;
-  } else {
-    delete weekArray[dayId][meal];
-  }
+  delete this[weekNumber][dayId][meal];
+  this.markModified(weekNumber);
   return this.save();
 };
 

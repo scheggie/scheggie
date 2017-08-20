@@ -79,12 +79,12 @@ app.post('/addToCalendar', (req, res) => {
   const weekNumber = req.body.weekNumber;
   const dayId = req.body.dayId;
   const meal = req.body.meal;
-  const recipeId = req.body.recipeId;
+  const recipe = req.body.recipe;
   const facebookId = req.body.facebookId;
 
   User.getUserById(userId)
     .then((user) => {
-      return user.addToCalendar(recipeId, weekNumber, dayId, meal);
+      return user.addToCalendar(recipe, weekNumber, dayId, meal);
     }).then(() => {
       res.send('Recipe added to calendar.');
     });
@@ -94,39 +94,38 @@ app.post('/removeFromCalendar', (req, res) => {
   const weekNumber = req.body.weekNumber;
   const dayId = req.body.dayId;
   const meal = req.body.meal;
-  const recipeId = req.body.recipeId;
+  const recipe = req.body.recipe;
   const facebookId = req.body.facebookId;
-  
+
   User.getUserById(userId)
     .then((user) => {
-      return user.removeFromCalendar(recipeId, weekNumber, dayId, meal);
+      return user.removeFromCalendar(recipe, weekNumber, dayId, meal);
     }).then(() => {
       res.send('Recipe removed to calendar.');
     });
 });
 
 app.post('/addToFavorites', (req, res) => {
-  let userId = res.body.facebookId;
-  let recipe = res.body.recipe;
+  let userId = req.body.facebookId;
+  let recipe = req.body.recipe;
 
-  User.getUserById(res.body.facebookId)
+  User.getUserById(userId)
     .then((user) => {
       return user.saveRecipeToFavorites(recipe);
-    }).then(() => {
+    }).then((user) => {
       res.send('Recipe added to favorites.')
-    })
+    }).catch(err => console.log(err));
 });
 
 app.post('/removeFromFavorites', (req, res) => {
-  let userId = res.body.facebookId;
-  let recipe = res.body.recipe;
-
+  let userId = req.body.facebookId;
+  let recipe = req.body.recipe;
   User.getUserById(userId)
     .then((user) => {
       return user.removeRecipeFromFavorites(recipe);
     }).then(() => {
       res.send('Recipe removed from favorites.');
-    });
+    }).catch(err => console.log(err));
 });
 
 //this route works
