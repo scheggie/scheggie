@@ -1,6 +1,8 @@
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 
+export const SYNC_USER = 'SYNC_USER';
+
 export const SET_PLANNER_WEEK = 'SET_PLANNER_WEEK';
 export const ADD_CALENDAR_DAY = 'ADD_CALENDAR_DAY';
 export const REMOVE_CALENDAR_DAY = 'REMOVE_CALENDAR_DAY';

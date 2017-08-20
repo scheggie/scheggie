@@ -26,16 +26,26 @@ const appReducer = combineReducers({
 
 // Any update that need multiple branchs of the store tree go here
 const rootReducer = (state, action) => {
+  let updatedState;
+
   switch (action.type) {
     case types.ADD_CALENDAR_DAY:
       let selectedDay = action.selectedDay;
       let selectedMeal = action.selectedMeal;
       let selectedWeek = state.planner.selectedWeek;
-      let updatedState = JSON.parse(JSON.stringify(state));
+      updatedState = JSON.parse(JSON.stringify(state));
 
       updatedState.planner[selectedWeek][selectedDay][selectedMeal] =
         state.selection;
 
+      return updatedState;
+
+    case types.SYNC_USER:
+      updatedState = JSON.parse(JSON.stringify(state));
+      let user = action.user;
+      updatedState.planner.week_one = user.week_one;
+      updatedState.planner.week_two = user.week_two;
+      updatedState.favorites = user.favRecipes
       return updatedState;
   }
   return state;

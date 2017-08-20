@@ -17,6 +17,10 @@ class Left extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.actions.loadUser();
+  }
+
   render() {
     return (
       <Paper style={generalStyle} zDepth={3}>

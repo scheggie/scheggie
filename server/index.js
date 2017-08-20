@@ -68,7 +68,7 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
-  let facebookId = req.body.id;
+  let facebookId = req.query.id;
   User.findOne({facebookId})
     .then(user => {
       res.json(user);
@@ -76,31 +76,21 @@ app.get('/user', (req, res) => {
 });
 
 app.post('/addToCalendar', (req, res) => {
-  const weekNumber = req.body.weekNumber;
-  const dayId = req.body.dayId;
-  const meal = req.body.meal;
-  const recipe = req.body.recipe;
-  const facebookId = req.body.facebookId;
-
-  User.getUserById(userId)
+  let { week, day, meal, recipe, facebookId } = req.body;
+  User.getUserById(facebookId)
     .then((user) => {
-      return user.addToCalendar(recipe, weekNumber, dayId, meal);
+      return user.addToCalendar(recipe, week, day, meal);
     }).then(() => {
       res.send('Recipe added to calendar.');
     });
 });
 
 app.post('/removeFromCalendar', (req, res) => {
-  const weekNumber = req.body.weekNumber;
-  const dayId = req.body.dayId;
-  const meal = req.body.meal;
-  const recipe = req.body.recipe;
-  const facebookId = req.body.facebookId;
-
-  User.getUserById(userId)
+  let { week, day, meal, facebookId } = req.body;
+  User.getUserById(facebookId)
     .then((user) => {
-      return user.removeFromCalendar(recipe, weekNumber, dayId, meal);
-    }).then(() => {
+      return user.removeFromCalendar(week, day, meal);
+    }).then((user) => {
       res.send('Recipe removed to calendar.');
     });
 });
