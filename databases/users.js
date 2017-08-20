@@ -47,7 +47,7 @@ userSchema.methods.addToCalendar = function(recipe, weekNumber, dayId, meal) {
 };
 
 // Remove recipe from calendar
-userSchema.methods.removeFromCalendar = function(recipe, weekNumber, dayId, meal) {
+userSchema.methods.removeFromCalendar = function(weekNumber, dayId, meal) {
   let weekArray = this[weekNumber];
   delete this[weekNumber][dayId][meal];
   this.markModified(weekNumber);

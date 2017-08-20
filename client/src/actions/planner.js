@@ -2,15 +2,50 @@ import $ from 'jquery';
 import * as types from './types';
 
 export const addCalendarDayThunk = ({ selectedDay, selectedMeal }) => {
-  return (dispatch) => {
-    dispatch(addCalendarDay({ selectedDay, selectedMeal}));
+  return (dispatch, getState) => {
+    let state = getState();
+    let selectedWeek = state.planner.selectedWeek;
+    let facebookId = state.auth.user.id;
+    let selection = state.selection;
+
+    $.post({
+      url: '/addToCalendar',
+      data: JSON.stringify({
+        week: selectedWeek,
+        day: selectedDay,
+        meal: selectedMeal,
+        recipe: selection,
+        facebookId,
+      }),
+      contentType: 'application/json',
+      success: () => {
+        dispatch(addCalendarDay({ selectedDay, selectedMeal}));
+      }
+    })
+
   }
 }
 
 export const removeCalendarDayThunk = ({ selectedDay, selectedMeal }) => {
-  return (dispatch) => {
-    console.log('calendar day removed');
-    dispatch(removeCalendarDay({ selectedDay, selectedMeal}));
+  return (dispatch, getState) => {
+    let state = getState();
+    let selectedWeek = state.planner.selectedWeek;
+    let facebookId = state.auth.user.id;
+
+    $.post({
+      url: '/removeFromCalendar',
+      data: JSON.stringify({
+        week: selectedWeek,
+        day: selectedDay,
+        meal: selectedMeal,
+        facebookId,
+      }),
+      contentType: 'application/json',
+      success: () => {
+        dispatch(removeCalendarDay({ selectedDay, selectedMeal}));
+      }
+    });
+
   }
 }
 
