@@ -21,7 +21,7 @@ class LogIn extends React.Component {
   }
 
   render() {
-    let imgPath = 'http://i.imgur.com/3RjUCdI.png';
+    let imgPath = 'https://i.imgur.com/3RjUCdI.png';
     let image = new Image();
     image.onload = () => {
       this.setState({
