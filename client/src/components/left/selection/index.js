@@ -56,22 +56,6 @@ class Selection extends React.Component {
               height: '90%'
             }}
           />
-          {/*
-          <div style={{textAlign: 'center'}}>
-            <img style={{maxWidth: '100%'}} src="http://tuvanranghammat.vn/assets/lo-mieng-nen-an-gi-e1469805715695.jpg"/>
-          </div>
-          <div>
-            <h3>INSERT_FOOD_ITEM_NAME_HERE</h3>
-            <p>INSERT_DESCRIPTION</p>
-            <ul>
-              <li>INGREDIENTS</li>
-              <li>INGREDIENTS</li>
-              <li>INGREDIENTS</li>
-              <li>INGREDIENTS</li>
-              <li>INGREDIENTS</li>
-            </ul>
-          </div>
-          */}
         </Dialog>
       )
     }
@@ -142,7 +126,7 @@ class Selection extends React.Component {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#E0E0E0',
-        color: '#BDBDBD',
+        color: '#757575',
         fontSize: '22px',
         fontFamily: 'Sans-Serif',
         }}>
@@ -150,17 +134,5 @@ class Selection extends React.Component {
       </div>
   }
 }
-
-// <Flexbox flexDirection="row" maxWidth="33vw" style={general_style}>
-//         <Flexbox flexGrow="1" style={image_style}>
-          // <img style={{maxWidth: '100%'}} src="http://tuvanranghammat.vn/assets/lo-mieng-nen-an-gi-e1469805715695.jpg"/>
-//         </Flexbox>
-//         <Flexbox flexDirection="column" flexGrow="2">
-//           <h3 style={title_style}>Food Title</h3>
-//           <p style={desc_style}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-//           <FlatButton label="Read More" onTouchTap={this.viewMoreHandler}/>
-//         </Flexbox>
-//         { dialogBox }
-//       </Flexbox>
 
 export default Selection;
