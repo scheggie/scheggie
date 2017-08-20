@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
   week_two: Array
 });
 
+userSchema.set('minimize', false);
 // Get single user by facebookId
 userSchema.statics.getUserById = function(facebookId) {
   return this.findOne({'facebookId': facebookId});
@@ -20,6 +21,7 @@ userSchema.statics.getUserById = function(facebookId) {
 userSchema.methods.saveRecipeToFavorites = function(selectedRecipe) {
   if (!this.favRecipes[selectedRecipe._id]) {
     this.favRecipes[selectedRecipe._id] = selectedRecipe;
+    this.markModified('favRecipes');
     return this.save();
   } else {
     return Promise.resolve(this);
@@ -30,6 +32,7 @@ userSchema.methods.saveRecipeToFavorites = function(selectedRecipe) {
 userSchema.methods.removeRecipeFromFavorites = function(selectedRecipe) {
   if (this.favRecipes[selectedRecipe._id]) {
     delete this.favRecipes[selectedRecipe._id];
+    this.markModified('favRecipes');
     return this.save();
   } else {
     return Promise.resolve(this);

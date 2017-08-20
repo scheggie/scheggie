@@ -1,15 +1,17 @@
+import $ from 'jquery';
 import * as types from './types';
 
-/* Thunk action
-export const addCalendarDayAjax = ({ selectedDay, selectedMeal }) => {
+export const addCalendarDayThunk = ({ selectedDay, selectedMeal }) => {
   return (dispatch) => {
-    $.ajax ...
-    .then(() => {
-      dispatch(syncCalendarDay({ selectedDay, selectedMeal}));
-    })
+    dispatch(addCalendarDay({ selectedDay, selectedMeal}));
   }
 }
-*/
+
+export const removeCalendarDayThunk = ({ selectedDay, selectedMeal }) => {
+  return (dispatch) => {
+    dispatch(removeCalendarDay({ selectedDay, selectedMeal}));
+  }
+}
 
 export const addCalendarDay = ({ selectedDay, selectedMeal }) => ({
   type: types.ADD_CALENDAR_DAY,

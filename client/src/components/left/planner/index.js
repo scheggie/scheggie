@@ -206,7 +206,7 @@ class PlannerCorner extends React.Component {
       borderTop: BORDER_STYLE_WHITE,
       flex: '0 0 40px',
       backgroundColor: 'rgb(40, 130, 150)'
-    }}> 
+    }}>
     </div>
   }
 }
@@ -241,7 +241,7 @@ class PlannerCell extends React.Component {
           mini={true}
           backgroundColor='#F06292'
           onClick={()=>{
-            this.props.actions.removeCalendarDay(this.props.cell);
+            this.props.actions.removeCalendarDayThunk(this.props.cell);
           }}
         >
           <ContentDelete />
@@ -269,7 +269,7 @@ class PlannerCell extends React.Component {
           mini={true}
           backgroundColor='rgb(150,230,230)'
           onClick={()=>{
-            this.props.actions.addCalendarDay(this.props.cell);
+            this.props.actions.addCalendarDayThunk(this.props.cell);
           }}
         >
           <ContentAdd />

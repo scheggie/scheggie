@@ -12,7 +12,7 @@ class Results extends React.Component {
   getFavoriteIcon(recipe) {
     return (
       <IconButton onClick={()=>{
-        this.props.actions.toggleFavorite(recipe);
+        this.props.actions.toggleFavoriteThunk(recipe);
       }}>
         {recipe._id in this.props.favorites ?
          <Favorite color="white" /> :
@@ -71,36 +71,5 @@ class Results extends React.Component {
     )
   }
 }
-
-// commented out for reference later on:
-
-// GRID TILE MAPPING FUNCTION:
-
-
-
-
-// OLD REFERENCE TO LIST:
-
-// <div
-//   style={{
-//     display: 'flex',
-//     flexDirection: 'column',
-//     flexWrap: 'nowrap',
-//     justifyContent: 'center',
-//     alignContent: 'center',
-//     padding: '0px 30px 0px 30px'
-//   }}>
-
-//   {
-//     this.props.data.map(recipe =>
-//       <div>
-//         <Entry recipe={recipe}/>
-//         <span style={{
-//           height: '5px'
-//         }}></span>
-//       </div>
-//     )
-//   }
-// </div>
 
 export default Results;
