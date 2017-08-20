@@ -12,7 +12,7 @@ class Search extends React.Component {
     };
     this.debouncedSearch = _.debounce(
       this.props.actions.updateSearchThunk,
-      500
+      300
     );
     this.updateSearch = this.updateSearch.bind(this);
   }
