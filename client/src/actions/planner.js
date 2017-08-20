@@ -9,6 +9,7 @@ export const addCalendarDayThunk = ({ selectedDay, selectedMeal }) => {
 
 export const removeCalendarDayThunk = ({ selectedDay, selectedMeal }) => {
   return (dispatch) => {
+    console.log('calendar day removed');
     dispatch(removeCalendarDay({ selectedDay, selectedMeal}));
   }
 }

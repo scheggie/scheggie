@@ -79,12 +79,12 @@ app.post('/addToCalendar', (req, res) => {
   const weekNumber = req.body.weekNumber;
   const dayId = req.body.dayId;
   const meal = req.body.meal;
-  const recipeId = req.body.recipeId;
+  const recipe = req.body.recipe;
   const facebookId = req.body.facebookId;
 
   User.getUserById(userId)
     .then((user) => {
-      return user.addToCalendar(recipeId, weekNumber, dayId, meal);
+      return user.addToCalendar(recipe, weekNumber, dayId, meal);
     }).then(() => {
       res.send('Recipe added to calendar.');
     });
@@ -94,12 +94,12 @@ app.post('/removeFromCalendar', (req, res) => {
   const weekNumber = req.body.weekNumber;
   const dayId = req.body.dayId;
   const meal = req.body.meal;
-  const recipeId = req.body.recipeId;
+  const recipe = req.body.recipe;
   const facebookId = req.body.facebookId;
 
   User.getUserById(userId)
     .then((user) => {
-      return user.removeFromCalendar(recipeId, weekNumber, dayId, meal);
+      return user.removeFromCalendar(recipe, weekNumber, dayId, meal);
     }).then(() => {
       res.send('Recipe removed to calendar.');
     });

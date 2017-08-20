@@ -16,7 +16,6 @@ export const toggleFavoriteThunk = (recipe) => {
       }),
       contentType: 'application/json',
       success: (response) => {
-        console.log(response);
         dispatch(toggleFavorite(recipe));
       }
     });

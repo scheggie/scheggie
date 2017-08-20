@@ -40,24 +40,17 @@ userSchema.methods.removeRecipeFromFavorites = function(selectedRecipe) {
 };
 
 // Add recipe to calendar
-userSchema.methods.addToCalendar = function(recipeId, weekNumber, dayId, meal) {
-  let weekArray = this[weekNumber];
-  if (weekArray[dayId] === null) {
-    weekArray[dayId] = {[meal]: recipeId};
-  } else {
-    weekArray[dayId][meal] = recipeId;
-  }
+userSchema.methods.addToCalendar = function(recipe, weekNumber, dayId, meal) {
+  this[weekNumber][dayId][meal] = recipe;
+  this.markModified(weekNumber);
   return this.save();
 };
 
 // Remove recipe from calendar
-userSchema.methods.removeFromCalendar = function(recipeId, weekNumber, dayId, meal) {
+userSchema.methods.removeFromCalendar = function(recipe, weekNumber, dayId, meal) {
   let weekArray = this[weekNumber];
-  if (Object.keys(weekArray[dayId]).length === 1) {
-    weekArray[dayId] = null;
-  } else {
-    delete weekArray[dayId][meal];
-  }
+  delete this[weekNumber][dayId][meal];
+  this.markModified(weekNumber);
   return this.save();
 };
 
