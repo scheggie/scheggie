@@ -173,9 +173,6 @@ class Planner extends React.Component {
     ];
 
     return (
-      <div> hello world </div>
-    );
-    /*
       <Dialog
         actions={actions}
         autoDetectWindowHeight={false}
@@ -203,7 +200,6 @@ class Planner extends React.Component {
         />
       </Dialog>
     )
-    */
   }
 
   render() {
