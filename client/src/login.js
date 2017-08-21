@@ -34,7 +34,6 @@ class LogIn extends React.Component {
     return (
       <div>
         <Dialog
-          title="Login"
           modal={true}
           open={this.state.open}
           contentStyle={customContentStyle}
@@ -51,9 +50,8 @@ class LogIn extends React.Component {
             <FacebookLogin
               appId="1998888367009644"
               fields="name,email,picture"
-              callback={this.props.logIn}
-            />
-            <span style={{height: '75px'}}></span>
+              callback={this.props.logIn}/>
+            <span style={{height: '10px'}}></span>
           </div>
         </Dialog>
       </div>
