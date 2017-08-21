@@ -8,6 +8,7 @@ import LogIn from './login';
 
 injectTapEventPlugin();
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +19,12 @@ class App extends React.Component {
       <MuiThemeProvider>
         {
           this.props.auth.loggedIn ?
-          <Flexbox flexDirection="row" width="100%" height="100%">
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            height: '100%'
+          }}>
             <Left
               planner = {this.props.planner}
               user={this.props.auth.user}
@@ -30,7 +36,7 @@ class App extends React.Component {
               favorites={this.props.favorites}
               search={this.props.search}
             />
-          </Flexbox> :
+          </div> :
           <LogIn logIn={this.props.actions.logInAjax} />
         }
       </MuiThemeProvider>
