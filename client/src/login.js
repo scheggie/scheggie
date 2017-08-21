@@ -34,6 +34,7 @@ class LogIn extends React.Component {
     return (
       <div>
         <Dialog
+          title="Login"
           modal={true}
           open={this.state.open}
           contentStyle={customContentStyle}
