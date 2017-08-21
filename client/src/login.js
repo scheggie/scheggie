@@ -51,7 +51,7 @@ class LogIn extends React.Component {
               appId="1998888367009644"
               fields="name,email,picture"
               callback={this.props.logIn}/>
-            <span style={{height: '10px'}}></span>
+            <span style={{height: '75px'}}></span>
           </div>
         </Dialog>
       </div>
