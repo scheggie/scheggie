@@ -23,7 +23,7 @@
 
 In order to start our app, you must follow the following procedure:
 
-1. [Install](#installation)all dependencies.
+1. [Install](#installation) all dependencies.
 1. [Create and Start](#create-and-start-the-database) the mongoDB.
 1. [Fetch](#fetch-recipe-ids) recipe ID's using the buildInitialData script.
 1. [Build](#build-full-recipes) the full data using the buildFullData script.
@@ -150,7 +150,7 @@ For all dependencies listed, please use the most up to date packages available t
 - jest: 20.0. or latest4,
 - webpack: 3.5.1 or latest
 
-Dependencies:
+### Dependencies:
 
 For all dependencies listed, please use the most up to date packages available through npm.
 
