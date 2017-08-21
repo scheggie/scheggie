@@ -5,8 +5,11 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentDelete from 'material-ui/svg-icons/action/delete';
+import ContentList from 'material-ui/svg-icons/action/list';
 import ContentTouchApp from 'material-ui/svg-icons/action/touch-app';
 import _ from 'lodash';
+import PDFDocument from 'pdfkit';
+import blobStream  from 'blob-stream';
 
 const BORDER_STYLE = 'solid rgb(180, 180, 180) 1px';
 const BORDER_STYLE_WHITE = 'solid rgb(230, 255, 255) 1px';
@@ -31,9 +34,52 @@ class Planner extends React.Component {
     this.toggleIngredients = this.toggleIngredients.bind(this);
   }
 
+  getIngredientList() {
+    let ingredientString = '';
+    let recipeCounts = {}
+    let selectedWeek = this.props.planner.selectedWeek;
+
+    this.props.planner[selectedWeek].forEach(day => {
+      ['breakfast', 'lunch', 'dinner'].forEach((mealKey) => {
+        if (mealKey in day) {
+          let recipe = day[mealKey];
+          if ( !(recipeCounts[ recipe._id ]) ) {
+            recipeCounts[ recipe._id ] = {recipe: recipe, count: 0};
+          }
+          recipeCounts[ recipe._id ].count++;
+        }
+      });
+    });
+
+    Object.values(recipeCounts).forEach((recipe) => {
+      ingredientString +=
+        recipe.recipe.abridgedData.recipeName + ` (x${recipe.count}) \n` + 
+        recipe.recipe.fullData.ingredientLines.join('\n') + '\n\n';
+    })
+
+    return ingredientString;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.viewIngredients) {
+      let doc = new PDFDocument;
+      let stream = doc.pipe(blobStream());
+
+      doc.text(this.getIngredientList());
+
+      doc.end();
+
+      stream.on('finish', () => {
+        let blob = stream.toBlob('application/pdf');
+        let url = stream.toBlobURL('application/pdf');
+        this.ingredientList.src = url;
+      });
+    }
+  }
+
   toggleIngredients() {
-    this.setState({
-      viewIngredients: true
+    this.setState((prevState) => {
+      return { viewIngredients: !prevState.viewIngredients };
     });
   }
 
@@ -107,6 +153,7 @@ class Planner extends React.Component {
   getBottomAddButton() {
     let buttonToggled = this.props.planner.editMode === 'ADD';
     let buttonProps = {
+      style: {marginRight: '10px'},
       mini: true,
       onClick: () => this.props.actions.setPlannerEditMode('ADD'),
     }
@@ -120,6 +167,21 @@ class Planner extends React.Component {
     return (
       <FloatingActionButton {...buttonProps} >
         <ContentAdd />
+      </FloatingActionButton>
+    )
+  }
+
+  getBottomExportButton() {
+    let buttonProps = {
+      onClick: () => this.toggleIngredients(),
+      mini: true,
+      style: {boxShadow: 'unset'},
+      backgroundColor: 'white',
+      iconStyle: {fill:'#00BCD4'}
+    }
+    return (
+      <FloatingActionButton {...buttonProps} >
+        <ContentList />
       </FloatingActionButton>
     )
   }
@@ -169,6 +231,7 @@ class Planner extends React.Component {
       <FlatButton
         label="Close"
         secondary={true}
+        onTouchTap={this.toggleIngredients}
       />
     ];
 
@@ -220,6 +283,7 @@ class Planner extends React.Component {
           <div style={{flexGrow: 1, textAlign: 'center'}} >
             { this.getBottomRemoveButton() }
             { this.getBottomAddButton() }
+            { this.getBottomExportButton() }
           </div>
 
           { this.getNextWeekButton() }
