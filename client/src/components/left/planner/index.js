@@ -1,6 +1,8 @@
 import React from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentDelete from 'material-ui/svg-icons/action/delete';
 import ContentTouchApp from 'material-ui/svg-icons/action/touch-app';
@@ -23,6 +25,16 @@ class Planner extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      viewIngredients: false
+    }
+    this.toggleIngredients = this.toggleIngredients.bind(this);
+  }
+
+  toggleIngredients() {
+    this.setState({
+      viewIngredients: true
+    });
   }
 
   getPlannerItem({selectedDay, selectedMeal}) {
@@ -48,8 +60,10 @@ class Planner extends React.Component {
     let buttonToggled = this.props.planner.selectedWeek === 'week_one';
     let buttonProps = {
       label: 'This Week',
-      onClick: ()=>{ this.props.actions.setPlannerWeek('week_one') }
-    }
+      onClick: () => {
+        this.props.actions.setPlannerWeek('week_one')
+      }
+    };
 
     if (buttonToggled) {
       _.extend(buttonProps, {
@@ -117,6 +131,7 @@ class Planner extends React.Component {
       style: {marginRight: '10px'},
       onClick: () => this.props.actions.setPlannerEditMode('REMOVE'),
     }
+
     if (buttonToggled) {
       buttonProps.secondary = true;;
     } else {
@@ -149,6 +164,48 @@ class Planner extends React.Component {
     return cells;
   }
 
+  getListDialog() {
+    const actions = [
+      <FlatButton
+        label="Close"
+        secondary={true}
+      />
+    ];
+
+    return (
+      <div> hello world </div>
+    );
+    /*
+      <Dialog
+        actions={actions}
+        autoDetectWindowHeight={false}
+        contentStyle={{
+          width: "92%",
+          height:"90%",
+          maxWidth: "none",
+          transform: "none"
+        }}
+        bodyStyle={{
+          height: "90%",
+          maxHeight: 'none',
+        }}
+        modal={false}
+        open={this.state.viewIngredients}
+        onRequestClose={this.toggleIngredients}
+      >
+        <iframe
+          ref={(iframe) => { this.ingredientList = iframe}}
+          src='https://www.google.com'
+          style={{
+            width: '96%',
+            height: '90%'
+          }}
+        />
+      </Dialog>
+    )
+    */
+  }
+
   render() {
     return (
       <div style={{display: 'flex', flexFlow: "column", flexGrow: 1}}>
@@ -170,6 +227,8 @@ class Planner extends React.Component {
           </div>
 
           { this.getNextWeekButton() }
+
+          { this.getListDialog() }
         </div >
       </div>
     )
