@@ -138,7 +138,7 @@ class Planner extends React.Component {
     let selectedWeek = this.props.planner.selectedWeek;
     this.props.planner[selectedWeek].forEach((day, index) => {
       cells.push(
-        <div style={{display: 'flex', flex: '0 0 70px'}}>
+        <div style={{display: 'flex', flex: '0 0 88px'}}>
           <PlannerDow day={DAY_LABELS[index]}/>
           { this.getPlannerCell(index, 'breakfast') }
           { this.getPlannerCell(index, 'lunch') }
@@ -254,7 +254,7 @@ class PlannerCell extends React.Component {
         <div onClick={()=>{this.props.actions.selectItem(item)}}>
           <img
             src={item.fullData.images[0].hostedLargeUrl}
-            style={{width: '100px'}}
+            style={{width: '120px'}}
           />
         </div>
       )
