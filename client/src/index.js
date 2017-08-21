@@ -43,6 +43,7 @@ const load = storage.createLoader(engine);
 
 load(store)
   .then((newState) => console.log('Loaded state:', newState))
-  .catch(() => console.log('Failed to load previous state'));
+//  .catch(() => console.log('Failed to load previous state'));
+
 
 ReactDOM.render(<Root />, document.getElementById('app'));
