@@ -1,8 +1,8 @@
-# Project Name
+# Scheggie
 
-> Pithy project description
+> When you're a vegetarian and your meals need planning, Scheggie is all you need.
 
-## Team
+## Founding Team Members
 
   - Miles Sorce
   - Neal Williams
@@ -23,14 +23,15 @@
 
 In order to start our app, you must follow the following procedure:
 
-1. Install all dependencies (see Installation)
-2. Start the mongoDB (see Create and Start the Database)
-3. Populate the data using the buildData script (see Populate Database)
-4. Start the server (see Start the Server)
+1. [Install](#installation)all dependencies.
+1. [Create and Start](#create-and-start-the-database) the mongoDB.
+1. [Fetch](#fetch-recipe-ids) recipe ID's using the buildInitialData script.
+1. [Build](#build-full-recipes) the full data using the buildFullData script.
+1. [Start](#start-the-server) the server.
 
 
 
-### Installation:
+### Installation
 
 For full instruction on installation of this application, see 'Installing Dependencies'.
 
@@ -42,7 +43,7 @@ For full instruction on installation of this application, see 'Installing Depend
 
 
 
-### Create and Start the Database:
+### Create and Start the Database
 
 Before you can build the static data, you must start up the database.
 
@@ -66,7 +67,7 @@ At this point, the database is now created and ready to use.
 
 
 
-### Populate database with recipe IDs: 
+### Fetch Recipe IDs
 
 We used the Yummly Recipe API to populate our database. To proceed, you must first obtain an API key from https://developer.yummly.com. Add the APP_KEY and APP_ID to your config.js file.
 
@@ -90,7 +91,7 @@ Once the list is fully generated, to test if it is still pulling data, type some
 
 
 
-### Populate database with full recipe data: 
+### Build Full Recipes
 
 This script will populate the database with full recipe data for each recipe ID that already exists in the databse.
 
@@ -110,7 +111,7 @@ Once the list is fully generated, to test if it is still pulling data, type some
 
 
 
-### Start the server:
+### Start the Server
 
 To start the server, ensure that you have first ran 'npm install' in your terminal.
 
@@ -128,42 +129,60 @@ For the full script, see the package.json
 
 ## Requirements
 
-###Dev Dependencies:
+### Dev Dependencies:
 
 For all dependencies listed, please use the most up to date packages available through npm.
 
-- babel-cli: 6.7.5 
-- babel-core: 6.25.0 
-- babel-loader: 7.1.1 
-- babel-preset-es2015: 6.6.0 
-- babel-preset-latest: 6.24.1 
-- babel-preset-react: 6.24.1 
-- babel-register: 6.7.2 
-- eslint-config-hackreactor: "git://github.com/reactorcore/eslint-config-hackreactor"
-- webpack: 3.5.1 
+- babel-cli: 6.7.5 or latest,
+- babel-core: 6.25. or latest0,
+- babel-jest: 20.0. or latest3,
+- babel-loader: 7.1.1 or latest,
+- babel-preset-es2015: 6.6.0 or latest,
+- babel-preset-latest: 6.24. or latest1,
+- babel-preset-react: 6.24. or latest1,
+- babel-register: 6.7.2 or latest,
+- chai-http: 1.0.0 or latest,
+- chai: 4.1.1 or latest,
+- eslint-config-hackreactor: git://github.com/reactorcore/eslint-config-hackreactor,
+- mocha: 3.5.0 or latest,
+- should: 11.2. or latest1,
+- enzyme: 2.9.1 or latest,
+- jest: 20.0. or latest4,
+- webpack: 3.5.1 or latest
 
 Dependencies:
 
 For all dependencies listed, please use the most up to date packages available through npm.
 
-- express: 4.15.4
-- flexbox-react: 4.4.0
-- jquery: 3.2.1
-- lodash: 4.17.4
-- material-ui: 0.18.7
-- mongoose: 4.11.6
-- nodemon: 1.11.0
-- react: 15.6.1
-- react-dnd: 2.4.0
-- react-dnd-html5-backend": 2.4.1
-- react-dom: 15.6.1
-- react-redux: 5.0.6
-- react-tap-event-plugin: 2.0.1
-- redux: 3.7.2
-- redux-thunk: 2.2.0
-- request: 2.81.0
-- request-promise: 4.2.1
-
+- async: 2.5.0 or latest,
+- body-parser: 1.17.2 or latest,
+- express: 4.15.4 or latest,
+- express-session: 1.15.5 or latest,
+- flexbox-react: 4.4.0 or latest,
+- jquery: 3.2.1 or latest,
+- lodash: 4.17.4 or latest,
+- material-ui: 0.18.7 or latest,
+- material-ui-search-bar: 0.3.0 or latest,
+- mocha: 2.3.1 or latest,
+- mongo-client: 0.2.1 or latest,
+- mongodb: 2.2.31 or latest,
+- mongoose: 4.11.6 or latest,
+- nodemon: 1.11.0 or latest,
+- passport: 0.3.2 or latest,
+- passport-facebook: 2.1.1 or latest,
+- react: 15.6.1 or latest,
+- react-dnd: 2.4.0 or latest,
+- react-dnd-html5-backend: 2.4.1 or latest,
+- react-dom: 15.6.1 or latest,
+- react-facebook-login: 3.6.2 or latest,
+- react-redux: 5.0.6 or latest,
+- react-tap-event-plugin: 2.0.1 or latest,
+- redux: 3.7.2 or latest,
+- redux-storage: 4.1.2 or latest,
+- redux-storage-engine-localstorage: 1.1.4 or latest,
+- redux-thunk: 2.2.0 or latest,
+- request: 2.81.0 or latest,
+- request-promise: 4.2.1 or latest
 
 ## Development
 
