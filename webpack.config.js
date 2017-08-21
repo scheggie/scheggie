@@ -20,6 +20,10 @@ module.exports = {
         test: /\.js?/,
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      { 
+        test: /(pdfkit|linebreak|fontkit|unicode|brotli|png-js).*\.js$/, 
+        loader: "transform-loader?brfs" 
       }
     ]
   },

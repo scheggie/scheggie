@@ -14,8 +14,8 @@ class Selection extends React.Component {
   }
 
   viewMoreHandler() {
-    this.setState({
-      viewMore: !this.state.viewMore
+    this.setState((prevState) => {
+      return { viewMore: !prevState.viewMore };
     });
   }
 
@@ -71,14 +71,14 @@ class Selection extends React.Component {
           boxSizing: 'border-box',
           height: '150px'
         }}>
-          <div 
-            cols="1" 
+          <div
+            cols="1"
             rows="1"
             style={{
               position: 'relative',
               display: 'block'
-          }}> 
-            <img 
+          }}>
+            <img
               style={{
                 position: 'relative',
                 display: 'block',
@@ -110,8 +110,8 @@ class Selection extends React.Component {
             height: '50px',
             overflowY: 'scroll'
           }}>{this.props.selection.abridgedData.ingredients.join(', ')}</p>
-          <RaisedButton 
-            label="Read More" 
+          <RaisedButton
+            label="Read More"
             onTouchTap={this.viewMoreHandler}
             style={{
               backgroundColor: '#E0F2F1'
