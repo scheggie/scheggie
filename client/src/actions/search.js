@@ -21,8 +21,9 @@ export const updateSearchThunk = (input) => {
       success: (results) => {
         var newResult = [];
         if (searchTerm.includes(' ')) {
+          var searchSplit = searchTerm.split(' ').slice(1);
           for (var i = 0; i < results.length; i++) {
-            if (results[i].name.toLowerCase().includes(searchTerm.split(' ')[1])) {
+            if (results[i].name.toLowerCase().includes(searchSplit[0])) {
               newResult.unshift(results[i]);
             } else {
               newResult.push(results[i]);
