@@ -6,15 +6,32 @@ export const updateSearchThunk = (input) => {
     var searchTerm = typeof input === 'string' ?
       input :
       input.target.value;
-    dispatch(updateSearchTerm(searchTerm));
+      if (searchTerm.includes(' ')) {
+        var searchItem = searchTerm.split(' ')[0];
+      } else {
+        var searchItem = searchTerm;
+      }
+    dispatch(updateSearchTerm(searchItem));
     $.get({
       url: '/recipeSearch',
       data: {
-        query: searchTerm
+        query: searchItem
       },
       dataType: 'json',
       success: (results) => {
-        dispatch(updateSearchResults(results));
+        var newResult = [];
+        if (searchTerm.includes(' ')) {
+          for (var i = 0; i < results.length; i++) {
+            if (results[i].name.toLowerCase().includes(searchTerm.split(' ')[1])) {
+              newResult.unshift(results[i]);
+            } else {
+              newResult.push(results[i]);
+            }
+          }
+        } else {
+          newResult = results;
+        }
+        dispatch(updateSearchResults(newResult));
       }
     });
   };
