@@ -3,6 +3,7 @@ import _ from 'lodash';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Filter from '../filter/filter.jsx'
 
 class Search extends React.Component {
   constructor(props) {
@@ -104,6 +105,7 @@ class Search extends React.Component {
             alt="Scheggie: The vegetarian's meal planner"
           />
         </div>
+        <Filter options = {this.state.filter}/>
       </div>
     );
   }
