@@ -26,6 +26,13 @@ class Search extends React.Component {
     this.setState({searchTerm: event.target.value});
   }
 
+  updateFilter(filter) {
+    this.setState({
+      filter: filter
+    })
+    this.debouncedSearch(this.state.searchTerm, filter);
+  }
+
   getFavoritesButton() {
     let toggled = this.props.searchType === 'FAVORITES';
 
