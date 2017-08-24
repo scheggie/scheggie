@@ -6,7 +6,7 @@ export const updateSearchThunk = (input, filter = {}) => {
     var searchTerm = typeof input === 'string' ?
       input :
       input.target.value;
-    dispatch(updateSearchTerm(searchItem));
+    dispatch(updateSearchTerm(searchTerm));
     $.get({
       url: '/recipeSearch',
       data: {
