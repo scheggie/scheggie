@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentDelete from 'material-ui/svg-icons/action/delete';
-import ContentList from 'material-ui/svg-icons/action/list';
+import ContentList from 'material-ui/svg-icons/action/print';
 import ContentTouchApp from 'material-ui/svg-icons/action/touch-app';
 import _ from 'lodash';
 import PDFDocument from 'pdfkit';
@@ -53,7 +53,7 @@ class Planner extends React.Component {
 
     Object.values(recipeCounts).forEach((recipe) => {
       ingredientString +=
-        recipe.recipe.abridgedData.recipeName + ` (x${recipe.count}) \n` + 
+        recipe.recipe.abridgedData.recipeName + ` (x${recipe.count}) \n` +
         recipe.recipe.fullData.ingredientLines.join('\n') + '\n\n';
     })
 
