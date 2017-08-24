@@ -8,7 +8,11 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: ''
+      searchTerm: '',
+      filter: {cuisine: '',
+               totalTimeInSeconds: 10000,
+               calories: 50000
+              },
     };
     this.debouncedSearch = _.debounce(
       this.props.actions.updateSearchThunk,
@@ -18,7 +22,7 @@ class Search extends React.Component {
   }
 
   updateSearch(event) {
-    this.debouncedSearch(event.target.value);
+    this.debouncedSearch(event.target.value, this.state.filter);
     this.setState({searchTerm: event.target.value});
   }
 

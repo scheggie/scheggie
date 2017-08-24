@@ -27,6 +27,8 @@ class Right extends React.Component {
     this.prepareResults(nextProps);
   }
 
+
+
   render() {
     return (
       <div style={{flexGrow: 2, flexBasis: '67%'}}>
