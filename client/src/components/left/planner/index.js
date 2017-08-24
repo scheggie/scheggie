@@ -93,6 +93,7 @@ class Planner extends React.Component {
     let cell = {selectedDay, selectedMeal};
     return (
       <PlannerCell
+        onDragOver={() => {console.log('draggedOver')}}
         editMode={this.props.planner.editMode}
         cell={cell}
         plannerItem={this.getPlannerItem(cell)}
