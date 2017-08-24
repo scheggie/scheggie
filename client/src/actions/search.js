@@ -1,38 +1,21 @@
 import * as types from './types';
 import $ from 'jquery';
 
-export const updateSearchThunk = (input) => {
+export const updateSearchThunk = (input, filter = {}) => {
   return (dispatch) => {
     var searchTerm = typeof input === 'string' ?
       input :
       input.target.value;
-      if (searchTerm.includes(' ')) {
-        var searchItem = searchTerm.split(' ')[0];
-      } else {
-        var searchItem = searchTerm;
-      }
-    dispatch(updateSearchTerm(searchItem));
+    dispatch(updateSearchTerm(searchTerm));
     $.get({
       url: '/recipeSearch',
       data: {
-        query: searchItem
+        query: searchTerm,
+        filter: filter
       },
       dataType: 'json',
       success: (results) => {
-        var newResult = [];
-        if (searchTerm.includes(' ')) {
-          var searchSplit = searchTerm.split(' ').slice(1);
-          for (var i = 0; i < results.length; i++) {
-            if (results[i].name.toLowerCase().includes(searchSplit[0])) {
-              newResult.unshift(results[i]);
-            } else {
-              newResult.push(results[i]);
-            }
-          }
-        } else {
-          newResult = results;
-        }
-        dispatch(updateSearchResults(newResult));
+        dispatch(updateSearchResults(results));
       }
     });
   };
