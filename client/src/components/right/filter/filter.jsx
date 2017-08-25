@@ -32,36 +32,37 @@ class Filter extends React.Component {
           <div>
             <button onClick = {this.toggleFilterClick}>Filter Button</button>
               <div>
-                <div>Cuisine</div>
-                <Panel
-                  choices = {['Italian', 'Mexican', 'Chinese', 'Kid-Friendly', 'Barbeque', 'Thai', 'French', 'Japanese', 'English', 'Korean', 'American']}
-                  category = 'cuisine'
-                  selectCategory = "Cuisine"
-                  default =""
-                  updateCategoryTerm = {this.updateCategoryTerm}
-                />
+                <span>
+                  <Panel
+                    choices = {['Italian', 'Mexican', 'Chinese', 'Kid-Friendly', 'Barbeque', 'Thai', 'French', 'Japanese', 'English', 'Korean', 'Indian','American'].sort()}
+                    category = 'cuisine'
+                    selectCategory = "Cuisine"
+                    default =""
+                    updateCategoryTerm = {this.updateCategoryTerm}
+                  />
+                </span>
+
+                <span>
+                  <Panel
+                    choices = {['900', '1800', '3600', '5400']}
+                    category = 'totalTimeInSeconds'
+                    selectCategory = "Prep Time (Min)"
+                    default = ""
+                    updateCategoryTerm = {this.updateCategoryTerm}
+                  />
+                </span>
+
+                <span>
+                  <Panel
+                    choices = {['50', '100', '150', '200', '250', '300']}
+                    category = 'calories'
+                    selectCategory = "Calories / Serving"
+                    default = ""
+                    updateCategoryTerm = {this.updateCategoryTerm}
+                  />
+                </span>
               </div>
-              <div>
-                <div>Total Prep Time</div>
-                <Panel
-                  choices = {[900, 1800, 3600, 5400]}
-                  category = 'totalTimeInSeconds'
-                  selectCategory = "Prep Time"
-                  default = {10000}
-                  updateCategoryTerm = {this.updateCategoryTerm}
-                />
-              </div>
-              <div>
-                <div>Calories</div>
-                <Panel
-                  choices = {[50, 100, 150, 200, 250, 300]}
-                  category = 'calories'
-                  selectCategory = "# of Calories per serving"
-                  default = ""
-                  updateCategoryTerm = {this.updateCategoryTerm}
-                />
-              </div>
-          </div>
+            </div>
         )
       }
   }

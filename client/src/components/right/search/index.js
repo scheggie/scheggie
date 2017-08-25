@@ -114,6 +114,7 @@ class Search extends React.Component {
           <button onClick = {this.updateSearchAndFilter}>SEARCH</button>
             <span style={{width: '30px'}}></span>
           </div>
+          <Filter updateCategoryTerm = {this.updateCategoryTerm}/>
         </div>
         <div style={{
           paddingRight: '30px'
@@ -126,7 +127,7 @@ class Search extends React.Component {
             alt="Scheggie: The vegetarian's meal planner"
           />
         </div>
-        <Filter updateCategoryTerm = {this.updateCategoryTerm}/>
+
       </div>
     );
   }
