@@ -29,7 +29,7 @@ class Filter extends React.Component {
       if (this.state.filterClicked === false) {
         return (
            <div>
-             <span>Show Filters<ArrowDown onClick = {this.toggleFilterClick}/></span>
+             <span onClick = {this.toggleFilterClick}>Show Filters<ArrowDown/></span>
            </div>
 
 
@@ -37,7 +37,7 @@ class Filter extends React.Component {
       } else {
         return (
           <div>
-            <span>Hide Filters<ArrowUp onClick = {this.toggleFilterClick}/></span>
+            <span onClick = {this.toggleFilterClick}>Hide Filters<ArrowUp/></span>
               <div>
                 <span>
                   <Panel
