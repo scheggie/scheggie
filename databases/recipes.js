@@ -16,19 +16,40 @@ recipeSchema.statics.getFullRecipeByName = function(name) {
 // Get *limit* recipes with search query in name
 recipeSchema.statics.getRecipesBySearchFilter = function(query, filter, limit=90) {
 	query = query.split(' ').map(term => '\"' +  term + '\"').join('');
+  console.log('filter calories are ', typeof parseInt(filter.calories));
 	 if(filter.cuisine === ''){
-    return this.find({
-			'$text': {$search: query},
-			'fullData.nutritionEstimates': {'$elemMatch': {value: {'$lt': parseInt(filter.calories)}}},
-			'fullData.totalTimeInSeconds': {'$lt': parseInt(filter.totalTimeInSeconds)}
-		}).limit(limit);	
+     if(filter.calories === '') { // cuisine empty & calories empty
+       return this.find({
+   			'$text': {$search: query},
+   			'fullData.totalTimeInSeconds': {'$lte': parseInt(filter.totalTimeInSeconds)}
+   		}).limit(limit);
+    } else { // cuisine empty
+      console.log("all performing db query - cusine empty")
+      return this.find({
+        '$text': {$search: query},
+        'fullData.nutritionEstimates.0.attribute': 'FAT_KCAL',
+        'fullData.nutritionEstimates.0.value': {'$lte': parseInt(filter.calories)},
+        'fullData.nutritionEstimates': {'$elemMatch': {value: {'$lte': parseInt(filter.calories)}}},
+        'fullData.totalTimeInSeconds': {'$lte': parseInt(filter.totalTimeInSeconds)}
+      }).limit(limit);
+    }
 	} else {
-		return this.find({
-			'$text': {$search: query},
-			'fullData.nutritionEstimates': {'$elemMatch': {value: {'$lt': parseInt(filter.calories)}}},
-			'fullData.totalTimeInSeconds': {'$lt': parseInt(filter.totalTimeInSeconds)},
-			'fullData.attributes.cuisine': {'$all': [filter.cuisine]}
-		}).limit(limit);	
+    if (filter.calories === '') { // calories empty
+      return this.find({
+  			'$text': {$search: query},
+  			'fullData.totalTimeInSeconds': {'$lte': parseInt(filter.totalTimeInSeconds)},
+  			'fullData.attributes.cuisine': {'$all': [filter.cuisine]}
+  		}).limit(limit);
+    } else {
+      console.log("all performing db query")
+      return this.find({
+        '$text': {$search: query},
+        'fullData.nutritionEstimates.0.attribute': 'FAT_KCAL',
+        'fullData.nutritionEstimates.0.value': {'$lte': parseInt(filter.calories)},
+        'fullData.totalTimeInSeconds': {'$lte': parseInt(filter.totalTimeInSeconds)},
+        'fullData.attributes.cuisine': {'$all': [filter.cuisine]}
+      }).limit(limit);
+    }
 	}
 };
 

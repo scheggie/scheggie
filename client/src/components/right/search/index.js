@@ -3,27 +3,55 @@ import _ from 'lodash';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Filter from '../filter/filter.jsx'
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchTerm: '',
-      filter: {cuisine: '',
-               totalTimeInSeconds: 10000,
-               calories: 50000
-              },
+      cuisine: '',
+      totalTimeInSeconds: 10000,
+      calories: ''
     };
     this.debouncedSearch = _.debounce(
       this.props.actions.updateSearchThunk,
       300
     );
     this.updateSearch = this.updateSearch.bind(this);
+    this.updateCategoryTerm = this.updateCategoryTerm.bind(this);
+    this.updateSearchAndFilter = this.updateSearchAndFilter.bind(this);
   }
 
-  updateSearch(event) {
-    this.debouncedSearch(event.target.value, this.state.filter);
+ updateSearch(event) {
     this.setState({searchTerm: event.target.value});
+  }
+
+  updateCategoryTerm(category, term) {
+    console.log('the category chosen is ', category);
+    console.log('the term chosen is ', term);
+    if(category === 'cuisine') {
+      this.setState({
+        cuisine: term
+      })
+    } else if (category === 'totalTimeInSeconds') {
+      this.setState({
+        totalTimeInSeconds: term
+      })
+    } else if (category === 'calories') {
+      this.setState({
+        calories: term
+      })
+    }
+  }
+
+  updateSearchAndFilter() {
+    var filter = {
+      cuisine: this.state.cuisine,
+      totalTimeInSeconds: this.state.totalTimeInSeconds,
+      calories: this.state.calories
+    }
+    this.debouncedSearch(this.state.searchTerm, filter);
   }
 
   getFavoritesButton() {
@@ -83,6 +111,7 @@ class Search extends React.Component {
               value={this.state.searchTerm}
               onChange={this.updateSearch}
             />
+          <button onClick = {this.updateSearchAndFilter}>SEARCH</button>
             <span style={{width: '30px'}}></span>
           </div>
         </div>
@@ -97,6 +126,7 @@ class Search extends React.Component {
             alt="Scheggie: The vegetarian's meal planner"
           />
         </div>
+        <Filter updateCategoryTerm = {this.updateCategoryTerm}/>
       </div>
     );
   }
