@@ -371,13 +371,14 @@ class PlannerCell extends React.Component {
 
     if (item) {
       return (
-        <div onDragStart={(e)=>{
+        <div draggable='true' onDragStart={(e)=>{
           this.props.actions.selectItem(item);
+          return false;
         }}
         onClick={()=>{this.props.actions.selectItem(item)}} >
           <img
             src={item.fullData.images[0].hostedLargeUrl}
-            style={{width: '100px'}}
+            style={{width: '95px'}}
           />
         </div>
       )
@@ -395,17 +396,26 @@ class PlannerCell extends React.Component {
           onDragEnter={(e) => {
             if (e.target.getAttribute("class") === 'dropTarget') {
               $(e.target).addClass('highlighted');
-              e.target.style.color = 'rgb(10,10,10)';
+              var parent = $(e.target).parent()[0];
+              var grandparent = $(parent).parent()[0];
+              var greatGrandparent = $(grandparent).parent()[0];
+              var greatGreatGrandparent = $(greatGrandparent).parent()[0];
+              var goal = $(greatGreatGrandparent).parent()[0];
+              goal.style.backgroundColor = 'rgb(150,230,230)';
+              $(goal).addClass('dropTarget highlighted');
             };
-            e.preventDefault();
-            return false;
           }}
           onDragLeave={(e) => {
             if (e.target.getAttribute("class") === 'dropTarget highlighted') {
               $(e.target).removeClass('highlighted');
+              var parent = $(e.target).parent()[0];
+              var grandparent = $(parent).parent()[0];
+              var greatGrandparent = $(grandparent).parent()[0];
+              var greatGreatGrandparent = $(greatGrandparent).parent()[0];
+              var goal = $(greatGreatGrandparent).parent()[0];
+              goal.style.backgroundColor = 'rgb(255,255,255)';
+              $(goal).removeClass('dropTarget highlighted');
             };
-            e.preventDefault();
-            return false;
           }}
           mini={true}
           backgroundColor='rgb(150,230,230)'
@@ -434,7 +444,7 @@ class PlannerCell extends React.Component {
 
   render() {
     return (
-      <div className="dropTarget"
+      <div
         onClick = {this.props.onClick}
         style={{
           display: 'flex',
