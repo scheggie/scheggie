@@ -59,8 +59,9 @@ class Results extends React.Component {
                   <img
                     src={recipe.fullData.images[0]['hostedLargeUrl']}
                     onDragStart={(e)=>{
+                      var img = e.target.cloneNode(true);
+                      e.dataTransfer.setDragImage(img, 0, 0);
                       this.props.actions.selectItem(recipe);
-                      console.log(recipe);
                     }}
                     onClick={()=>{
                       this.props.actions.selectItem(recipe)
