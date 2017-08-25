@@ -25,11 +25,11 @@ class App extends React.Component {
             width: '100%',
             height: '100%'
           }}>
-          <Right
-            actions={this.props.actions}
-            favorites={this.props.favorites}
-            search={this.props.search}
-          />
+            <Right
+              actions={this.props.actions}
+              favorites={this.props.favorites}
+              search={this.props.search}
+            />
             <Left
               planner = {this.props.planner}
               user={this.props.auth.user}
