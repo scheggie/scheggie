@@ -1,5 +1,8 @@
 import React from 'react';
 import Panel from './panel.jsx';
+import SvgIcon from 'material-ui/SvgIcon';
+import ArrowDown from 'material-ui/svg-icons/navigation/arrow-drop-down';
+import ArrowUp from 'material-ui/svg-icons/navigation/arrow-drop-up';
 
 class Filter extends React.Component {
   constructor(props) {
@@ -25,12 +28,16 @@ class Filter extends React.Component {
 
       if (this.state.filterClicked === false) {
         return (
-          <button onClick = {this.toggleFilterClick}>Filter Button</button>
+           <div>
+             <span onClick = {this.toggleFilterClick}>Show Filters<ArrowDown/></span>
+           </div>
+
+
         )
       } else {
         return (
           <div>
-            <button onClick = {this.toggleFilterClick}>Filter Button</button>
+            <span onClick = {this.toggleFilterClick}>Hide Filters<ArrowUp/></span>
               <div>
                 <span>
                   <Panel
