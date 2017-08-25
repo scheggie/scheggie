@@ -10,27 +10,47 @@ class Search extends React.Component {
     super(props);
     this.state = {
       searchTerm: '',
-      filter: {cuisine: '',
-               totalTimeInSeconds: 10000,
-               calories: 50000
-              },
+      cuisine: '',
+      totalTimeInSeconds: 10000,
+      calories: ''
     };
     this.debouncedSearch = _.debounce(
       this.props.actions.updateSearchThunk,
       300
     );
     this.updateSearch = this.updateSearch.bind(this);
+    this.updateCategoryTerm = this.updateCategoryTerm.bind(this);
+    this.updateSearchAndFilter = this.updateSearchAndFilter.bind(this);
   }
 
-  updateSearch(event) {
-    this.debouncedSearch(event.target.value, this.state.filter);
+ updateSearch(event) {
     this.setState({searchTerm: event.target.value});
   }
 
-  updateFilter(filter) {
-    this.setState({
-      filter: filter
-    })
+  updateCategoryTerm(category, term) {
+    console.log('the category chosen is ', category);
+    console.log('the term chosen is ', term);
+    if(category === 'cuisine') {
+      this.setState({
+        cuisine: term
+      })
+    } else if (category === 'totalTimeInSeconds') {
+      this.setState({
+        totalTimeInSeconds: term
+      })
+    } else if (category === 'calories') {
+      this.setState({
+        calories: term
+      })
+    }
+  }
+
+  updateSearchAndFilter() {
+    var filter = {
+      cuisine: this.state.cuisine,
+      totalTimeInSeconds: this.state.totalTimeInSeconds,
+      calories: this.state.calories
+    }
     this.debouncedSearch(this.state.searchTerm, filter);
   }
 
@@ -91,6 +111,7 @@ class Search extends React.Component {
               value={this.state.searchTerm}
               onChange={this.updateSearch}
             />
+          <button onClick = {this.updateSearchAndFilter}>SEARCH</button>
             <span style={{width: '30px'}}></span>
           </div>
         </div>
@@ -105,7 +126,7 @@ class Search extends React.Component {
             alt="Scheggie: The vegetarian's meal planner"
           />
         </div>
-        <Filter options = {this.state.filter}/>
+        <Filter updateCategoryTerm = {this.updateCategoryTerm}/>
       </div>
     );
   }

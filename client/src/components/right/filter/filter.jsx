@@ -8,12 +8,17 @@ class Filter extends React.Component {
       filterClicked: false
     }
     this.toggleFilterClick = this.toggleFilterClick.bind(this);
+    this.updateCategoryTerm = this.updateCategoryTerm.bind(this);
   }
 
   toggleFilterClick() {
     this.setState({
       filterClicked: !this.state.filterClicked
     })
+  }
+
+  updateCategoryTerm(category, term) {
+    this.props.updateCategoryTerm(category, term);
   }
 
   render() {
@@ -28,15 +33,33 @@ class Filter extends React.Component {
             <button onClick = {this.toggleFilterClick}>Filter Button</button>
               <div>
                 <div>Cuisine</div>
-                <Panel choices = {['Italian', 'Mexican']} category = 'cuisine' selectCategory = "Cuisine"/>
+                <Panel
+                  choices = {['Italian', 'Mexican', 'Chinese', 'Kid-Friendly', 'Barbeque', 'Thai', 'French', 'Japanese', 'English', 'Korean', 'American']}
+                  category = 'cuisine'
+                  selectCategory = "Cuisine"
+                  default =""
+                  updateCategoryTerm = {this.updateCategoryTerm}
+                />
               </div>
               <div>
                 <div>Total Prep Time</div>
-                <Panel choices = {['18000', '250000']} category = 'totalTimeInSeconds' selectCategory = "Prep Time"/>
+                <Panel
+                  choices = {[900, 1800, 3600, 5400]}
+                  category = 'totalTimeInSeconds'
+                  selectCategory = "Prep Time"
+                  default = {10000}
+                  updateCategoryTerm = {this.updateCategoryTerm}
+                />
               </div>
               <div>
                 <div>Calories</div>
-                <Panel choices = {['400', '250000']} category = 'calories' selectCategory = "# of Calories"/>
+                <Panel
+                  choices = {[50, 100, 150, 200, 250, 300]}
+                  category = 'calories'
+                  selectCategory = "# of Calories per serving"
+                  default = ""
+                  updateCategoryTerm = {this.updateCategoryTerm}
+                />
               </div>
           </div>
         )
@@ -45,27 +68,3 @@ class Filter extends React.Component {
 }
 
 export default Filter;
-
-/*
-
-if (this.state.filterClick === false) { // not clicked
-  <Button onClick = {this.toggleFilterClick}>Button</Button>
-} else if (this.state.filterClick === true){ // clicked
-  <div>
-    <Button onClick = {this.toggleFilterClick}>Button</Button>
-    <div>
-      <div>Cuisine</div>
-      <Panel choices = {['Italian', 'Mexican']} category = 'cuisine'/>
-    </div>
-    <div>
-      <div>Total Prep Time</div>
-      <Panel choices = {['18000', '250000']} category = 'totalTimeInSeconds'/>
-    </div>
-    <div>
-      <div>Calories</div>
-      <Panel choices = {['400', '250000']} category = 'calories' />
-    </div>
-  </div>
-}
-
-*/
