@@ -34,7 +34,7 @@ class Filter extends React.Component {
               <div>
                 <div>Cuisine</div>
                 <Panel
-                  choices = {['Italian', 'Mexican', 'Chinese', 'Kid-Friendly', 'Barbeque', 'Thai', 'French', 'Japanese', 'English', 'Korean', 'American']}
+                  choices = {['Italian', 'Mexican', 'Chinese', 'Kid-Friendly', 'Barbeque', 'Thai', 'French', 'Japanese', 'English', 'Korean', 'Indian','American']}
                   category = 'cuisine'
                   selectCategory = "Cuisine"
                   default =""

@@ -3,18 +3,31 @@ import React from 'react';
 class Panel extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      selected: ''
+    }
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
     console.log('the value clicked is ', event.target.value)
-    var selected = ''
+    //var selected = ''
     if (event.target.value.includes('Select')) {
-      selected = this.props.default
+      this.setState({
+        selected: this.props.default
+      }, function() {
+        this.props.updateCategoryTerm(this.props.category, this.state.selected);
+      })
+      //selected = this.props.default
     } else {
-      selected = event.target.value
+        this.setState({
+          selected:event.target.value
+        }, function() {
+          this.props.updateCategoryTerm(this.props.category, this.state.selected);
+        })
+      //selected = event.target.value
     }
-    this.props.updateCategoryTerm(this.props.category, selected);
+
   }
 
   render() {
