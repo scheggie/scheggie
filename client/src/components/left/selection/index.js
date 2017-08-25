@@ -82,7 +82,7 @@ class Selection extends React.Component {
               style={{
                 position: 'relative',
                 display: 'block',
-                height: '100%'
+                height: '93%'
               }}
               src={this.props.selection.fullData.images[0].hostedLargeUrl}
             />
@@ -94,7 +94,7 @@ class Selection extends React.Component {
           flexDirection: 'column',
           flexWrap: 'nowrap',
           justifyContent: 'space-between',
-          height: '150px'
+          height: '140px'
         }}>
           <span style={{
             textAlign: 'center',

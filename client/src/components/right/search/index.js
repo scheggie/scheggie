@@ -83,6 +83,13 @@ class Search extends React.Component {
         alignItems: 'center',
         paddingBottom: '15px'
       }}>
+      <img
+        style={{
+          height: '100px'
+        }}
+        src="https://i.imgur.com/3RjUCdI.png"
+        alt="Scheggie: The vegetarian's meal planner"
+      />
         <div style={{
           display: 'flex', flexDirection: 'column', flexWrap: 'nowrap',
         }}>
@@ -119,13 +126,6 @@ class Search extends React.Component {
         <div style={{
           paddingRight: '30px'
         }}>
-          <img
-            style={{
-              height: '100px'
-            }}
-            src="https://i.imgur.com/3RjUCdI.png"
-            alt="Scheggie: The vegetarian's meal planner"
-          />
         </div>
 
       </div>

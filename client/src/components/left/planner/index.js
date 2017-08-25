@@ -5,9 +5,10 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentDelete from 'material-ui/svg-icons/action/delete';
-import ContentList from 'material-ui/svg-icons/action/list';
+import ContentList from 'material-ui/svg-icons/action/print';
 import ContentTouchApp from 'material-ui/svg-icons/action/touch-app';
 import _ from 'lodash';
+import $ from 'jquery';
 import PDFDocument from 'pdfkit';
 import blobStream  from 'blob-stream';
 
@@ -53,7 +54,7 @@ class Planner extends React.Component {
 
     Object.values(recipeCounts).forEach((recipe) => {
       ingredientString +=
-        recipe.recipe.abridgedData.recipeName + ` (x${recipe.count}) \n` + 
+        recipe.recipe.abridgedData.recipeName + ` (x${recipe.count}) \n` +
         recipe.recipe.fullData.ingredientLines.join('\n') + '\n\n';
     })
 
@@ -220,7 +221,7 @@ class Planner extends React.Component {
           { this.getPlannerCell(index, 'breakfast') }
           { this.getPlannerCell(index, 'lunch') }
           { this.getPlannerCell(index, 'dinner') }
-        </div >
+        </div>
       );
     });
     return cells;
@@ -289,7 +290,7 @@ class Planner extends React.Component {
           { this.getNextWeekButton() }
 
           { this.getListDialog() }
-        </div >
+        </div>
       </div>
     )
   }
@@ -370,10 +371,14 @@ class PlannerCell extends React.Component {
 
     if (item) {
       return (
-        <div onClick={()=>{this.props.actions.selectItem(item)}}>
+        <div draggable='true' onDragStart={(e)=>{
+          this.props.actions.selectItem(item);
+          return false;
+        }}
+        onClick={()=>{this.props.actions.selectItem(item)}} >
           <img
             src={item.fullData.images[0].hostedLargeUrl}
-            style={{width: '100px'}}
+            style={{width: '95px'}}
           />
         </div>
       )
@@ -385,13 +390,40 @@ class PlannerCell extends React.Component {
     ) {
       return (
         <FloatingActionButton
+          onMouseUp={(e) => {
+            this.props.actions.addCalendarDayThunk(this.props.cell);
+          }}
+          onDragEnter={(e) => {
+            if (e.target.getAttribute("class") === 'dropTarget') {
+              $(e.target).addClass('highlighted');
+              var parent = $(e.target).parent()[0];
+              var grandparent = $(parent).parent()[0];
+              var greatGrandparent = $(grandparent).parent()[0];
+              var greatGreatGrandparent = $(greatGrandparent).parent()[0];
+              var goal = $(greatGreatGrandparent).parent()[0];
+              goal.style.backgroundColor = 'rgb(150,230,230)';
+              $(goal).addClass('dropTarget highlighted');
+            };
+          }}
+          onDragLeave={(e) => {
+            if (e.target.getAttribute("class") === 'dropTarget highlighted') {
+              $(e.target).removeClass('highlighted');
+              var parent = $(e.target).parent()[0];
+              var grandparent = $(parent).parent()[0];
+              var greatGrandparent = $(grandparent).parent()[0];
+              var greatGreatGrandparent = $(greatGrandparent).parent()[0];
+              var goal = $(greatGreatGrandparent).parent()[0];
+              goal.style.backgroundColor = 'rgb(255,255,255)';
+              $(goal).removeClass('dropTarget highlighted');
+            };
+          }}
           mini={true}
           backgroundColor='rgb(150,230,230)'
           onClick={()=>{
             this.props.actions.addCalendarDayThunk(this.props.cell);
           }}
         >
-          <ContentAdd />
+          <ContentAdd className='dropTarget'/>
         </FloatingActionButton>
       );
     }
@@ -402,7 +434,7 @@ class PlannerCell extends React.Component {
     ) {
       return (
         <FloatingActionButton mini={true} disabled={true}>
-          <ContentAdd />
+          <ContentAdd/>
         </FloatingActionButton>
       );
     }
