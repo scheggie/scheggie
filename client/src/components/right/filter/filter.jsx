@@ -68,6 +68,33 @@ class Filter extends React.Component {
                     updateCategoryTerm = {this.updateCategoryTerm}
                   />
                 </span>
+
+                <Panel
+                  choices = {['Italian', 'Mexican', 'Chinese', 'Kid-Friendly', 'Barbeque', 'Thai', 'French', 'Japanese', 'English', 'Korean', 'American']}
+                  category = 'cuisine'
+                  selectCategory = "Cuisine"
+                  default =""
+                  updateCategoryTerm = {this.updateCategoryTerm}
+                />
+              </div>
+              <div>
+                <Panel
+                  choices = {['900', '1800', '3600', '5400']}
+                  category = 'totalTimeInSeconds'
+                  selectCategory = "Prep Time"
+                  default = ""
+                  updateCategoryTerm = {this.updateCategoryTerm}
+                />
+              </div>
+              <div>
+                <Panel
+                  choices = {['50', '100', '150', '200', '250', '300']}
+                  category = 'calories'
+                  selectCategory = "Calories / serving"
+                  default = ""
+                  updateCategoryTerm = {this.updateCategoryTerm}
+                />
+
               </div>
             </div>
         )

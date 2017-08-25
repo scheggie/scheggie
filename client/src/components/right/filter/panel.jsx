@@ -38,7 +38,39 @@ class Panel extends React.Component {
           this.props.updateCategoryTerm(this.props.category, this.state.selected);
         })
     }
+      super(props);
+      this.handleClick = this.handleClick.bind(this);
+      this.state = {
+      selected: this.props.default
+    }
   }
+
+
+  handleClick(event, index, value) {
+
+
+    if (value.includes('Any')) {
+
+      this.setState ({
+        selected: this.props.default
+      }, function(){
+        if(this.props.category === "totalTimeInSeconds" && this.state.selected === "")
+        this.props.updateCategoryTerm(this.props.category, 10000);
+      })
+
+    } else {
+
+      this.setState ({
+        selected: value
+    }, function(){
+        this.props.updateCategoryTerm(this.props.category, this.state.selected);
+      })
+    }
+
+    console.log('the value clicked is ', value)
+
+  }
+
 
   render() {
     if (this.props.category === 'totalTimeInSeconds') {
@@ -60,6 +92,11 @@ class Panel extends React.Component {
                 key = {index}
                 primaryText = {choice/60}
               />
+        <div>
+          <SelectField onChange = {this.handleClick} style={styles.customWidth} floatingLabelText={this.props.selectCategory} value={this.state.selected}>
+            <MenuItem  value = "Any" primaryText = "Any"/>
+            {this.props.choices.map((choice, index) =>
+            <MenuItem value = {choice} key = {index} primaryText = {choice/60}/>
             )}
           </SelectField>
         </div>
@@ -83,6 +120,11 @@ class Panel extends React.Component {
                 key = {index}
                 primaryText = {choice}
               />
+        <div>
+          <SelectField onChange = {this.handleClick} style={styles.customWidth} floatingLabelText={this.props.selectCategory} value={this.state.selected}>
+            <MenuItem  value = "Any" primaryText = "Any"/>
+            {this.props.choices.map((choice, index) =>
+            <MenuItem value = {choice} key = {index} primaryText = {choice} />
             )}
           </SelectField>
         </div>
