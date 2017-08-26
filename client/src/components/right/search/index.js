@@ -64,6 +64,7 @@ class Search extends React.Component {
           labelColor='white'
           backgroundColor='rgb(40, 130, 150)'
           rippleColor='#E1F5FE'
+          margin-left='500px'
           onClick={this.props.actions.updateSearchType}
         /> :
         <RaisedButton
@@ -85,7 +86,8 @@ class Search extends React.Component {
       }}>
       <img
         style={{
-          height: '100px'
+          'height': '100px',
+          'margin-left': '25px'
         }}
         src="https://i.imgur.com/3RjUCdI.png"
         alt="Scheggie: The vegetarian's meal planner"
@@ -94,7 +96,9 @@ class Search extends React.Component {
           display: 'flex', flexDirection: 'column', flexWrap: 'nowrap',
         }}>
           <div style={{
-            paddingLeft: '30px'
+            paddingLeft: '520px',
+            paddingTop: '10px'
+
           }}>
             { this.getFavoritesButton() }
           </div>
@@ -113,12 +117,20 @@ class Search extends React.Component {
                 transform: 'scaleX(0)',
               }}
               style={{
-                width: '500px'
+                width: '400px'
               }}
               value={this.state.searchTerm}
               onChange={this.updateSearch}
             />
-          <button onClick = {this.updateSearchAndFilter}>SEARCH</button>
+            <span style={{paddingLeft: '98px', paddingTop: '30px'}}>
+              <RaisedButton
+                label="SEARCH"
+                labelColor='white'
+                backgroundColor='rgb(40, 130, 150)'
+                rippleColor='#E1F5FE'
+                onClick={this.updateSearchAndFilter}
+              />
+            </span>
             <span style={{width: '30px'}}></span>
           </div>
           <Filter updateCategoryTerm = {this.updateCategoryTerm}/>

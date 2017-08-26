@@ -20,6 +20,7 @@ class Right extends React.Component {
       this.results = filterFavorites(props.favorites, props.search.searchTerm);
     } else {
       this.results = props.search.results;
+
     }
   }
 
