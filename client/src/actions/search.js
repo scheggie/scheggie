@@ -1,7 +1,7 @@
 import * as types from './types';
 import $ from 'jquery';
 
-export const updateSearchThunk = (input) => {
+export const updateSearchThunk = (input, filter = {}) => {
   return (dispatch) => {
     var searchTerm = typeof input === 'string' ?
       input :
@@ -10,7 +10,8 @@ export const updateSearchThunk = (input) => {
     $.get({
       url: '/recipeSearch',
       data: {
-        query: searchTerm
+        query: searchTerm,
+        filter: filter
       },
       dataType: 'json',
       success: (results) => {

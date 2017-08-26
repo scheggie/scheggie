@@ -48,7 +48,7 @@ class LogIn extends React.Component {
             {this.state.dialogImage}
             <span style={{height: '75px'}}></span>
             <FacebookLogin
-              appId="1998888367009644"
+              appId="1495909727118487"
               fields="name,email,picture"
               callback={this.props.logIn}/>
             <span style={{height: '75px'}}></span>

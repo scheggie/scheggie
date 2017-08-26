@@ -119,10 +119,19 @@ app.post('/removeFromFavorites', (req, res) => {
 });
 
 app.get('/recipeSearch', (req, res) => {
-  Recipe.getFullRecipesForSearchResults(req.query.query)
+  Recipe.getRecipesBySearchFilter(req.query.query, req.query.filter)
     .then(recipes => {
-      recipes = _.shuffle(recipes);
-      res.json(recipes);
+      // use reduce to remove duplicate recipes
+       recipes = _.reduce(recipes, (result, cur) => {
+         result[cur.fullData.attribution.url] = cur
+         return result;
+       }, {})
+       var results = [];
+       Object.keys(recipes).map(x => {
+         results.push(recipes[x]);
+       })
+      // recipes = _.shuffle(recipes);
+      res.json(results);
     });
 });
 
