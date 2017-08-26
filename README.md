@@ -1,6 +1,6 @@
-# Scheggie
+# ScheggieX
 
-> When you're a vegetarian and your meals need planning, Scheggie is all you need.
+> When you're a vegetarian and your meals need planning, ScheggieX is all you need.
 
 ## Founding Team Members
 
