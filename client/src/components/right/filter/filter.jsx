@@ -28,7 +28,7 @@ class Filter extends React.Component {
 
       if (this.state.filterClicked === false) {
         return (
-           <div>
+           <div style = {{'padding-left' :'30px'}}>
              <span onClick = {this.toggleFilterClick}>Show Filters<ArrowDown/></span>
            </div>
 
@@ -36,7 +36,7 @@ class Filter extends React.Component {
         )
       } else {
         return (
-          <div>
+          <div style = {{'padding-left' :'28px'}}>
             <span onClick = {this.toggleFilterClick}>Hide Filters<ArrowUp/></span>
               <div>
                 <span>

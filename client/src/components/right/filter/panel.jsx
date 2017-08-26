@@ -43,7 +43,7 @@ class Panel extends React.Component {
   render() {
     if (this.props.category === 'totalTimeInSeconds') {
       return (
-        <div style = {{'display': 'inline-block', 'float': 'left', 'padding' :'25px'}}>
+        <div style = {{'display': 'inline-block', 'float': 'left', 'padding-right' :'25px', 'margin-top' :'-10px'}}>
           <SelectField
             floatingLabelText = {this.props.selectCategory}
             value = {this.state.selected}
@@ -66,7 +66,7 @@ class Panel extends React.Component {
       )
     } else {
       return (
-        <div style = {{'display': 'inline-block', 'float': 'left', 'padding' :'25px'}}>
+        <div style = {{'display': 'inline-block', 'float': 'left', 'padding-right' :'25px', 'margin-top' :'-10px'}}>
           <SelectField
             floatingLabelText = {this.props.selectCategory}
             value = {this.state.selected}
