@@ -15,7 +15,6 @@ export const updateSearchThunk = (input, filter = {}) => {
       },
       dataType: 'json',
       success: (results) => {
-        console.log('result is:', results[0]);
         dispatch(updateSearchResults(results));
       }
     });

@@ -9,7 +9,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       if (action.recipe._id in state) {
         return _.omit(state, [action.recipe._id]);
       } else {
-        console.log(action.recipe);
         return _.extend({[action.recipe._id]: action.recipe}, state)
       }
   }
